@@ -10,5 +10,5 @@ export const BROCHURE = {
   shortLabel: "Brožúra",
   /* Mobile menu list item */
   menuLabel: "Produktová brožúra",
-  meta: "PDF · 10,7 MB",
+  meta: "PDF · 16,6 MB",
 } as const;
