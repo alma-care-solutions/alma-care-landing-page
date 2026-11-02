@@ -24,7 +24,8 @@ export function Hero() {
             className="flex w-full max-w-[880px] flex-col items-start gap-5 text-left lg:items-center lg:gap-6 lg:text-center"
           >
             <Badge variant="success" pulse>
-              V pilote s Arcidiecéznou charitou Košice · predaj 2027
+              <span className="sm:hidden">V pilote · predaj 2027</span>
+              <span className="hidden sm:inline">V pilote s Arcidiecéznou charitou Košice · predaj 2027</span>
             </Badge>
             <h1 className="text-mobile-h1 text-text-primary lg:text-display">
               Čas patrí pacientom.{" "}

@@ -43,7 +43,8 @@ function Route({
   );
 }
 
-export function HeroDecor({ dots = false }: { dots?: boolean }) {
+export function HeroDecor({ dots = false, variant = "ados" }: { dots?: boolean; variant?: "ados" | "home" }) {
+  const home = variant === "home";
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Blobs as CSS radial gradients (no network requests), values from the Figma SVG */}
@@ -65,7 +66,11 @@ export function HeroDecor({ dots = false }: { dots?: boolean }) {
           [241, 121],
         ]}
         dot={dots}
-        className="absolute right-[-30px] top-[8px] h-[120px] w-[220px] lg:left-[calc(50%+340px)] lg:right-auto lg:top-[130px] lg:h-[250px] lg:w-[460px]"
+        className={
+          home
+            ? "absolute right-[-30px] top-[8px] h-[120px] w-[220px] lg:left-[calc(50%+600px)] lg:right-auto lg:top-[40px] lg:h-[250px] lg:w-[460px]"
+            : "absolute right-[-30px] top-[8px] h-[120px] w-[220px] lg:left-[calc(50%+340px)] lg:right-auto lg:top-[130px] lg:h-[250px] lg:w-[460px]"
+        }
       />
       <Route
         viewBox="0 0 372 162"
@@ -75,7 +80,11 @@ export function HeroDecor({ dots = false }: { dots?: boolean }) {
           [371, 1],
         ]}
         dot={dots}
-        className="absolute left-[-50px] top-[58%] h-[90px] w-[210px] lg:left-[calc(50%-760px)] lg:top-[400px] lg:h-[160px] lg:w-[370px]"
+        className={
+          home
+            ? "absolute left-[-50px] top-[46%] h-[90px] w-[210px] lg:left-[calc(50%-760px)] lg:top-[440px] lg:h-[160px] lg:w-[370px]"
+            : "absolute left-[-50px] top-[58%] h-[90px] w-[210px] lg:left-[calc(50%-760px)] lg:top-[400px] lg:h-[160px] lg:w-[370px]"
+        }
       />
     </div>
   );

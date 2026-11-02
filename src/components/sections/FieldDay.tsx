@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { reserveTimelineHeight } from "@/lib/timeline";
 import { cx } from "@/lib/cx";
+import { headerOffset } from "@/lib/scroll";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { PreviewLabel } from "@/components/ui/PreviewLabel";
 import { PhoneFrame } from "@/components/ui/Phone";
@@ -260,10 +261,10 @@ export function FieldDay() {
               start: () => {
                 if (!desktop) {
                   const fit = window.innerHeight - panel.offsetHeight - 12;
-                  return `top ${Math.max(64, Math.min(96, fit))}px`;
+                  return `top ${Math.max(headerOffset(), Math.min(96, fit))}px`;
                 }
                 const free = window.innerHeight - panel.offsetHeight;
-                return `top ${Math.max(88, free / 2)}px`;
+                return `top ${Math.max(headerOffset(24), free / 2)}px`;
               },
               end: desktop ? "+=2500" : "+=1900",
               pin: true,

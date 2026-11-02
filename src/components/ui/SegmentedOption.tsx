@@ -63,16 +63,18 @@ export function SegmentedOption({
   value,
   defaultChecked,
   required,
+  className,
   children,
 }: {
   name: string;
   value: string;
   defaultChecked?: boolean;
   required?: boolean;
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
-    <label className="relative min-w-0 flex-1 cursor-pointer">
+    <label className={cx("relative min-w-0 flex-1 cursor-pointer", className)}>
       <input
         type="radio"
         name={name}

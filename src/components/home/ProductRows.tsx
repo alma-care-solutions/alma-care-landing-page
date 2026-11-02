@@ -17,13 +17,14 @@ const SCENES: Record<string, string> = {
 };
 
 export function ProductRows({ products }: { products: readonly Product[] }) {
-  const [hovered, setHovered] = useState<Product>(products[0]);
+  const [hovered, setHovered] = useState<Product | null>(null);
+  const shown = hovered ?? products[0];
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_300px] lg:gap-16">
-      <ul className="flex flex-col" onMouseLeave={() => setHovered(products[0])}>
+      <ul className="flex flex-col" onMouseLeave={() => setHovered(null)}>
         {products.map((p) => {
-          const on = hovered.slug === p.slug;
+          const on = hovered?.slug === p.slug;
           return (
             <li key={p.slug} className="border-t border-border-default last:border-b">
               <Link
@@ -54,13 +55,13 @@ export function ProductRows({ products }: { products: readonly Product[] }) {
         <div className="sticky top-28 flex flex-col overflow-hidden rounded-16 border border-border-default">
           <div className="hatched flex aspect-[300/170] items-center justify-center bg-bg-surface">
             <span className="rounded-8 bg-bg-surface px-2.5 py-1 text-caption text-text-tertiary shadow-[0_1px_2px_rgba(0,0,0,0.06)]">
-              {hovered.statusLabel.toLowerCase()}
+              {shown.statusLabel.toLowerCase()}
             </span>
           </div>
           <div className="flex flex-col gap-1.5 border-t border-border-default bg-bg-page p-4">
-            <p className="text-label-s text-text-primary">{hovered.name}</p>
-            <p key={hovered.slug} className="text-body-s text-text-secondary animate-[fade-in_0.3s_ease-out]">
-              {SCENES[hovered.slug] ?? hovered.audience}
+            <p className="text-label-s text-text-primary">{shown.name}</p>
+            <p key={shown.slug} className="text-body-s text-text-secondary animate-[fade-in_0.3s_ease-out]">
+              {SCENES[shown.slug] ?? shown.audience}
             </p>
           </div>
         </div>

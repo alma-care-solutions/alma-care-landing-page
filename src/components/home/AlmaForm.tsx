@@ -171,12 +171,19 @@ export function AlmaForm({
         <legend className="mb-2 text-label-s text-text-primary">Ktorý produkt vás zaujíma?</legend>
         <div
           className={cx(
-            "grid grid-cols-2 gap-1 rounded-[10px] border bg-bg-muted p-1 sm:grid-cols-3",
+            "flex flex-wrap gap-1 rounded-[10px] border bg-bg-muted p-1",
             errors.product ? "border-status-danger" : "border-border-default",
           )}
         >
           {PRODUCTS.map((p) => (
-            <SegmentedOption key={p.slug} name="product" value={p.slug} required defaultChecked={p.slug === product}>
+            <SegmentedOption
+              key={p.slug}
+              name="product"
+              value={p.slug}
+              required
+              defaultChecked={p.slug === product}
+              className="basis-[calc(50%-0.125rem)] sm:basis-auto"
+            >
               {p.slug === "sluzby-a-pomocky" ? "Služby a pomôcky" : p.name}
             </SegmentedOption>
           ))}

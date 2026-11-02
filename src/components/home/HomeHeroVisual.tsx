@@ -248,7 +248,7 @@ export function HomeHeroVisual() {
         </div>
 
         {/* Right of the app sidebar, so the label never covers its dark background */}
-        <div data-hero="label" className="absolute bottom-[8%] left-[10%] sm:bottom-[4.4%] sm:left-[16.5%]">
+        <div data-hero="label" className="absolute bottom-[1%] left-[10%] sm:bottom-[4.4%] sm:left-[16.5%]">
           <PreviewLabel />
         </div>
       </div>

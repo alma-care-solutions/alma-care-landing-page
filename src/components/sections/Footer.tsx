@@ -21,7 +21,7 @@ export function Footer() {
             {/* TODO: add the company registration number (IČO) and registered office */}
             <p className="text-caption text-text-tertiary-on-dark">{CONTACT.company}</p>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:flex lg:gap-20">
+          <div className="flex flex-col gap-8 sm:grid sm:grid-cols-3 lg:flex lg:flex-row lg:gap-20">
             <div className="flex flex-col gap-3">
               <p className="text-label-s text-text-inverse">Produkty</p>
               {PRODUCTS.map((p) => (
@@ -30,7 +30,7 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-            <div className="col-span-2 flex flex-col gap-3 sm:col-span-1">
+            <div className="flex flex-col gap-3">
               <p className="text-label-s text-text-inverse">Kontakt</p>
               <a href={`mailto:${CONTACT.email}`} className={cx(linkCls, "break-all")}>
                 {CONTACT.email}

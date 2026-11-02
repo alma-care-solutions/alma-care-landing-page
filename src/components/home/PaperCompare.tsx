@@ -55,7 +55,6 @@ export function PaperCompare() {
               ))}
             </tbody>
           </table>
-          <p className="paper-hand mt-[2%] text-[1.1em] text-[#8a5a2b]">VšZP dávka?? 496 výkonov, prepísať do piatku</p>
         </div>
 
         {/* Alma ADOS: real screen */}

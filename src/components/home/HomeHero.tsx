@@ -11,7 +11,7 @@ export function HomeHero() {
   return (
     <section aria-label="Úvod" className="relative overflow-hidden">
       <HeroMotion>
-        <HeroDecor dots />
+        <HeroDecor dots variant="home" />
 
         <div className="container-page relative flex flex-col gap-12 pb-12 pt-10 lg:gap-16 lg:pb-24 lg:pt-20">
           <div className="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between lg:gap-16">

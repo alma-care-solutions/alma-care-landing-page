@@ -1,7 +1,10 @@
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
-/* Compact nav height + gap: the anchor target stops just below it */
-const NAV_OFFSET = 64;
+/* Sticky header height (with the product bar on product pages) + gap: anchor targets and pinned panels stop below it */
+export function headerOffset(gap = 12) {
+  const header = typeof document !== "undefined" ? document.querySelector<HTMLElement>("body > header") : null;
+  return (header?.offsetHeight ?? 64) + gap;
+}
 
 /*
   Anchor hrefs on the site:
@@ -50,7 +53,7 @@ function focusElement(el: HTMLElement) {
 export function scrollToTarget(href: string, focusSelector?: string) {
   const el = document.getElementById(hashId(href));
   if (!el) return false;
-  const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET);
+  const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - headerOffset());
 
   const finish = () => {
     history.replaceState(null, "", `#${el.id}`);
