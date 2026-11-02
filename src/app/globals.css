@@ -360,3 +360,35 @@ body {
     transition: none;
   }
 }
+
+/* Home hero: progress of the cycling phone screens (duration is set inline) */
+.hero-cycle-fill {
+  animation-name: hero-cycle-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes hero-cycle-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Hatched tile for products in development */
+.hatched {
+  background-image: repeating-linear-gradient(135deg, transparent 0 8px, var(--color-border-subtle) 8px 9px);
+}
+
+/* Paper record in the comparison slider (illustration of a handwritten daily roster) */
+.paper {
+  background-color: #fbf8ee;
+  background-image: repeating-linear-gradient(transparent 0 31px, #e3dcc5 31px 32px);
+  background-position: 0 58px;
+  color: #2a3550;
+}
+.paper-hand {
+  font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Chalkboard SE", cursive;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}

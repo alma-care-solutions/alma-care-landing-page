@@ -1,4 +1,4 @@
-import { CONTACT } from "@/lib/nav";
+import { CONTACT, productBySlug } from "@/lib/nav";
 import { BRAND } from "@/lib/brand";
 
 export type PilotRequest = {
@@ -11,7 +11,7 @@ export type PilotRequest = {
 };
 
 /*
-  E-mail delivery via the Resend API (https://resend.com), same setup as other thunderstruck sites.
+  E-mail delivery via the Resend API (https://resend.com), used by the contact forms of the site.
   Env: RESEND_API_KEY (required), CONTACT_TO (recipient of leads), CONTACT_FROM (sender on a domain
   verified in Resend). Without an API key the request is only logged.
 */
@@ -79,7 +79,65 @@ export async function sendPilotRequest(p: PilotRequest): Promise<{ sent: boolean
         `ďakujeme za záujem o pilotný program ${BRAND.name}. Ozveme sa vám spravidla do niekoľkých pracovných dní ` +
         "a dohodneme krátky úvodný rozhovor (približne 20 minút).\n\n" +
         "Odoslaním formulára nevzniká žiadny záväzok.\n\n" +
-        `${CONTACT.company}\n${CONTACT.email} · ${CONTACT.phone}`,
+        `${CONTACT.company}\n${CONTACT.email}`,
+    });
+  } catch (err) {
+    console.warn("[mail] failed to send confirmation to the applicant", err);
+  }
+
+  return { sent: true };
+}
+
+export type AlmaRequest = {
+  name: string;
+  organization: string;
+  email: string;
+  phone: string;
+  product: string;
+  message: string;
+};
+
+/* Alma contact form (home page and product pages) */
+export async function sendAlmaRequest(p: AlmaRequest): Promise<{ sent: boolean }> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO ?? CONTACT.email;
+  const from = process.env.CONTACT_FROM ?? `${BRAND.brand} <${CONTACT.email}>`;
+  const product = productBySlug(p.product)?.name ?? p.product;
+
+  const lines = [
+    `Meno a priezvisko: ${p.name}`,
+    `Organizácia: ${p.organization}`,
+    `E-mail: ${p.email}`,
+    `Telefón: ${p.phone || "neuvedený"}`,
+    `Produkt: ${product}`,
+    "",
+    "Správa:",
+    p.message || "(bez správy)",
+  ];
+
+  if (!apiKey) {
+    console.warn("[mail] RESEND_API_KEY is not set, e-mail not sent.\n" + lines.join("\n"));
+    return { sent: false };
+  }
+
+  await sendViaResend(apiKey, {
+    from,
+    to,
+    replyTo: p.email,
+    subject: `${product}: ${p.organization}`,
+    text: `Nová správa z webu Alma.\n\n${lines.join("\n")}`,
+  });
+
+  try {
+    await sendViaResend(apiKey, {
+      from,
+      to: p.email,
+      subject: `${BRAND.brand}: prijali sme vašu správu`,
+      text:
+        `Dobrý deň, ${p.name},\n\n` +
+        `ďakujeme za záujem o ${product}. Ozveme sa vám do dvoch pracovných dní.\n\n` +
+        "Odoslaním formulára nevzniká žiadny záväzok.\n\n" +
+        `${CONTACT.company}\n${CONTACT.email}`,
     });
   } catch (err) {
     console.warn("[mail] failed to send confirmation to the applicant", err);

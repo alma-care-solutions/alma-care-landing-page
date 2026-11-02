@@ -18,7 +18,7 @@ const inter = localFont({
 });
 
 const DESCRIPTION =
-  "Vyvíjame moderný systém pre agentúry domácej ošetrovateľskej starostlivosti, ktorý prepája prácu sestier v teréne s plánovaním, dokumentáciou a administratívou v kancelárii.";
+  "Alma je softvér pre agentúry a zariadenia, ktoré poskytujú starostlivosť: domácu ošetrovateľskú, opatrovateľskú, v stacionároch aj v pobytových zariadeniach. Prvý produkt, Alma ADOS, beží v pilote.";
 
 /* Absolute site URL for canonical and OG/Twitter images: NEXT_PUBLIC_SITE_URL, otherwise the production domain */
 const SITE_URL =
@@ -27,19 +27,19 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
-  title: `${BRAND.name} | Systém pre agentúry domácej starostlivosti (vo vývoji)`,
+  title: `${BRAND.site} | Softvér pre agentúry a zariadenia, ktoré poskytujú starostlivosť`,
   description: DESCRIPTION,
-  applicationName: BRAND.name,
+  applicationName: BRAND.site,
   openGraph: {
     type: "website",
     locale: "sk_SK",
-    siteName: BRAND.name,
-    title: `${BRAND.name}: dokumentácia vzniká pri pacientovi`,
+    siteName: BRAND.site,
+    title: "Alma: čas patrí pacientom, nie papierom",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name}: dokumentácia vzniká pri pacientovi`,
+    title: "Alma: čas patrí pacientom, nie papierom",
     description: DESCRIPTION,
   },
 };

@@ -3,19 +3,35 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 /* Compact nav height + gap: the anchor target stops just below it */
 const NAV_OFFSET = 64;
 
+/*
+  Anchor hrefs on the site:
+  "#x"        section on the current page
+  "/#x"       section on the home page
+  "/ados#x"   section on a subpage
+*/
 export function isHashHref(href: string) {
-  return /^\/?#/.test(href);
+  return href.includes("#");
 }
 
 export function hashId(href: string) {
-  return href.replace(/^\/?#/, "");
+  return href.slice(href.indexOf("#") + 1);
 }
 
-/* Does the anchor belong to this page? ("#x" always, "/#x" only on the home page) */
+export function hashPath(href: string) {
+  const i = href.indexOf("#");
+  return i > 0 ? href.slice(0, i) : "";
+}
+
+function normalizePath(p: string) {
+  return p.length > 1 ? p.replace(/\/$/, "") : p;
+}
+
+/* Does the anchor belong to this page? ("#x" always, "/x#y" only when /x is the current page) */
 export function isLocalHash(href: string) {
   if (!isHashHref(href)) return false;
-  if (href.startsWith("/") && window.location.pathname !== "/") return false;
-  return true;
+  const path = hashPath(href);
+  if (!path) return true;
+  return normalizePath(path) === normalizePath(window.location.pathname);
 }
 
 function focusElement(el: HTMLElement) {
@@ -58,9 +74,9 @@ export function scrollToTarget(href: string, focusSelector?: string) {
   return true;
 }
 
-/* Anchor from a subpage: remember the target, go to the home page without a hash (no native jump)
+/* Anchor to another page: remember the target, navigate without a hash (no native jump)
    and scroll smoothly after load (HashScroll). */
-const PENDING_KEY = "ados-scroll-target";
+const PENDING_KEY = "alma-scroll-target";
 
 export function rememberTarget(href: string, focusSelector?: string) {
   try {
@@ -103,10 +119,10 @@ export function handleAnchorClick(
     if (scrollToTarget(href, focusSelector)) e.preventDefault();
     return;
   }
-  // "/#x" from a subpage
+  // "/x#y" from another page
   e.preventDefault();
   rememberTarget(href, focusSelector);
-  router.push("/");
+  router.push(hashPath(href) || "/");
 }
 
 export function scrollToTop() {

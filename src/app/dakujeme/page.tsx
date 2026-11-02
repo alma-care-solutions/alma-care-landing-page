@@ -4,20 +4,32 @@ import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/Button";
 import { CheckItem } from "@/components/ui/CheckItem";
 import { Icon } from "@/components/ui/Icon";
+import { productBySlug } from "@/lib/nav";
 
 export const metadata: Metadata = {
-  title: "Ďakujeme | Alma ADOS",
-  description: "Váš záujem o pilotný program sme prijali. Ozveme sa vám do niekoľkých pracovných dní.",
+  title: "Ďakujeme | Alma",
+  description: "Vašu správu sme prijali. Ozveme sa vám do dvoch pracovných dní.",
   robots: { index: false },
 };
 
-const NEXT = [
+const NEXT_ADOS = [
   "Krátky úvodný hovor, približne 20 minút",
-  "Ukážeme vám, na čom pracujeme, a spýtame sa, ako fungujete dnes",
+  "Ukážeme vám Alma ADOS a spýtame sa, ako fungujete dnes",
   "Spoločne dohodneme rozsah spolupráce",
 ];
 
-export default function DakujemePage() {
+const NEXT_DEV = (name: string) => [
+  `Zapísali sme vás medzi prvých záujemcov o ${name}`,
+  "Ozveme sa pred pilotom v roku 2027 a dáme vedieť, ako sa dá zapojiť",
+  "Medzitým sa môžete pozrieť, ako beží Alma ADOS",
+];
+
+export default async function DakujemePage({ searchParams }: PageProps<"/dakujeme">) {
+  const { produkt } = await searchParams;
+  const product = typeof produkt === "string" ? productBySlug(produkt) : undefined;
+  const inDevelopment = product && product.status === "dev";
+  const next = inDevelopment ? NEXT_DEV(product.name) : NEXT_ADOS;
+
   return (
     <>
       <Nav />
@@ -29,24 +41,34 @@ export default function DakujemePage() {
                 <Icon name="check-circle" className="size-[26px]" />
               </span>
               <div className="flex flex-col gap-2">
-                <h1 className="text-h3 text-text-primary">Ďakujeme, máme to.</h1>
+                <h1 className="text-h3 text-text-primary">
+                  {inDevelopment ? `Zapísané k ${product.name}` : "Ďakujeme, máme to."}
+                </h1>
                 <p className="text-body-m text-text-secondary">
-                  Ozveme sa vám spravidla do niekoľkých pracovných dní na e-mail alebo telefón, ktorý ste
-                  uviedli.
+                  {inDevelopment
+                    ? "Ďakujeme. Potvrdenie sme poslali na váš e-mail."
+                    : "Ozveme sa vám do dvoch pracovných dní na e-mail alebo telefón, ktorý ste uviedli."}
                 </p>
               </div>
               <div className="flex w-full flex-col gap-3 rounded-[14px] border border-border-default bg-bg-page p-5">
                 <p className="text-label-s text-text-primary">Čo bude nasledovať</p>
                 <ul className="flex flex-col gap-3">
-                  {NEXT.map((t) => (
+                  {next.map((t) => (
                     <CheckItem key={t}>{t}</CheckItem>
                   ))}
                 </ul>
               </div>
-              <Button href="/" variant="secondary" size="M" className="w-full sm:w-auto">
-                Späť na stránku
-              </Button>
-              <p className="text-caption text-text-tertiary">Potvrdenie sme poslali aj na váš e-mail.</p>
+              <div className="flex w-full flex-col gap-3 sm:flex-row">
+                {inDevelopment ? (
+                  <Button href="/ados" size="M" arrow className="w-full sm:w-auto">
+                    Pozrieť Alma ADOS
+                  </Button>
+                ) : null}
+                <Button href="/" variant="secondary" size="M" className="w-full sm:w-auto">
+                  Späť na úvodnú stránku
+                </Button>
+              </div>
+              {!inDevelopment && <p className="text-caption text-text-tertiary">Potvrdenie sme poslali aj na váš e-mail.</p>}
             </div>
           </div>
         </section>

@@ -17,11 +17,14 @@ const styles: Record<Variant, { wrap: string; dot: string; text: string }> = {
 export function Badge({
   variant = "status",
   dot = true,
+  pulse = false,
   className,
   children,
 }: {
   variant?: Variant;
   dot?: boolean;
+  /** The dot "breathes": a slow ping ring around it (live status) */
+  pulse?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -35,7 +38,12 @@ export function Badge({
         className,
       )}
     >
-      {dot && <span aria-hidden="true" className={cx("size-2 shrink-0 rounded-full", s.dot)} />}
+      {dot && (
+        <span aria-hidden="true" className="relative flex size-2 shrink-0">
+          {pulse && <span className={cx("absolute inset-0 rounded-full animate-ping-slow", s.dot)} />}
+          <span className={cx("relative size-2 rounded-full", s.dot)} />
+        </span>
+      )}
       {children}
     </span>
   );

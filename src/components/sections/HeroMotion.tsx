@@ -7,6 +7,7 @@ import { PRELOADER_DONE_EVENT } from "@/components/Preloader";
 
 /*
   Hero intro sequence (starts after the preloader), phone parallax and subtle decor motion.
+  Also: the pen stroke under "Nie papierom." (home page) and the dots travelling along the routes.
   Respects prefers-reduced-motion.
 */
 export function HeroMotion({ children }: { children: React.ReactNode }) {
@@ -29,6 +30,14 @@ export function HeroMotion({ children }: { children: React.ReactNode }) {
           .from(q("[data-hero='phone']"), { y: 90, rotate: 2.5, autoAlpha: 0, duration: 1.1 }, 0.7)
           .from(q("[data-hero='label'], [data-hero='caption']"), { y: 10, autoAlpha: 0, duration: 0.6, stagger: 0.12 }, 1.2);
 
+        // Pen stroke under "Nie papierom." draws itself once the headline has landed
+        const pen = q<SVGPathElement>("[data-hero='pen'] path")[0];
+        if (pen) {
+          const len = pen.getTotalLength();
+          gsap.set(pen, { strokeDasharray: len, strokeDashoffset: len });
+          tl.to(pen, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.95);
+        }
+
         // Intro starts only after the preloader (if it was not shown, the flag is set immediately)
         const start = () => tl.play();
         if (window.__adosPreloaderDone) start();
@@ -45,9 +54,22 @@ export function HeroMotion({ children }: { children: React.ReactNode }) {
           stagger: { each: 1.2, from: "random" },
         });
 
-        // Routes: dots slowly "march" along the path, the only decor motion in the hero
+        // Routes: dashes slowly "march" along the path
         q<SVGPathElement>("[data-hero='route'] path").forEach((path) => {
           gsap.to(path, { strokeDashoffset: -22, duration: 2.4, ease: "none", repeat: -1 });
+        });
+
+        // Route dots: a nurse travels from stop to stop, pausing at each house
+        q<SVGSVGElement>("[data-hero='route']").forEach((svg, i) => {
+          const path = svg.querySelector("path");
+          const dot = svg.querySelector("[data-hero='route-dot']");
+          if (!path || !dot) return;
+          const mp = (start: number, end: number) => ({ path, align: path, alignOrigin: [0.5, 0.5] as [number, number], start, end });
+          gsap
+            .timeline({ repeat: -1, repeatDelay: 1.6, delay: 1.8 + i * 0.9, defaults: { ease: "power1.inOut" } })
+            .set(dot, { motionPath: mp(0, 0) })
+            .to(dot, { motionPath: mp(0, 0.5), duration: 3.4 })
+            .to(dot, { motionPath: mp(0.5, 1), duration: 3.4 }, "+=1.4");
         });
 
         // Parallax: the phone moves slower than the browser on scroll

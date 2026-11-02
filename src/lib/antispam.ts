@@ -56,3 +56,27 @@ export function validatePayload(p: {
   if (/https?:\/\/|www\./i.test(p.name + p.agency)) errors.push("spam");
   return errors;
 }
+
+const PRODUCT_SLUGS = ["ados", "dos", "stacionar", "pobytove", "sluzby-a-pomocky"];
+
+/* Alma contact form (home page and product pages) */
+export function validateAlmaPayload(p: {
+  name: string;
+  organization: string;
+  email: string;
+  phone: string;
+  message: string;
+  product: string;
+}) {
+  const errors: string[] = [];
+  if (p.name.length < 2 || p.name.length > 100) errors.push("name");
+  if (p.organization.length < 2 || p.organization.length > 150) errors.push("organization");
+  if (!EMAIL_RE.test(p.email) || p.email.length > 150) errors.push("email");
+  if (p.phone && !/^[+\d][\d\s()/-]{5,24}$/.test(p.phone)) errors.push("phone");
+  if (!PRODUCT_SLUGS.includes(p.product)) errors.push("product");
+  if (p.message.length > 2000) errors.push("message");
+  const links = (p.message.match(/https?:\/\/|www\./gi) ?? []).length;
+  if (links > 1 || /<\s*a\s/i.test(p.message) || /\[url/i.test(p.message)) errors.push("message-links");
+  if (/https?:\/\/|www\./i.test(p.name + p.organization)) errors.push("spam");
+  return errors;
+}

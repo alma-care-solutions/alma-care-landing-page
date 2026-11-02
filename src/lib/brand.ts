@@ -1,14 +1,16 @@
 /*
-  Brand: single source of truth for the name and addresses.
-  The product is called "Alma ADOS": brand "Alma", segment "ADOS".
+  Brand: single source of truth for the names and addresses.
+  "Alma" is the brand of the whole product family; "Alma ADOS" is its first product (brand "Alma", segment "ADOS").
 */
 export const BRAND = {
-  /** Full product name */
+  /** Full product name (Alma ADOS pages, form e-mails, OG image) */
   name: "Alma ADOS",
-  /** Brand (first part of the wordmark, text color) */
+  /** Brand (first part of the wordmark, text color); also the site name */
   brand: "Alma",
   /** Segment (second part of the wordmark, accent color) */
   segment: "ADOS",
+  /** Site name for metadata */
+  site: "Alma",
   /** Public site origin (canonical URL, OG image); NEXT_PUBLIC_SITE_URL overrides it */
   siteUrl: "https://adosalma.sk",
   /** App address in mockups */

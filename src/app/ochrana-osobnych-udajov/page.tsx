@@ -5,8 +5,8 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CONTACT } from "@/lib/nav";
 
 export const metadata: Metadata = {
-  title: "Ochrana osobných údajov | Alma ADOS",
-  description: "Zásady ochrany osobných údajov pre záujemcov o pilotný program Alma ADOS.",
+  title: "Ochrana osobných údajov | Alma",
+  description: "Zásady ochrany osobných údajov pre záujemcov o produkty Alma.",
   robots: { index: false },
 };
 
@@ -24,20 +24,20 @@ export default function OchranaOsobnychUdajovPage() {
             <Eyebrow>Právne</Eyebrow>
             <h1 className="text-mobile-h2 text-text-primary lg:text-h2">Zásady ochrany osobných údajov</h1>
             <p className="text-body-l text-text-secondary">
-              Tieto zásady vysvetľujú, aké osobné údaje spracúvame na webe Alma ADOS, prečo a aké
-              máte práva. Web slúži na predstavenie pripravovaného produktu a na prihlásenie sa do
-              pilotného programu.
+              Tieto zásady vysvetľujú, aké osobné údaje spracúvame na webe Alma, prečo a aké máte
+              práva. Web slúži na predstavenie produktov Alma, na dohodnutie ukážky a na prihlásenie sa
+              do pilotného programu.
             </p>
             {/* TODO: add the company registration number (IČO) and registered office */}
             <p className="text-body-s text-text-tertiary">
-              Prevádzkovateľ: {CONTACT.company} · {CONTACT.email} · {CONTACT.phone} · Naposledy
-              aktualizované 17. 9. 2026
+              Prevádzkovateľ: {CONTACT.company} · {CONTACT.email} · Naposledy
+              aktualizované 2. 11. 2026
             </p>
 
             <h2 className={H2}>1. Kto je prevádzkovateľ</h2>
             <p className={P}>
               Prevádzkovateľom osobných údajov je spoločnosť {CONTACT.company} (ďalej „my“). V otázkach
-              ochrany osobných údajov nás kontaktujte na {CONTACT.email} alebo {CONTACT.phone}.
+              ochrany osobných údajov nás kontaktujte na {CONTACT.email}.
             </p>
 
             <h2 className={H2}>2. Aké údaje spracúvame</h2>

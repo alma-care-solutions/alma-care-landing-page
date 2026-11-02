@@ -132,9 +132,6 @@ export function Preloader() {
           <span className="pre-word" style={{ opacity: 0 }}>
             {BRAND.brand}
           </span>
-          <span className="pre-word text-accent-text" style={{ opacity: 0 }}>
-            {BRAND.segment}
-          </span>
         </p>
       </div>
       <span aria-hidden="true" className="pre-bar absolute bottom-0 left-0 h-0.5 w-full origin-left bg-accent"
