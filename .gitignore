@@ -42,3 +42,6 @@ next-env.d.ts
 
 # ukážkové env pre SMTP je súčasťou repa
 !.env.example
+
+# review comments from the dev comment mode
+.dev-comments.json

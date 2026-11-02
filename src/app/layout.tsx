@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { BackToTop } from "@/components/BackToTop";
 import { Preloader } from "@/components/Preloader";
+import { CommentMode } from "@/components/dev/CommentMode";
 
 /*
   Inter Variable (wght 400–600) subset to the glyphs needed for Slovak (latin, latin-ext, punctuation, arrows):
@@ -56,6 +57,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Preloader />
         {children}
         <BackToTop />
+        {/* Development only: review comments pinned to the page, stored in .dev-comments.json */}
+        {process.env.NODE_ENV === "development" && <CommentMode />}
       </body>
     </html>
   );
