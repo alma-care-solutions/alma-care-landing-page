@@ -13,9 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { BrochureButton } from "@/components/ui/BrochureButton";
 import { Icon } from "@/components/ui/Icon";
 import { AnchorLink } from "@/components/ui/AnchorLink";
-import { BrowserFrame } from "@/components/ui/Browser";
-import { ScreenCrop } from "@/components/ui/ScreenCrop";
-import { PRODUCT_SCREENS } from "@/lib/screens";
+import { ProductScreen } from "@/components/ui/ScreenCrop";
 import { NAV_LINKS, PRODUCTS, CONTACT, type Product } from "@/lib/nav";
 import { BROCHURE } from "@/lib/brochure";
 import { handleAnchorClick } from "@/lib/scroll";
@@ -105,9 +103,12 @@ export function Nav({
   const isHome = pathname === "/";
   const onProductPage = PRODUCTS.some((p) => p.href === pathname);
   const productsActive = onProductPage || (isHome && active === "produkty");
-  const aboutActive = isHome && (active === "o-alme" || active === "rok-2027");
-  const contactActive = active === "kontakt";
-  const isActive = (href: string) => (href === "/#o-alme" ? aboutActive : href === "#kontakt" ? contactActive : false);
+  // A link is active when its page is this page and its section is the one in view
+  const isActive = (href: string) => {
+    const [path, hash] = href.split("#");
+    const samePage = (path || "/") === pathname;
+    return samePage && hash === active;
+  };
 
   return (
     <header
@@ -225,7 +226,7 @@ export function Nav({
                     >
                       <span className="flex min-w-0 flex-col gap-0.5">
                         <span className="text-label-m text-text-primary">{p.name}</span>
-                        <span className="truncate text-caption text-text-tertiary">{p.audience}</span>
+                        <span className="text-caption text-text-tertiary">{p.audience}</span>
                       </span>
                       <Badge variant={p.status === "pilot" ? "success" : "neutral"} className="shrink-0">
                         {p.status === "pilot" ? "V pilote" : "predaj 2027"}
@@ -361,7 +362,7 @@ function ProductsMenu({ active }: { active: boolean }) {
         hidden={!open}
         className="absolute left-0 top-full z-50 pt-3"
       >
-        <div className="grid w-[720px] grid-cols-[1fr_260px] overflow-hidden rounded-16 border border-border-default bg-bg-surface shadow-[0_24px_56px_-16px_rgba(20,23,31,0.28)]">
+        <div className="grid w-[760px] grid-cols-[1fr_280px] overflow-hidden rounded-16 border border-border-default bg-bg-surface shadow-[0_24px_56px_-16px_rgba(20,23,31,0.28)]">
           <ul className="flex flex-col gap-0.5 p-2" onMouseLeave={() => setHovered(PRODUCTS[0])}>
             {PRODUCTS.map((p) => (
               <li key={p.slug}>
@@ -377,7 +378,7 @@ function ProductsMenu({ active }: { active: boolean }) {
                 >
                   <span className="flex min-w-0 flex-col gap-0.5">
                     <span className="text-label-m text-text-primary">{p.name}</span>
-                    <span className="truncate text-caption text-text-tertiary">{p.audience}</span>
+                    <span className="text-caption text-text-tertiary">{p.audience}</span>
                   </span>
                   <Badge variant={p.status === "pilot" ? "success" : "neutral"} className="shrink-0">
                     {p.status === "pilot" ? "V pilote" : "Vo vývoji · predaj 2027"}
@@ -409,14 +410,9 @@ function ProductsMenu({ active }: { active: boolean }) {
   );
 }
 
-/* Preview tile in the dropdown: the real Alma ADOS screen, for products in development a neutral crop of a real screen */
+/* Preview tile in the dropdown: the real Alma ADOS screen, for products in development a whole screen of a shared module */
 export function ProductThumb({ product, className }: { product: Product; className?: string }) {
-  const spec = PRODUCT_SCREENS[product.slug] ?? PRODUCT_SCREENS.ados;
-  return (
-    <BrowserFrame className={cx("shadow-[0_8px_20px_-8px_rgba(20,23,31,0.25)]", className)}>
-      <ScreenCrop spec={spec} sizes="260px" className="aspect-[2400/1633] w-full" />
-    </BrowserFrame>
-  );
+  return <ProductScreen slug={product.slug} sizes="260px" className={className} />;
 }
 
 /* Product bar under the header: breadcrumb, in-page links (desktop) and the status badge */

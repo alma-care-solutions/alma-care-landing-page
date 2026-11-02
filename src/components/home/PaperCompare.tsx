@@ -10,7 +10,7 @@ const hand = Caveat({ subsets: ["latin", "latin-ext"], weight: ["400", "600"], d
 /*
   Paper / Alma comparison (idea 1): the same visit twice. Left a handwritten visit record on a printed form,
   as nurses fill it in today (illustration following the usual form, until a real scan from the pilot partner
-  is available); right the real Vykazovanie screen of Alma ADOS where such records wait for approval.
+  is available); right the real visit screen of the Alma ADOS nurse app during the same visit.
   The visit is the one from the hero phone: Pavol Novotný, 12. 10., 10:10, codes 3407 and 3423A.
 */
 const FIELDS: { label: string; value: string; wide?: boolean }[] = [
@@ -32,7 +32,7 @@ export function PaperCompare() {
   return (
     <figure className="gsap-reveal flex w-full flex-col gap-3">
       <div
-        className="relative aspect-[2400/1633] w-full select-none overflow-hidden rounded-16 bg-bg-muted ring-1 ring-border-default"
+        className="relative aspect-square w-full select-none overflow-hidden rounded-16 bg-bg-muted ring-1 ring-border-default sm:aspect-[4/3]"
         style={{ ["--cut" as string]: `${cut}%` }}
       >
         {/* Paper: printed form with a handwritten record */}
@@ -54,7 +54,7 @@ export function PaperCompare() {
               {FIELDS.map((f) => (
                 <div
                   key={f.label}
-                  className={cx("flex items-baseline gap-[3%] border-b border-dotted border-[#9aa0ab] py-[1.4%]", f.wide && "col-span-2")}
+                  className={cx("flex items-baseline gap-[3%] border-b border-dotted border-[#9aa0ab] py-[1.6%]", f.wide && "col-span-2")}
                 >
                   <dt className="shrink-0 text-[0.8em] uppercase tracking-[0.05em] text-[#6b7280]">{f.label}</dt>
                   <dd className={cx(hand.className, "truncate text-[1.75em] leading-none text-[#1d3f8c]")}>{f.value}</dd>
@@ -74,16 +74,18 @@ export function PaperCompare() {
           </div>
         </div>
 
-        {/* Alma ADOS: real Vykazovanie screen */}
-        <div className="absolute inset-0" style={{ clipPath: "inset(0 0 0 var(--cut))" }}>
-          <Image
-            src="/images/web-reporting-2610.png"
-            alt="Webová aplikácia Alma ADOS, Vykazovanie: návštevy čakajúce na kontrolu s výkonmi a stavom"
-            fill
-            quality={90}
-            sizes="(min-width: 1280px) 656px, 100vw"
-            className="object-cover object-top"
-          />
+        {/* Alma ADOS: the real visit screen of the nurse app, whole, standing on a calm panel */}
+        <div className="absolute inset-0 bg-accent-soft" style={{ clipPath: "inset(0 0 0 var(--cut))" }}>
+          <div className="absolute inset-y-[4%] left-1/2 aspect-[1206/2622] -translate-x-1/2 overflow-hidden rounded-[7%/3.3%] shadow-[0_18px_40px_-12px_rgba(20,23,31,0.35)] ring-1 ring-black/10">
+            <Image
+              src="/images/phone-visit-ongoing-2610.png"
+              alt="Aplikácia pre sestry Alma ADOS: prebiehajúca návšteva Pavla Novotného s výkonmi 3407 a 3423A, dekurzom a materiálom"
+              fill
+              quality={90}
+              sizes="(min-width: 1280px) 240px, 40vw"
+              className="object-cover object-top"
+            />
+          </div>
         </div>
 
         {/* Divider and handle */}
@@ -111,7 +113,7 @@ export function PaperCompare() {
         </span>
 
         <label htmlFor={id} className="sr-only">
-          Porovnanie papierového záznamu o návšteve a obrazovky Vykazovanie v Alma ADOS
+          Porovnanie papierového záznamu o návšteve a tej istej návštevy v aplikácii Alma ADOS
         </label>
         <input
           id={id}
@@ -125,7 +127,7 @@ export function PaperCompare() {
       </div>
       <figcaption className="text-caption text-text-tertiary">
         Tá istá návšteva dvakrát: vľavo ručný záznam o návšteve (ilustrácia podľa bežného formulára), vpravo
-        skutočná obrazovka Vykazovanie v Alma ADOS, kde takéto záznamy čakajú na kontrolu. Potiahnite predel.
+        skutočná obrazovka návštevy v aplikácii pre sestry. Potiahnite predel.
       </figcaption>
     </figure>
   );

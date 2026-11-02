@@ -15,6 +15,7 @@ export function BrochureButton({
   size = "L",
   compact = false,
   iconOnly = false,
+  highlight = false,
   className,
   onClick,
 }: {
@@ -24,6 +25,8 @@ export function BrochureButton({
   compact?: boolean;
   /* Mobile header: square button with the icon only */
   iconOnly?: boolean;
+  /* Home page: accent tint and a gently bobbing download icon, so the brochure stands out next to the product link */
+  highlight?: boolean;
   className?: string;
   onClick?: () => void;
 }) {
@@ -50,16 +53,28 @@ export function BrochureButton({
       download
       variant={variant}
       size={size}
-      className={className}
+      className={cx(
+        highlight &&
+          "border-accent/40 bg-accent-soft text-accent-text shadow-[0_8px_24px_-12px_rgba(13,127,129,0.6)] hover:border-accent hover:bg-accent-soft",
+        className,
+      )}
       onClick={onClick}
       aria-label={full}
       title={compact ? full : undefined}
     >
       {/* flex-wrap: on narrow phones the size note drops under the label instead of overflowing the button */}
       <span className={cx("inline-flex items-center justify-center gap-x-2 gap-y-0.5", compact ? "flex-nowrap" : "flex-wrap")}>
-        <Icon name="download" className={cx("shrink-0", size === "M" ? "size-4" : "size-5")} />
+        {highlight ? (
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent text-text-inverse motion-safe:animate-bob">
+            <Icon name="download" className="size-4" />
+          </span>
+        ) : (
+          <Icon name="download" className={cx("shrink-0", size === "M" ? "size-4" : "size-5")} />
+        )}
         <span>{compact ? BROCHURE.shortLabel : BROCHURE.label}</span>
-        {!compact && <span className="text-caption text-text-tertiary">{BROCHURE.meta}</span>}
+        {!compact && (
+          <span className={cx("text-caption", highlight ? "text-accent-text/70" : "text-text-tertiary")}>{BROCHURE.meta}</span>
+        )}
       </span>
     </Button>
   );

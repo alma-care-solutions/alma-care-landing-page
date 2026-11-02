@@ -43,8 +43,8 @@ function Route({
   );
 }
 
-export function HeroDecor({ dots = false, variant = "ados" }: { dots?: boolean; variant?: "ados" | "home" }) {
-  const home = variant === "home";
+export function HeroDecor({ dots = false, variant = "centered" }: { dots?: boolean; variant?: "centered" | "product" }) {
+  const home = variant === "product";
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Blobs as CSS radial gradients (no network requests), values from the Figma SVG */}
@@ -82,7 +82,7 @@ export function HeroDecor({ dots = false, variant = "ados" }: { dots?: boolean; 
         dot={dots}
         className={
           home
-            ? "absolute left-[-50px] top-[46%] h-[90px] w-[210px] lg:left-[calc(50%-760px)] lg:top-[440px] lg:h-[160px] lg:w-[370px]"
+            ? "absolute left-[-50px] top-[46%] h-[90px] w-[210px] lg:left-[calc(50%-900px)] lg:top-[620px] lg:h-[160px] lg:w-[370px]"
             : "absolute left-[-50px] top-[58%] h-[90px] w-[210px] lg:left-[calc(50%-760px)] lg:top-[400px] lg:h-[160px] lg:w-[370px]"
         }
       />

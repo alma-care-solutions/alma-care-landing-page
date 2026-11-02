@@ -16,7 +16,7 @@ export function Hero() {
   return (
     <section aria-label="Úvod" className="relative overflow-hidden">
       <HeroMotion>
-        <HeroDecor />
+        <HeroDecor variant="product" />
 
         <div className="container-page relative grid gap-10 pb-12 pt-10 lg:grid-cols-[minmax(0,500px)_1fr] lg:items-center lg:gap-14 lg:pb-24 lg:pt-16">
           <div data-hero="copy" className="flex flex-col items-start gap-5 lg:gap-6">

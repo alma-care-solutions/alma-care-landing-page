@@ -7,12 +7,12 @@ import { CONTACT, PARTNER } from "@/lib/nav";
 */
 export function About() {
   return (
-    <section id="o-alme" aria-label="Kto robí Almu" className="bg-bg-surface py-12 lg:py-28">
-      <div className="container-page flex flex-col gap-10 lg:gap-12">
-        <div className="grid gap-6 lg:grid-cols-[400px_1fr] lg:gap-24">
+    <section id="o-alme" aria-label="Kto robí Almu" className="bg-bg-surface py-12 lg:py-24">
+      <div className="container-page flex flex-col gap-10 lg:gap-14">
+        <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:gap-16">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Kto robí Almu</h2>
-          <div className="flex max-w-[704px] flex-col gap-5">
-            <p className="gsap-reveal text-body-m text-text-primary lg:text-body-l">
+          <div className="flex flex-col gap-5">
+            <p className="gsap-reveal text-body-m text-text-primary lg:text-lead">
               Almu vyvíja {CONTACT.company} Tím, ktorý za ňou stojí, robil telemedicínu s TUKE, aplikáciu MAIA MD pre
               Dôveru a pracoval pre Care.com. Z náročných systémov má za sebou testovanie sietí pre Nokiu, letecké
               informácie pre viac ako 50 krajín a športovú analytiku XPS Network v 87 krajinách. Spolu viac ako 20
@@ -24,19 +24,36 @@ export function About() {
           </div>
         </div>
 
-        <hr className="border-border-default" />
-
-        <div className="gsap-reveal flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-          <Image
-            src={PARTNER.logo}
-            alt={PARTNER.name}
-            width={PARTNER.logoWidth}
-            height={PARTNER.logoHeight}
-            className="h-12 w-auto sm:h-14"
-          />
-          <p className="text-body-s text-text-secondary lg:text-body-m">
-            Pilotný partner Alma ADOS {PARTNER.since}.
-          </p>
+        {/* Pilot partner */}
+        <div className="gsap-reveal grid gap-6 rounded-16 border border-border-default bg-bg-page p-6 lg:grid-cols-[360px_1fr] lg:items-center lg:gap-16 lg:p-8">
+          <div className="flex flex-col gap-4">
+            <p className="text-eyebrow text-accent-text">Pilotný partner</p>
+            <Image
+              src={PARTNER.logo}
+              alt={PARTNER.name}
+              width={PARTNER.logoWidth}
+              height={PARTNER.logoHeight}
+              className="h-14 w-auto sm:h-16"
+            />
+          </div>
+          <div className="flex flex-col gap-3">
+            <p className="text-h4 text-text-primary">
+              Alma ADOS beží {PARTNER.since} v každodennej prevádzke sestier {PARTNER.name}.
+            </p>
+            <p className="text-body-m text-text-secondary">
+              Charita poskytuje zdravotnú aj sociálnu starostlivosť v domácnostiach a vo svojich zariadeniach. Jej
+              sestry a vedenie agentúry vidia nové funkcie ako prvé a ich pripomienky sa menia na úpravy v ďalšej
+              verzii. Rovnako budeme postupovať s ďalšími agentúrami pred predajom v roku 2027.
+            </p>
+            <a
+              href="https://www.charita-ke.sk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-[4px] text-label-s text-accent-text hover:text-accent-strong"
+            >
+              charita-ke.sk <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

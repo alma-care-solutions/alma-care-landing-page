@@ -10,9 +10,8 @@ import { HomeContact } from "@/components/home/HomeContact";
 import { PRODUCTS, type Product } from "@/lib/nav";
 import type { ProductContent } from "@/lib/products";
 import { cx } from "@/lib/cx";
-import { BrowserFrame } from "@/components/ui/Browser";
-import { ScreenCrop } from "@/components/ui/ScreenCrop";
-import { PRODUCT_SCREENS, ILLUSTRATION_NOTE } from "@/lib/screens";
+import { ProductScreen } from "@/components/ui/ScreenCrop";
+import { ILLUSTRATION_NOTE } from "@/lib/screens";
 
 /*
   "Pripravujeme" product page (Figma Šablóna · Pripravujeme): hero with an illustration placeholder, what the product
@@ -42,14 +41,7 @@ export function ProductPage({ product, content }: { product: Product; content: P
               <p className="max-w-[560px] text-body-s text-text-tertiary">{content.hero.note}</p>
             </div>
             <figure className="flex w-full flex-col gap-3">
-              <BrowserFrame className="shadow-[0_2px_6px_rgba(20,23,31,0.06),0_24px_48px_-12px_rgba(20,23,31,0.12)]">
-                <ScreenCrop
-                  spec={PRODUCT_SCREENS[product.slug]}
-                  sizes="(min-width: 1024px) 480px, 100vw"
-                  className="aspect-[4/3] w-full"
-                  priority
-                />
-              </BrowserFrame>
+              <ProductScreen slug={product.slug} variant="hero" sizes="(min-width: 1024px) 480px, 100vw" priority />
               <figcaption className="text-caption text-text-tertiary">{ILLUSTRATION_NOTE}</figcaption>
             </figure>
           </div>

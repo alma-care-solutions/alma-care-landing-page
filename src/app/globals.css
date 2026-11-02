@@ -90,6 +90,12 @@
     75%, 100% { transform: scale(2.2); opacity: 0; }
   }
   --animate-nudge-x: nudge-x 1.4s ease-in-out infinite;
+  --animate-bob: bob 2.6s ease-in-out infinite;
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-3px); }
+    60% { transform: translateY(1px); }
+  }
   @keyframes nudge-x {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(4px); }

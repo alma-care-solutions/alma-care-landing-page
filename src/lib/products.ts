@@ -22,13 +22,16 @@ const SAME_TEAM = "Vyvíjame ho súbežne s Alma ADOS, ktorý už beží v pilot
 const SOCIAL_CHANGES = (service: string, unit: string) => ({
   title: "Čo sa mení",
   headline: "Od januára 2027 platí klient službu z vlastného príspevku.",
-  text: `Príspevok na pomoc pri odkázanosti (zákon 406/2025 Z. z.) dostane priamo odkázaná osoba. ${service} musí vedieť vyúčtovať ${unit} na konkrétneho klienta a hlásiť prijímateľov do IS SoS do 15 dní. Počítame s tým od prvého dňa.`,
+  text: `Príspevok na pomoc pri odkázanosti (zákon 406/2025 Z. z.) dostane priamo odkázaná osoba. ${service} musí vedieť vyúčtovať ${unit} na konkrétneho klienta a každého prijímateľa zapísať do IS SoS do 15 dní od zmluvy (§ 105b zákona 448/2008 Z. z.). Počítame s tým od prvého dňa.`,
   items: [
     { date: "1. 1. 2027", label: "Príspevok na pomoc pri odkázanosti" },
-    { date: "Priebežne", label: "Hlásenia do IS SoS do 15 dní od zmluvy" },
+    { date: "Priebežne", label: "Zápis prijímateľov do IS SoS do 15 dní od zmluvy" },
     { date: "2027", label: "Pilot a predaj" },
   ],
 });
+
+const SOURCE_NOTE =
+  "Zoznam vychádza zo zákona o sociálnych službách (448/2008 Z. z.), z usmernení MPSVR k IS SoS a k príspevku na pomoc pri odkázanosti a z toho, čo už funguje v Alma ADOS. Poradie a detaily upresníme v pilote.";
 
 const contact = (name: string, who: string): ProductContent["contact"] => ({
   title: `Chcete byť pri ${name} medzi prvými?`,
@@ -51,12 +54,12 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
     solves: {
       title: "Čo bude Alma DOS riešiť",
       lead: "Štyri veci, ktoré dnes berú opatrovateľskej službe najviac času.",
-      note: "Zoznam vychádza z rozhovorov s poskytovateľmi a z toho, čo už funguje v Alma ADOS. Poradie a detaily upresníme v pilote.",
+      note: SOURCE_NOTE,
       items: [
-        { title: "Rozpis návštev a hodín", text: "Plán dňa pre každú opatrovateľku, zmeny v reálnom čase a hodiny, ktoré sa počítajú samy." },
-        { title: "Potvrdenie príchodu u klienta", text: "Príchod a odchod jedným klepnutím, aj bez signálu. Žiadne papierové výkazy na podpis." },
-        { title: "Záznam úkonov podľa zákona", text: "Úkony podľa prílohy zákona o sociálnych službách, pripravené pre hlásenia a vyúčtovanie." },
-        { title: "Podklady pre obec a príspevok", text: "Mesačné výkazy pre obec, zriaďovateľa a od roku 2027 aj pre príspevok na pomoc pri odkázanosti." },
+        { title: "Rozpis návštev a hodín", text: "Plán dňa pre každú opatrovateľku a hodiny u každého klienta podľa zmluvy, ktoré sa počítajú samy. Úhrada za opatrovateľskú službu sa určuje za hodinu (§ 41 zákona 448/2008 Z. z.)." },
+        { title: "Potvrdenie príchodu u klienta", text: "Príchod a odchod jedným klepnutím, aj bez signálu. Mesačný výkaz hodín vzniká z návštev, nie z papiera na podpis." },
+        { title: "Úkony podľa prílohy č. 4", text: "Sebaobslužné úkony, starostlivosť o domácnosť, základné sociálne aktivity a dohľad presne tak, ako ich člení príloha č. 4 zákona, aby sa dali hlásiť aj vyúčtovať." },
+        { title: "Podklady pre obec, IS SoS a príspevok", text: "Výkazy pre obec a zriaďovateľa, zápis prijímateľov do IS SoS do 15 dní a od roku 2027 vyúčtovanie na klienta pre príspevok na pomoc pri odkázanosti." },
       ],
     },
     audience: {
@@ -81,12 +84,12 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
     solves: {
       title: "Čo bude Alma Stacionár riešiť",
       lead: "Štyri veci, ktoré dnes berú stacionáru najviac času.",
-      note: "Zoznam vychádza z rozhovorov s poskytovateľmi a z toho, čo už funguje v Alma ADOS. Poradie a detaily upresníme v pilote.",
+      note: SOURCE_NOTE,
       items: [
-        { title: "Dochádzka klientov", text: "Príchod a odchod jedným klepnutím, hodiny pre vyúčtovanie sa počítajú samy." },
-        { title: "Denný program", text: "Plán aktivít na deň aj týždeň, kto sa zúčastnil a čo sa menilo." },
-        { title: "Individuálne plány", text: "Ciele a záznamy ku každému klientovi, pripravené na kontrolu." },
-        { title: "Hlásenia a podklady", text: "Prijímatelia a zmeny nahlásené v lehotách, podklady pre zriaďovateľa a od roku 2027 aj pre príspevok na odkázanosť." },
+        { title: "Dochádzka klientov", text: "Príchod a odchod jedným klepnutím. Z dochádzky vzniká podklad pre úhrady aj pre štvrťročné zúčtovanie finančného príspevku na ambulantnú formu služby." },
+        { title: "Individuálny plán a záznamy", text: "Individuálny plán pre každého prijímateľa (§ 9 zákona 448/2008 Z. z.), jeho prehodnocovanie a záznamy o priebehu služby, pripravené na dozor Inšpekcie v sociálnych veciach." },
+        { title: "Denný program", text: "Plán aktivít na deň aj týždeň, kto sa zúčastnil a čo sa menilo, bez prepisovania do zošita." },
+        { title: "IS SoS a podklady pre zriaďovateľa", text: "Zápis prijímateľov a zmien do IS SoS do 15 dní, prevádzkové a finančné údaje pre zriaďovateľa a od roku 2027 vyúčtovanie na klienta pre príspevok na pomoc pri odkázanosti." },
       ],
     },
     audience: {
@@ -98,7 +101,7 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
         "Ekonómka a zriaďovateľ: podklady k vyúčtovaniu bez prepisovania",
       ],
     },
-    changes: SOCIAL_CHANGES("Stacionár", "dni a hodiny"),
+    changes: SOCIAL_CHANGES("Stacionár", "dni"),
     contact: contact("Alma Stacionár", "stacionáre"),
   },
   {
@@ -111,12 +114,12 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
     solves: {
       title: "Čo bude Alma Pobytové riešiť",
       lead: "Štyri veci, ktoré dnes berú pobytovému zariadeniu najviac času.",
-      note: "Zoznam vychádza z rozhovorov s poskytovateľmi a z toho, čo už funguje v Alma ADOS. Poradie a detaily upresníme v pilote.",
+      note: SOURCE_NOTE,
       items: [
-        { title: "Karta klienta", text: "Zmluva, stupeň odkázanosti, kontakty na rodinu a história na jednom mieste." },
-        { title: "Lieky a strava", text: "Podávanie liekov a diéty podľa dňa, s potvrdením, kto a kedy." },
-        { title: "Úhrady", text: "Mesačné úhrady, vratky za neprítomnosť a podklady pre ekonómku." },
-        { title: "Odovzdávanie služby", text: "Čo sa stalo na zmene a čo treba sledovať, bez papierovej knihy hlásení." },
+        { title: "Karta klienta a individuálny plán", text: "Zmluva, stupeň odkázanosti, kontakty na rodinu a individuálny plán, ktorý zákon pre zariadenia pre seniorov a DSS vyžaduje (§ 9 zákona 448/2008 Z. z.), s pravidelným prehodnocovaním." },
+        { title: "Lieky a ošetrovateľské záznamy", text: "Podávanie liekov a ošetrovateľská starostlivosť v zariadení s potvrdením, kto a kedy, rovnako ako pri návšteve v Alma ADOS." },
+        { title: "Úhrady a neprítomnosť", text: "Mesačné úhrady podľa zmluvy, vratky za dni mimo zariadenia a podklady pre ekonómku a zriaďovateľa." },
+        { title: "Odovzdávanie služby a IS SoS", text: "Čo sa stalo na zmene a čo treba sledovať, bez papierovej knihy hlásení. Zápis prijímateľov do IS SoS do 15 dní a od roku 2027 vyúčtovanie pre príspevok na pomoc pri odkázanosti." },
       ],
     },
     audience: {
@@ -128,7 +131,7 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
         "Ekonómka: úhrady a vratky bez prepisovania",
       ],
     },
-    changes: SOCIAL_CHANGES("Zariadenie", "pobyt"),
+    changes: SOCIAL_CHANGES("Zariadenie", "pobyt a úhradu"),
     contact: contact("Alma Pobytové", "zariadenia"),
   },
   {
@@ -141,7 +144,7 @@ export const PRODUCT_CONTENT: readonly ProductContent[] = [
     solves: {
       title: "Čo bude Alma Služby a pomôcky riešiť",
       lead: "Štyri veci, ktoré dnes pacient a rodina vybavujú telefonátmi.",
-      note: "Zoznam vychádza z rozhovorov s poskytovateľmi a rodinami. Poradie a detaily upresníme v pilote.",
+      note: "Zoznam vychádza z toho, čo pacienti a rodiny dnes riešia telefonátmi s agentúrou, a z toho, čo už funguje v Alma ADOS. Poradie a detaily upresníme v pilote.",
       items: [
         { title: "Prehľad o sebe", text: "Kedy príde sestra alebo opatrovateľka a čo sa pri poslednej návšteve robilo." },
         { title: "Pomôcky", text: "Požičanie alebo kúpa pomôcok, ktoré starostlivosť potrebuje, bez telefonátov." },

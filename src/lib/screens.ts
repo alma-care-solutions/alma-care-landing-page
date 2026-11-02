@@ -1,47 +1,40 @@
 /*
-  Real screenshots of Alma ADOS used as illustrations for the other products: the crop is chosen so that the
-  agency name and the ADOS navigation stay out of the frame. Focus = point of the image (in %) to zoom into.
+  Real screenshots of Alma ADOS used, whole and uncropped, as illustrations for the products in development:
+  always a screen whose module the product will share with ADOS (plan of visits, overview of the day,
+  statistics, intake from documents). Phone screens are shown in the phone frame, web screens in the browser frame.
 */
 export type ScreenSpec = {
+  kind: "web" | "phone";
   src: string;
   alt: string;
-  /** Point of interest in % of the image (x, y) */
-  focus: [number, number];
-  /** Zoom around the focus point (1 = whole image, object-fit cover) */
-  zoom: number;
 };
 
 export const PRODUCT_SCREENS: Record<string, ScreenSpec> = {
   ados: {
+    kind: "web",
     src: "/images/web-planning-2610.png",
     alt: "Webová aplikácia Alma ADOS, Plánovanie: týždeň návštev podľa sestier",
-    focus: [50, 0],
-    zoom: 1,
   },
   dos: {
+    kind: "phone",
     src: "/images/phone-plan-2610.png",
-    alt: "Ilustračná obrazovka z aplikácie Alma: plán návštev na deň v telefóne",
-    focus: [50, 46],
-    zoom: 1.15,
+    alt: "Plán návštev na deň v telefóne: obrazovka z aplikácie Alma, ktorú bude používať aj opatrovateľská služba",
   },
   stacionar: {
+    kind: "web",
     src: "/images/web-stats-overview-2610.png",
-    alt: "Ilustračná obrazovka z aplikácie Alma: mesačný prehľad návštev a plnenia plánu",
-    focus: [62, 36],
-    zoom: 1.7,
+    alt: "Mesačný prehľad a plnenie plánu: obrazovka z aplikácie Alma, ktorú bude používať aj stacionár",
   },
   pobytove: {
+    kind: "web",
     src: "/images/web-intake-2610.png",
-    alt: "Ilustračná obrazovka z aplikácie Alma: nový klient z dokumentov",
-    focus: [62, 30],
-    zoom: 1.7,
+    alt: "Nový klient z dokumentov: obrazovka z aplikácie Alma, ktorú bude používať aj pobytové zariadenie",
   },
   "sluzby-a-pomocky": {
+    kind: "phone",
     src: "/images/phone-today-2610.png",
-    alt: "Ilustračná obrazovka z aplikácie Alma: prehľad dňa v telefóne",
-    focus: [50, 34],
-    zoom: 1.2,
+    alt: "Prehľad dňa v telefóne: obrazovka z aplikácie Alma",
   },
 };
 
-export const ILLUSTRATION_NOTE = "Ilustračná obrazovka z aplikácie Alma. Obrazovky produktu doplníme v pilote.";
+export const ILLUSTRATION_NOTE = "Obrazovka z aplikácie Alma ADOS; tento modul bude súčasťou aj tohto produktu.";

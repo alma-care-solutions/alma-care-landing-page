@@ -39,7 +39,7 @@ export function Products() {
               <Button href={ADOS.href} variant="secondary" size="M" arrow>
                 Pozrieť Alma ADOS
               </Button>
-              <BrochureButton size="M" />
+              <BrochureButton size="M" highlight />
             </div>
           </div>
           <PaperCompare />

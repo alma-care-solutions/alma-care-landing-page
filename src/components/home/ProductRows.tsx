@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { cx } from "@/lib/cx";
 import type { Product } from "@/lib/nav";
-import { ScreenCrop } from "@/components/ui/ScreenCrop";
-import { PRODUCT_SCREENS, ILLUSTRATION_NOTE } from "@/lib/screens";
+import { ProductScreen } from "@/components/ui/ScreenCrop";
+import { ILLUSTRATION_NOTE } from "@/lib/screens";
 
 /*
   Products in development as plain rows (Figma Alma · Home › Produkty › Zoznam). Hovering a row shows
@@ -54,13 +54,10 @@ export function ProductRows({ products }: { products: readonly Product[] }) {
 
       {/* Preview (desktop) */}
       <div aria-hidden="true" className="hidden lg:block">
-        <div className="sticky top-28 flex flex-col overflow-hidden rounded-16 border border-border-default">
-          <ScreenCrop
-            key={shown.slug}
-            spec={PRODUCT_SCREENS[shown.slug]}
-            sizes="300px"
-            className="aspect-[300/190] w-full animate-[fade-in_0.3s_ease-out]"
-          />
+        <div className="sticky top-28 flex flex-col overflow-hidden rounded-16 border border-border-default bg-bg-page">
+          <div key={shown.slug} className="animate-[fade-in_0.3s_ease-out] p-3">
+            <ProductScreen slug={shown.slug} sizes="280px" />
+          </div>
           <div className="flex flex-col gap-1.5 border-t border-border-default bg-bg-page p-4">
             <p className="text-label-s text-text-primary">{shown.name}</p>
             <p key={shown.slug} className="text-body-s text-text-secondary animate-[fade-in_0.3s_ease-out]">

@@ -73,10 +73,11 @@ export function productBySlug(slug: string) {
   return PRODUCTS.find((p) => p.slug === slug);
 }
 
-/* Menu links next to the Produkty dropdown. "O Alme" lives on the home page, "Kontakt" is on every page. */
+/* Menu links next to the Produkty dropdown; the contact form is reached through the header CTA "Dohodnúť si ukážku" */
 export const NAV_LINKS = [
+  { href: "/ados#pilotny-program", label: "Pilotný program" },
+  { href: "/#rok-2027", label: "Rok 2027" },
   { href: "/#o-alme", label: "O Alme" },
-  { href: "#kontakt", label: "Kontakt" },
 ] as const;
 
 /* Home page sections watched for the active menu item */

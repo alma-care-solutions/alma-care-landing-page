@@ -43,10 +43,8 @@ export function HomeHero() {
                 </span>
               </h1>
               <p className="max-w-[760px] text-body-l text-text-secondary lg:text-lead">
-                Alma je softvér pre agentúry a zariadenia, ktoré poskytujú starostlivosť: domácu ošetrovateľskú,
-                opatrovateľskú, v stacionároch aj v pobytových zariadeniach. Súčasťou je aj pacient: vidí prehľad o
-                svojej starostlivosti a môže si požičať alebo dokúpiť pomôcky a služby navyše. Prvý produkt, Alma
-                ADOS, beží od októbra 2026 v pilote.
+                Softvér pre agentúry a zariadenia, ktoré poskytujú starostlivosť doma, v stacionároch aj v pobytových
+                zariadeniach, a pre ich pacientov. Prvý produkt, Alma ADOS, beží od októbra 2026 v pilote.
               </p>
               <div className="flex w-full flex-col items-stretch gap-3 pt-2 lg:w-auto lg:flex-row lg:items-center">
                 <Button href="/ados" arrow>
