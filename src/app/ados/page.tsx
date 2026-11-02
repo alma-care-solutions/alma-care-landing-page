@@ -19,7 +19,7 @@ import { ADOS, ADOS_SECTION_IDS, ADOS_SECTION_LINKS } from "@/lib/nav";
 import { BRAND } from "@/lib/brand";
 
 const DESCRIPTION =
-  "Vyvíjame moderný systém pre agentúry domácej ošetrovateľskej starostlivosti, ktorý prepája prácu sestier v teréne s plánovaním, dokumentáciou a administratívou v kancelárii.";
+  "Alma ADOS prepája prácu sestry v teréne s plánovaním, dokumentáciou a administratívou agentúry. Od októbra 2026 beží v pilote, predaj plánujeme v roku 2027.";
 
 export const metadata: Metadata = {
   title: `${BRAND.name} | Systém pre agentúry domácej starostlivosti`,

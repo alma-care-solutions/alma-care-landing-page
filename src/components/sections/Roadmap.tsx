@@ -6,9 +6,9 @@ type Step = { title: string; meta: string; state: "done" | "current" | "todo" };
 
 const STEPS: Step[] = [
   { title: "Návrh a dizajn", meta: "hotovo", state: "done" },
-  { title: "Vývoj", meta: "2026", state: "done" },
-  { title: "Pilotné overenie", meta: "2026 / 2027", state: "current" },
-  { title: "Verejné spustenie", meta: "2027", state: "todo" },
+  { title: "Vývoj", meta: "2026 · hotovo", state: "done" },
+  { title: "Pilotné overenie", meta: "od októbra 2026", state: "current" },
+  { title: "Predaj", meta: "2027", state: "todo" },
 ];
 
 export function Roadmap() {
@@ -18,16 +18,18 @@ export function Roadmap() {
         <div className="gsap-reveal flex flex-col gap-10 rounded-[20px] border border-accent bg-bg-surface p-6 sm:p-10 lg:gap-14 lg:rounded-[28px] lg:p-[72px]">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-20">
             <div className="flex flex-col items-start gap-5 lg:w-[520px] lg:gap-6">
-              <Badge variant="planned">Pilotný program · 2026/2027</Badge>
+              <Badge variant="success">V pilote · od októbra 2026</Badge>
               <h2 className="text-mobile-h2 text-text-primary lg:text-h2">
                 Nechceme systém pre ADOS navrhovať od stola.
               </h2>
             </div>
             <div className="flex flex-col gap-4 text-body-m lg:w-[456px] lg:text-body-l">
-              <p className="text-text-secondary">Produkt je momentálne vo fáze návrhu, vývoja a overovania.</p>
+              <p className="text-text-secondary">
+                Alma ADOS beží v pilote u prvého partnera. Predaj plánujeme v roku 2027.
+              </p>
               <p className="font-medium text-text-primary">
-                Nehľadáme zákazníkov pre hotový produkt. Hľadáme partnerov, ktorí nám pomôžu vytvoriť
-                produkt, ktorý bude dávať zmysel v každodennej praxi.
+                Funkcie dolaďujeme podľa toho, čo sestry v teréne používajú každý deň. Ďalšie agentúry
+                zapíšeme medzi prvých.
               </p>
             </div>
           </div>
@@ -36,7 +38,7 @@ export function Roadmap() {
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="text-label-m text-text-primary">Kde sme dnes</h3>
               {/* Update the date with every roadmap change */}
-              <p className="text-caption text-text-tertiary">Naposledy aktualizované: 12. 10. 2026</p>
+              <p className="text-caption text-text-tertiary">Naposledy aktualizované: 2. 11. 2026</p>
             </div>
             <ol className="relative flex flex-col gap-6 sm:grid sm:grid-cols-4 sm:gap-4">
               {/* Line + progress (desktop) */}

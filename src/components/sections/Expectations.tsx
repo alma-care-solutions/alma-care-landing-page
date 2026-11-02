@@ -8,7 +8,6 @@ const NEED = [
 ];
 
 const GAIN = [
-  "Bezplatné používanie systému počas pilotu aj istý čas po spustení",
   "Priamy vplyv na to, ako bude produkt fungovať",
   "Skorý prístup k prototypom a pilotným verziám",
   "Možnosť navrhovať zlepšenia podľa vlastnej praxe",
@@ -21,7 +20,7 @@ export function Expectations() {
       <div className="container-page grid gap-4 lg:grid-cols-2 lg:gap-6">
         <div className="gsap-reveal flex flex-col gap-6 rounded-[20px] border border-border-default bg-bg-surface p-6 sm:p-8 lg:gap-7 lg:p-10">
           <div className="flex flex-col gap-2">
-            <h2 className="text-h3 text-text-primary">Čo od pilotného partnera potrebujeme</h2>
+            <h2 className="text-h3 text-text-primary">Čo od pilotnej agentúry potrebujeme</h2>
             <p className="text-body-m text-text-secondary">
               Nie plný úväzok, skôr ochotu občas sa pozrieť na to, čo pripravujeme, a povedať nám, kde
               to nesedí s praxou.
@@ -35,9 +34,10 @@ export function Expectations() {
         </div>
         <div className="gsap-reveal flex flex-col gap-6 rounded-[20px] border border-border-dark bg-bg-dark p-6 sm:p-8 lg:gap-7 lg:p-10">
           <div className="flex flex-col gap-2">
-            <h2 className="text-h3 text-text-inverse">Čo pilotný partner získa</h2>
+            <h2 className="text-h3 text-text-inverse">Čo pilotná agentúra získa</h2>
             <p className="text-body-m text-text-inverse-muted">
-              Dĺžku bezplatného obdobia a ďalšie podmienky dohodneme individuálne.
+              Podmienky spolupráce pri predaji dohodneme individuálne. Nesľubujeme nič, čo dnes nevieme
+              garantovať.
             </p>
           </div>
           <ul className="flex flex-col gap-3.5">

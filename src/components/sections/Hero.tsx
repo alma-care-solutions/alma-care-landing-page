@@ -24,7 +24,7 @@ export function Hero() {
             className="flex w-full max-w-[880px] flex-col items-start gap-5 text-left lg:items-center lg:gap-6 lg:text-center"
           >
             <Badge variant="success" pulse>
-              V pilote · predaj 2027
+              V pilote s Arcidiecéznou charitou Košice · predaj 2027
             </Badge>
             <h1 className="text-mobile-h1 text-text-primary lg:text-display">
               Čas patrí pacientom.{" "}
@@ -32,20 +32,19 @@ export function Hero() {
               Nie papierom.
             </h1>
             <p className="max-w-[760px] text-body-l text-text-secondary lg:text-lead">
-              Vyvíjame moderný systém pre agentúry domácej ošetrovateľskej starostlivosti, ktorý
-              prepája prácu sestier v teréne s plánovaním, dokumentáciou a administratívou v kancelárii.
+              Alma ADOS prepája prácu sestry v teréne s plánovaním, dokumentáciou a administratívou
+              agentúry. Od októbra 2026 beží v pilote.
             </p>
             <div className="flex w-full flex-col items-stretch gap-3 pt-2 lg:w-auto lg:flex-row lg:items-center">
               <Button href="#kontakt" focusTarget="#pilot-form [name='name']" arrow>
-                Zapojiť sa do pilotu
+                Dohodnúť si ukážku
               </Button>
               <Button href="#produkt" variant="secondary">
                 Pozrieť, ako to funguje
               </Button>
             </div>
-            {/* TODO: "3 – 5" is a proposal, adjust to the real capacity */}
             <p className="max-w-[640px] text-body-s text-text-tertiary">
-              Hľadáme 3 až 5 ADOS, ktoré s nami produkt navrhnú a overia v praxi ešte pred spustením.
+              Pilot beží od októbra 2026. Ďalšie agentúry zapíšeme medzi prvých pre predaj v roku 2027.
             </p>
           </div>
 

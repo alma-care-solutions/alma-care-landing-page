@@ -5,21 +5,21 @@ import { PlusField } from "@/components/ui/PlusField";
 const STEPS = [
   {
     number: "01",
-    title: "Spoznáme vaše fungovanie",
+    title: "Spoznali sme fungovanie agentúry",
     description:
-      "Ukážete nám, ako dnes plánujete návštevy, pracujete v teréne, vediete dokumentáciu a pripravujete podklady pre vykazovanie.",
+      "Prešli sme s partnerom, ako plánuje návštevy, pracuje v teréne, vedie dokumentáciu a pripravuje podklady pre vykazovanie.",
   },
   {
     number: "02",
-    title: "Zapojíme vás do vývoja",
+    title: "Dolaďujeme podľa terénu",
     description:
-      "Budeme s vami konzultovať, ako má práca v systéme prebiehať, a priebežne vám ukazovať pripravovaný produkt.",
+      "Sestry a vedenie agentúry vidia nové funkcie ako prvé. Ich pripomienky sa menia na úpravy v ďalšej verzii.",
   },
   {
     number: "03",
-    title: "Overíme systém v praxi",
+    title: "Overujeme v praxi",
     description:
-      "Keď bude pilotná verzia pripravená, vybrané ADOS ju budú môcť vyskúšať a poskytnúť nám spätnú väzbu pred verejným spustením.",
+      "Od októbra 2026 beží Alma ADOS v každodennej prevádzke. Ďalšie agentúry zapíšeme medzi prvých pre predaj v roku 2027.",
   },
 ];
 
@@ -34,8 +34,8 @@ export function PilotSteps() {
       <div className="container-page relative flex flex-col gap-10 pb-8 pt-12 lg:gap-16 lg:pb-24 lg:pt-32">
         <SectionHeader
           eyebrow="Pilotný program"
-          title="Ako prebieha pilotná spolupráca"
-          lead="Tri kroky. Konkrétny termín pilotnej verzie dohodneme s každým partnerom individuálne."
+          title="Ako prebieha pilot"
+          lead="Tri kroky, ktorými s pilotným partnerom prechádzame. Rovnako budeme postupovať s ďalšími agentúrami pred predajom."
         />
         <ol className="grid gap-4 md:grid-cols-3 lg:gap-6">
           {STEPS.map((s) => (

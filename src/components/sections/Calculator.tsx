@@ -100,7 +100,7 @@ export function Calculator() {
         <SectionHeader
           eyebrow="Kalkulačka"
           title="Koľko času dnes berie dopisovanie dokumentácie po návštevách?"
-          lead="Zadajte približné čísla vašej ADOS. Skutočné hodnoty chceme zmerať v pilote."
+          lead="Zadajte približné čísla vašej ADOS. Skutočné hodnoty meriame v pilote."
         />
 
         <div className="gsap-reveal grid gap-3 rounded-[20px] border border-border-default bg-bg-surface p-2 shadow-[0_24px_48px_-12px_rgba(20,23,31,0.08)] sm:p-3 lg:grid-cols-[1fr_440px] lg:rounded-[24px]">
@@ -160,7 +160,7 @@ export function Calculator() {
                 <span className="text-body-m text-text-inverse-muted">{hoursWord(saved)} mesačne späť</span>
               </p>
               <p className="text-caption text-text-inverse-muted">
-                Konzervatívny predpoklad. Či je reálny, overíme s pilotnými partnermi v teréne.
+                Konzervatívny predpoklad. Či je reálny, overujeme v pilote v teréne.
               </p>
             </div>
 

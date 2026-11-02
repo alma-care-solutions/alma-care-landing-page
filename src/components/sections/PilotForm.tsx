@@ -43,7 +43,7 @@ function SubmitButton() {
       aria-disabled={pending}
       className="w-full whitespace-normal text-center"
     >
-      {pending ? "Odosielam…" : "Mám záujem o pilot"}
+      {pending ? "Odosielam…" : "Dohodnúť si ukážku"}
     </Button>
   );
 }
@@ -122,7 +122,7 @@ export function PilotForm() {
           Napíšte nám o svojej ADOS
         </h3>
         <p className="text-body-s text-text-secondary">
-          Vyplnenie trvá minútu. Odpovieme spravidla do niekoľkých pracovných dní.
+          Vyplnenie trvá minútu. Odpovieme do dvoch pracovných dní.
         </p>
       </div>
 
@@ -200,7 +200,7 @@ export function PilotForm() {
         onChange={() => clear("consent")}
         label={
           <>
-            Súhlasím so spracovaním osobných údajov na účely kontaktovania ohľadom pilotného programu.
+            Súhlasím so spracovaním osobných údajov na účely kontaktovania ohľadom ukážky Alma ADOS.
             Viac v{" "}
             <Link
               href="/ochrana-osobnych-udajov"

@@ -7,10 +7,10 @@ import { PilotForm } from "@/components/sections/PilotForm";
 const FACTS: { icon: IconName; text: string; small?: boolean }[] = [
   {
     icon: "message-square",
-    text: "Ozveme sa vám, dohodneme si krátky úvodný rozhovor a ukážeme, na čom pracujeme.",
+    text: "Ozveme sa vám, dohodneme si krátky úvodný rozhovor a ukážeme, ako Alma ADOS funguje u pilotného partnera.",
   },
-  { icon: "shield-check", text: "Rozsah spolupráce nastavíme spoločne." },
-  { icon: "eye", text: "Vaše údaje použijeme len na kontaktovanie ohľadom pilotného programu." },
+  { icon: "shield-check", text: "Nezaväzujete sa k ničomu. Rozsah spolupráce nastavíme spoločne." },
+  { icon: "eye", text: "Vaše údaje použijeme len na dohodnutie ukážky a informovanie o Alma ADOS." },
   {
     icon: "users",
     text: `Produkt vyvíja spoločnosť ${CONTACT.company} a na úvodnom rozhovore vám radi predstavíme tím aj plán.`,
@@ -43,16 +43,16 @@ export function Contact() {
       <div className="container-page relative flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-24">
         <div className="flex flex-col items-start gap-6 lg:w-[560px] lg:shrink-0 lg:gap-7">
           <Eyebrow variant="dark" className="gsap-reveal">
-            Zapojte sa
+            Kontakt
           </Eyebrow>
           <h2 className="gsap-reveal text-mobile-h2 text-text-inverse lg:text-h2">
             Prevádzkujete ADOS?
             <br />
-            Navrhnime systém spolu.
+            Dohodnime si ukážku.
           </h2>
           <p className="gsap-reveal max-w-[520px] text-body-m text-text-inverse-muted lg:text-body-l">
-            Hľadáme pilotných partnerov, ktorí nám pomôžu overiť pripravovaný systém na reálnych
-            procesoch domácej ošetrovateľskej starostlivosti.
+            Alma ADOS beží v pilote. Ukážeme vám ho na vašich procesoch a zapíšeme vás medzi prvých pre
+            predaj v roku 2027.
           </p>
           <ul className="gsap-reveal flex flex-col gap-3 pt-3">
             {FACTS.map((f) => (

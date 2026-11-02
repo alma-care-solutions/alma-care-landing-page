@@ -16,8 +16,8 @@ const FAQ = [
     a: "Nie. Pracujeme s ukážkovými údajmi. Od vás potrebujeme skúsenosti z praxe a spätnú väzbu k návrhom, nie údaje o pacientoch.",
   },
   {
-    q: "Koľko bude systém stáť po spustení?",
-    a: "Cenu dnes nemáme stanovenú. Podmienky pre pilotných partnerov dohodneme individuálne ešte pred verejným spustením.",
+    q: "Koľko bude Alma ADOS stáť?",
+    a: "Cenu zverejníme pred predajom v roku 2027. Agentúry, ktoré sa zapoja počas pilotu, dostanú podmienky individuálne.",
   },
   {
     q: "Nahradí AI prácu sestry pri dokumentácii?",
@@ -25,7 +25,7 @@ const FAQ = [
   },
   {
     q: "Bude aplikácia fungovať aj bez signálu?",
-    a: "Áno. Záznamy z návštevy sa uložia v telefóne a odošlú sa, keď je signál. V teréne je práca bez signálu bežná, preto správanie offline režimu ešte dolaďujeme s pilotnými partnermi.",
+    a: "Áno. Záznamy z návštevy sa uložia v telefóne a odošlú sa, keď je signál. V teréne je práca bez signálu bežná, preto správanie offline režimu dolaďujeme v pilote.",
   },
   {
     q: "Bude systém napojený na poisťovne?",
