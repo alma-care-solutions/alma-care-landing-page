@@ -34,7 +34,7 @@ export const PRODUCTS: readonly Product[] = [
     summary:
       "Opatrovateľská služba a hospice: rozpis návštev, potvrdenie príchodu, úkony podľa zákona a podklady pre obec aj príspevok na odkázanosť.",
     status: "dev",
-    statusLabel: "Vo vývoji · 2027",
+    statusLabel: "Vo vývoji · predaj 2027",
     href: "/dos",
   },
   {
@@ -43,7 +43,7 @@ export const PRODUCTS: readonly Product[] = [
     audience: "Denné stacionáre",
     summary: "Denné stacionáre: dochádzka, denný program, individuálne plány a hlásenia do IS SoS.",
     status: "dev",
-    statusLabel: "Vo vývoji · 2027",
+    statusLabel: "Vo vývoji · predaj 2027",
     href: "/stacionar",
   },
   {
@@ -52,7 +52,7 @@ export const PRODUCTS: readonly Product[] = [
     audience: "Zariadenia pre seniorov, DSS",
     summary: "Zariadenia pre seniorov a DSS: karta klienta, lieky, strava, úhrady a odovzdávanie služby.",
     status: "dev",
-    statusLabel: "Vo vývoji · 2027",
+    statusLabel: "Vo vývoji · predaj 2027",
     href: "/pobytove",
   },
   {
@@ -62,7 +62,7 @@ export const PRODUCTS: readonly Product[] = [
     summary:
       "Pre pacienta a rodinu: prehľad o vlastnej starostlivosti, požičanie alebo dokúpenie pomôcok a služieb navyše.",
     status: "dev",
-    statusLabel: "Vo vývoji · 2027",
+    statusLabel: "Vo vývoji · predaj 2027",
     href: "/sluzby-a-pomocky",
   },
 ] as const;
@@ -95,7 +95,7 @@ export const ADOS_SECTION_IDS = ["produkt", "pre-sestry", "pre-ados", "kalkulack
 
 export const CONTACT = {
   company: "Alma Care Solutions s. r. o.",
-  email: "info@mail.alma-care.eu",
+  email: "info@alma-care.eu",
 } as const;
 
 /* Pilot partner of Alma ADOS (named once per page, with its logo) */

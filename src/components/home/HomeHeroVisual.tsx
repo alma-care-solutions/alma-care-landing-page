@@ -11,15 +11,15 @@ import { PreviewLabel } from "@/components/ui/PreviewLabel";
 /*
   Real Alma ADOS screens in the home hero, with four behaviours:
   - the phone cycles through three real screens until the visitor taps it (idea 2),
-  - a tap on "Začať návštevu" starts the visit: the phone shows the ongoing visit and the web switches to
-    "Dnes" with the nurse's row highlighted (idea 11),
+  - a tap on "Začať návštevu" starts the visit: the phone shows the ongoing visit and the web gets the
+    notification about the same visit (Pavol Novotný, 10:10, nurse Monika), so both screens tell one story (idea 11),
   - the browser tilts a few degrees towards the cursor (idea 9),
   - a magnifier over the browser lets the visitor read the real rows (idea 13).
   Tilt and magnifier run only with a fine pointer and without reduced motion.
 */
 const PHONE_CYCLE = [
   { src: "/images/phone-today-2610.png", alt: "Aplikácia pre sestry: dnešný deň s poradím návštev" },
-  { src: "/images/phone-plan-2610.png", alt: "Aplikácia pre sestry: plán návštev" },
+  { src: "/images/phone-plan-2610.png", alt: "Aplikácia pre sestry: plán návštev na deň" },
   {
     src: "/images/phone-visit-detail-2610.png",
     alt: "Aplikácia pre sestry: detail návštevy pred začatím s pacientom, plánovanými výkonmi a tlačidlom Začať návštevu",
@@ -29,17 +29,10 @@ const PHONE_ONGOING = {
   src: "/images/phone-visit-ongoing-2610.png",
   alt: "Aplikácia pre sestry: prebiehajúca návšteva so záznamom výkonov",
 };
-const WEB_PLANNING = {
+const WEB = {
   src: "/images/web-planning-2610.png",
   aspect: 2400 / 1633,
-  left: false,
   alt: "Webová aplikácia Alma ADOS, Plánovanie: týždeň návštev rozdelený podľa sestier s časmi, kódmi výkonov a menami pacientov",
-};
-const WEB_TODAY = {
-  src: "/images/web-dnes-2610.png",
-  aspect: 2400 / 1099,
-  left: true,
-  alt: "Webová aplikácia Alma ADOS, Dnes: sestry v teréne, stav ich návštev a mapa",
 };
 const CYCLE_MS = 3600;
 const TAP_INDEX = 2; // the visit detail screen with the "Začať návštevu" button
@@ -82,7 +75,7 @@ export function HomeHeroVisual() {
     const ry = (((e.clientX - tr.left) / tr.width - 0.5) * 7).toFixed(2);
     tilt.style.transform = `perspective(1600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
 
-    // Magnifier over the screenshot area (below the browser chrome)
+    // Magnifier over the screenshot area (below the browser chrome); object-cover object-top centres horizontally
     const r = box.getBoundingClientRect();
     const x = e.clientX - r.left;
     const y = e.clientY - r.top;
@@ -90,23 +83,21 @@ export function HomeHeroVisual() {
       setLensOn(false);
       return;
     }
-    const web = started ? WEB_TODAY : WEB_PLANNING;
     const boxAspect = r.width / r.height;
     let w: number;
     let h: number;
     let ox = 0;
-    if (web.aspect >= boxAspect) {
-      // object-cover crops horizontally: object-top centres, object-left-top keeps the left edge
+    if (WEB.aspect >= boxAspect) {
       h = r.height;
-      w = h * web.aspect;
-      ox = web.left ? 0 : (r.width - w) / 2;
+      w = h * WEB.aspect;
+      ox = (r.width - w) / 2;
     } else {
       w = r.width;
-      h = w / web.aspect;
+      h = w / WEB.aspect;
     }
     lens.style.left = `${x - LENS / 2}px`;
     lens.style.top = `${y - LENS / 2}px`;
-    lens.style.backgroundImage = `url(${web.src})`;
+    lens.style.backgroundImage = `url(${WEB.src})`;
     lens.style.backgroundSize = `${w * ZOOM}px ${h * ZOOM}px`;
     lens.style.backgroundPosition = `${-((x - ox) * ZOOM - LENS / 2)}px ${-(y * ZOOM - LENS / 2)}px`;
     setLensOn(true);
@@ -120,7 +111,7 @@ export function HomeHeroVisual() {
   return (
     <figure data-hero="visual" className="flex w-full max-w-[1200px] flex-col items-center gap-5 self-center">
       <div className="relative w-full aspect-[1000/900] sm:aspect-[1200/718]">
-        {/* Browser: Plánovanie, after the tap Dnes with the nurse's row highlighted */}
+        {/* Browser: Plánovanie; after the tap it receives the notification about the started visit */}
         <div
           data-hero="browser"
           className="absolute left-[-12%] top-0 w-[124%] max-w-none sm:left-0 sm:w-[86.667%]"
@@ -134,35 +125,37 @@ export function HomeHeroVisual() {
             <BrowserFrame>
               <div ref={imgBoxRef} className={cx("relative aspect-[1200/780] w-full", fine && "cursor-zoom-in")}>
                 <Image
-                  src={WEB_PLANNING.src}
-                  alt={WEB_PLANNING.alt}
+                  src={WEB.src}
+                  alt={WEB.alt}
                   fill
                   priority
+                  quality={90}
                   sizes="(min-width: 1280px) 1040px, 124vw"
-                  className={cx("object-cover object-top transition-opacity duration-500", started && "opacity-0")}
+                  className="object-cover object-top"
                 />
-                <Image
-                  src={WEB_TODAY.src}
-                  alt={WEB_TODAY.alt}
-                  fill
-                  sizes="(min-width: 1280px) 1040px, 124vw"
-                  className={cx("object-cover object-left-top transition-opacity duration-500", !started && "opacity-0")}
-                  aria-hidden={!started}
-                />
-                {/* Highlight of the nurse's row in "Sestry dnes" (position relative to the cropped Dnes screenshot) */}
+                {/* Notification in the web app about the visit started on the phone (same patient, time and nurse) */}
                 <div
-                  aria-hidden="true"
+                  role="status"
+                  aria-hidden={!started}
                   className={cx(
-                    "pointer-events-none absolute transition-opacity duration-500",
-                    started ? "opacity-100 delay-300" : "opacity-0",
+                    "absolute right-[2.5%] top-[4%] w-[38%] min-w-[220px] rounded-12 bg-bg-surface p-3 shadow-[0_16px_40px_rgba(20,23,31,0.22)] ring-1 ring-border-default transition-all duration-500",
+                    started ? "translate-y-0 opacity-100 delay-300" : "pointer-events-none -translate-y-2 opacity-0",
                   )}
-                  style={{ left: "16.4%", top: "61.6%", width: "76.6%", height: "5.4%" }}
                 >
-                  <span className="absolute inset-0 rounded-8 bg-accent/10 ring-2 ring-accent" />
-                  <span className="absolute -top-8 left-0 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-accent px-2.5 py-1 text-[11px] font-medium leading-none text-text-inverse shadow-[0_6px_16px_rgba(20,23,31,0.25)]">
-                    <span className="size-1.5 rounded-full bg-text-inverse" />
-                    Návšteva práve začala
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex size-2">
+                      <span className="absolute inset-0 rounded-full bg-status-success animate-ping-slow" />
+                      <span className="relative size-2 rounded-full bg-status-success" />
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.06em] text-status-success">
+                      Návšteva začala
+                    </span>
+                    <span className="ml-auto text-[11px] tabular-nums text-text-tertiary">10:10</span>
+                  </div>
+                  <p className="mt-1.5 text-[14px] font-semibold leading-tight text-text-primary">Pavol Novotný</p>
+                  <p className="mt-0.5 text-[12px] leading-snug text-text-secondary">
+                    Monika K. · 3407 Odmeranie TK, pulzu a teploty · 3423A Preväz rany
+                  </p>
                 </div>
                 {/* Magnifier */}
                 <div
@@ -202,6 +195,7 @@ export function HomeHeroVisual() {
                     alt={s.alt}
                     fill
                     sizes="(min-width: 1280px) 280px, 40vw"
+                    quality={90}
                     priority={i === 0}
                     className={cx(
                       "object-cover object-top transition-opacity duration-500",
@@ -215,6 +209,7 @@ export function HomeHeroVisual() {
                   alt={PHONE_ONGOING.alt}
                   fill
                   sizes="(min-width: 1280px) 280px, 40vw"
+                  quality={90}
                   className={cx("object-cover object-top transition-opacity duration-500", !started && "opacity-0")}
                   aria-hidden={!started}
                 />
@@ -239,7 +234,11 @@ export function HomeHeroVisual() {
                       "block h-full origin-left rounded-full bg-accent",
                       started ? "scale-x-0" : i < idx ? "scale-x-100" : i === idx ? "hero-cycle-fill" : "scale-x-0",
                     )}
-                    style={i === idx && !started ? { animationDuration: `${CYCLE_MS}ms`, animationPlayState: paused ? "paused" : "running" } : undefined}
+                    style={
+                      i === idx && !started
+                        ? { animationDuration: `${CYCLE_MS}ms`, animationPlayState: paused ? "paused" : "running" }
+                        : undefined
+                    }
                   />
                 </span>
               ))}

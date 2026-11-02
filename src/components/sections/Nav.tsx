@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
@@ -15,6 +14,8 @@ import { BrochureButton } from "@/components/ui/BrochureButton";
 import { Icon } from "@/components/ui/Icon";
 import { AnchorLink } from "@/components/ui/AnchorLink";
 import { BrowserFrame } from "@/components/ui/Browser";
+import { ScreenCrop } from "@/components/ui/ScreenCrop";
+import { PRODUCT_SCREENS } from "@/lib/screens";
 import { NAV_LINKS, PRODUCTS, CONTACT, type Product } from "@/lib/nav";
 import { BROCHURE } from "@/lib/brochure";
 import { handleAnchorClick } from "@/lib/scroll";
@@ -227,7 +228,7 @@ export function Nav({
                         <span className="truncate text-caption text-text-tertiary">{p.audience}</span>
                       </span>
                       <Badge variant={p.status === "pilot" ? "success" : "neutral"} className="shrink-0">
-                        {p.status === "pilot" ? "V pilote" : "2027"}
+                        {p.status === "pilot" ? "V pilote" : "predaj 2027"}
                       </Badge>
                     </Link>
                   </li>
@@ -379,7 +380,7 @@ function ProductsMenu({ active }: { active: boolean }) {
                     <span className="truncate text-caption text-text-tertiary">{p.audience}</span>
                   </span>
                   <Badge variant={p.status === "pilot" ? "success" : "neutral"} className="shrink-0">
-                    {p.status === "pilot" ? "V pilote" : "Vo vývoji · 2027"}
+                    {p.status === "pilot" ? "V pilote" : "Vo vývoji · predaj 2027"}
                   </Badge>
                 </Link>
               </li>
@@ -408,33 +409,13 @@ function ProductsMenu({ active }: { active: boolean }) {
   );
 }
 
-/* Preview tile in the dropdown: a real screenshot for the product in pilot, a hatched tile for products in development */
+/* Preview tile in the dropdown: the real Alma ADOS screen, for products in development a neutral crop of a real screen */
 export function ProductThumb({ product, className }: { product: Product; className?: string }) {
-  if (product.status === "pilot") {
-    return (
-      <BrowserFrame className={cx("shadow-[0_8px_20px_-8px_rgba(20,23,31,0.25)]", className)}>
-        <div className="relative aspect-[1200/780] w-full">
-          <Image
-            src="/images/web-planning-2610.png"
-            alt=""
-            fill
-            sizes="260px"
-            className="object-cover object-top"
-          />
-        </div>
-      </BrowserFrame>
-    );
-  }
+  const spec = PRODUCT_SCREENS[product.slug] ?? PRODUCT_SCREENS.ados;
   return (
-    <div
-      aria-hidden="true"
-      className={cx(
-        "flex aspect-[1200/780] w-full items-center justify-center rounded-12 border border-border-default bg-bg-surface bg-[repeating-linear-gradient(135deg,transparent_0_8px,var(--color-border-subtle)_8px_9px)]",
-        className,
-      )}
-    >
-      <span className="rounded-8 bg-bg-surface px-2.5 py-1 text-caption text-text-tertiary">vo vývoji · 2027</span>
-    </div>
+    <BrowserFrame className={cx("shadow-[0_8px_20px_-8px_rgba(20,23,31,0.25)]", className)}>
+      <ScreenCrop spec={spec} sizes="260px" className="aspect-[2400/1633] w-full" />
+    </BrowserFrame>
   );
 }
 

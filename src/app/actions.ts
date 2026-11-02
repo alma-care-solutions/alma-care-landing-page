@@ -7,7 +7,7 @@ import { rateLimited, tooFastOrStale, validateAlmaPayload, validatePayload } fro
 
 /*
   Server action for the Alma ADOS pilot program form.
-  Sends an e-mail to CONTACT_TO (default info@mail.alma-care.eu) plus a confirmation to the applicant,
+  Sends an e-mail to CONTACT_TO (default info@alma-care.eu) plus a confirmation to the applicant,
   then redirects to the success state. Spam is silently dropped (also redirects, so a bot learns nothing).
 */
 export async function submitPilotForm(formData: FormData) {

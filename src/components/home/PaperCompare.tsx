@@ -2,69 +2,87 @@
 
 import Image from "next/image";
 import { useId, useState } from "react";
+import { Caveat } from "next/font/google";
+import { cx } from "@/lib/cx";
+
+const hand = Caveat({ subsets: ["latin", "latin-ext"], weight: ["400", "600"], display: "swap" });
 
 /*
-  Paper / Alma comparison (idea 1): the same day and the same nurses. Left a handwritten daily roster
-  (illustration, until a real scanned form from the pilot partner is available), right the real
-  "Dnes" screen of Alma ADOS. The visitor drags the divider.
+  Paper / Alma comparison (idea 1): the same visit twice. Left a handwritten visit record on a printed form,
+  as nurses fill it in today (illustration following the usual form, until a real scan from the pilot partner
+  is available); right the real Vykazovanie screen of Alma ADOS where such records wait for approval.
+  The visit is the one from the hero phone: Pavol Novotný, 12. 10., 10:10, codes 3407 and 3423A.
 */
-const ROWS = [
-  { name: "Hojstričová", visits: "2 / 6", where: "Hornyáková?", note: "nevolala" },
-  { name: "Kmecová", visits: "2 / 3", where: "Horváth", note: "" },
-  { name: "Rigová", visits: "1 / 3", where: "Gecseová?", note: "volať!" },
-  { name: "Pastírová", visits: "2 / 4", where: "Balážová", note: "" },
-  { name: "Bérešová", visits: "2 / 4", where: "Nagyová", note: "" },
-  { name: "Zelenayová", visits: "1 / 5", where: "Čekanová?", note: "mešká" },
+const FIELDS: { label: string; value: string; wide?: boolean }[] = [
+  { label: "Pacient", value: "Novotný Pavol" },
+  { label: "Rok narodenia", value: "1952" },
+  { label: "Dátum návštevy", value: "12. 10. 2026" },
+  { label: "Čas od – do", value: "10:10 – 11:10" },
+  { label: "Diagnóza", value: "Z48.0 starostl. o chir. obväzy", wide: true },
+  { label: "Výkony (kód)", value: "3407, 3423A" },
+  { label: "TK / P / TT", value: "127/86 · 81 · 36,4" },
+  { label: "Rana", value: "pooperačná PDK 4×5 cm, bez sekrécie, preväz", wide: true },
+  { label: "Poznámka", value: "pacient nedopočuje – zvoniť dlhšie, kľúč u susedy", wide: true },
 ];
 
 export function PaperCompare() {
-  const [cut, setCut] = useState(48);
+  const [cut, setCut] = useState(50);
   const id = useId();
 
   return (
     <figure className="gsap-reveal flex w-full flex-col gap-3">
       <div
-        className="relative aspect-[16/10] w-full select-none overflow-hidden rounded-16 ring-1 ring-border-default"
+        className="relative aspect-[2400/1633] w-full select-none overflow-hidden rounded-16 bg-bg-muted ring-1 ring-border-default"
         style={{ ["--cut" as string]: `${cut}%` }}
       >
-        {/* Paper */}
-        <div aria-hidden="true" className="paper absolute inset-0 overflow-hidden p-[4%] text-[clamp(9px,1.9cqw,14px)] @container">
-          <div className="flex items-baseline justify-between border-b border-[#c9c0a3] pb-1">
-            <span className="text-[0.85em] font-semibold uppercase tracking-[0.08em] text-[#6b6450]">
-              Rozpis sestier · pondelok 12. 10.
-            </span>
-            <span className="paper-hand text-[1.1em]">strana 1/2</span>
-          </div>
-          <table className="paper-hand mt-[2%] w-full border-collapse text-[1.25em] leading-[1.9]">
-            <thead>
-              <tr className="text-[0.7em] uppercase tracking-[0.06em] text-[#6b6450] [font-family:var(--font-sans)]">
-                <th className="text-left font-semibold">Sestra</th>
-                <th className="text-left font-semibold">Návštevy</th>
-                <th className="text-left font-semibold">Kde je</th>
-                <th className="text-left font-semibold">Pozn.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ROWS.map((r, i) => (
-                <tr key={r.name} className={i % 2 ? "rotate-[0.2deg]" : "-rotate-[0.2deg]"}>
-                  <td>{r.name}</td>
-                  <td>{r.visits}</td>
-                  <td className={r.where.endsWith("?") ? "text-[#8a5a2b]" : ""}>{r.where}</td>
-                  <td className="text-[#a3342f]">{r.note}</td>
-                </tr>
+        {/* Paper: printed form with a handwritten record */}
+        <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#e9e6df] p-[3%] @container">
+          <div
+            className="relative h-full w-full -rotate-[0.6deg] overflow-hidden bg-[#fcfbf6] p-[3.5%] text-[clamp(7px,1.55cqw,12px)] text-[#3a3f4a] shadow-[0_6px_24px_rgba(30,30,30,0.18),0_1px_0_rgba(0,0,0,0.05)]"
+            style={{ backgroundImage: "radial-gradient(circle at 80% 10%, rgba(0,0,0,0.035), transparent 45%)" }}
+          >
+            <div className="flex items-start justify-between border-b-2 border-[#3a3f4a] pb-[1.5%]">
+              <div>
+                <p className="text-[1.15em] font-bold uppercase tracking-[0.06em]">Záznam o návšteve pacienta</p>
+                <p className="text-[0.8em] uppercase tracking-[0.08em] text-[#6b7280]">
+                  Agentúra domácej ošetrovateľskej starostlivosti · príloha k dokumentácii
+                </p>
+              </div>
+              <p className="text-[0.75em] text-[#6b7280]">č. ____ / 2026</p>
+            </div>
+            <dl className="mt-[2.5%] grid grid-cols-2 gap-x-[4%]">
+              {FIELDS.map((f) => (
+                <div
+                  key={f.label}
+                  className={cx("flex items-baseline gap-[3%] border-b border-dotted border-[#9aa0ab] py-[1.4%]", f.wide && "col-span-2")}
+                >
+                  <dt className="shrink-0 text-[0.8em] uppercase tracking-[0.05em] text-[#6b7280]">{f.label}</dt>
+                  <dd className={cx(hand.className, "truncate text-[1.75em] leading-none text-[#1d3f8c]")}>{f.value}</dd>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </dl>
+            <div className="mt-[4%] grid grid-cols-2 gap-x-[6%]">
+              <div className="border-t border-[#3a3f4a] pt-[2%] text-[0.75em] uppercase tracking-[0.05em] text-[#6b7280]">
+                Podpis sestry
+                <span className={cx(hand.className, "ml-[6%] text-[2.2em] normal-case tracking-normal text-[#1d3f8c]")}>M. Kováčová</span>
+              </div>
+              <div className="border-t border-[#3a3f4a] pt-[2%] text-[0.75em] uppercase tracking-[0.05em] text-[#6b7280]">
+                Podpis pacienta
+                <span className={cx(hand.className, "ml-[6%] text-[2.2em] normal-case tracking-normal text-[#1d3f8c]")}>Novotný</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Alma ADOS: real screen */}
+        {/* Alma ADOS: real Vykazovanie screen */}
         <div className="absolute inset-0" style={{ clipPath: "inset(0 0 0 var(--cut))" }}>
           <Image
-            src="/images/web-dnes-2610.png"
-            alt="Webová aplikácia Alma ADOS, Dnes: sestry v teréne so stavom návštev, pripravené dávky pre poisťovne"
+            src="/images/web-reporting-2610.png"
+            alt="Webová aplikácia Alma ADOS, Vykazovanie: návštevy čakajúce na kontrolu s výkonmi a stavom"
             fill
+            quality={90}
             sizes="(min-width: 1280px) 656px, 100vw"
-            className="object-cover object-left-top"
+            className="object-cover object-top"
           />
         </div>
 
@@ -93,7 +111,7 @@ export function PaperCompare() {
         </span>
 
         <label htmlFor={id} className="sr-only">
-          Porovnanie papierového rozpisu a obrazovky Alma ADOS
+          Porovnanie papierového záznamu o návšteve a obrazovky Vykazovanie v Alma ADOS
         </label>
         <input
           id={id}
@@ -106,8 +124,8 @@ export function PaperCompare() {
         />
       </div>
       <figcaption className="text-caption text-text-tertiary">
-        Rovnaký deň, rovnaké sestry: vľavo papierový rozpis (ilustrácia), vpravo skutočná obrazovka Alma ADOS s
-        ukážkovými údajmi. Potiahnite predel.
+        Tá istá návšteva dvakrát: vľavo ručný záznam o návšteve (ilustrácia podľa bežného formulára), vpravo
+        skutočná obrazovka Vykazovanie v Alma ADOS, kde takéto záznamy čakajú na kontrolu. Potiahnite predel.
       </figcaption>
     </figure>
   );

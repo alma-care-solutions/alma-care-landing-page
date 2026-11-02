@@ -8,9 +8,9 @@ import { HeroDecor } from "@/components/ui/HeroDecor";
 import { HeroMotion } from "@/components/sections/HeroMotion";
 
 /*
-  Hero visual = real app screenshots (demo agency) in CSS frames: web Plánovanie in BrowserFrame (1040 wide),
-  nurse app in PhoneFrame (296 wide). Shadows and rounding are in CSS so the decor stays visible underneath.
-  Percentages are relative to the 1200 × 718 frame (desktop) or the 1000 × 900 mobile composition (browser 124 % wide, slightly overflowing the edges).
+  Alma ADOS product hero (Figma Alma ADOS › Hero): copy on the left, the real app screens on the right.
+  Hero visual = real app screenshots (demo agency) in CSS frames: web Plánovanie in BrowserFrame, nurse app in PhoneFrame.
+  Percentages are relative to the 1200 × 718 composition (desktop) or 1000 × 900 (mobile, browser 124 % wide).
 */
 export function Hero() {
   return (
@@ -18,25 +18,20 @@ export function Hero() {
       <HeroMotion>
         <HeroDecor />
 
-        <div className="container-page relative flex flex-col items-center gap-12 pb-12 pt-12 lg:gap-16 lg:pb-24 lg:pt-24">
-          <div
-            data-hero="copy"
-            className="flex w-full max-w-[880px] flex-col items-start gap-5 text-left lg:items-center lg:gap-6 lg:text-center"
-          >
+        <div className="container-page relative grid gap-10 pb-12 pt-10 lg:grid-cols-[minmax(0,500px)_1fr] lg:items-center lg:gap-14 lg:pb-24 lg:pt-16">
+          <div data-hero="copy" className="flex flex-col items-start gap-5 lg:gap-6">
             <Badge variant="success" pulse>
               <span className="sm:hidden">V pilote · predaj 2027</span>
               <span className="hidden sm:inline">V pilote s Arcidiecéznou charitou Košice · predaj 2027</span>
             </Badge>
-            <h1 className="text-mobile-h1 text-text-primary lg:text-display">
-              Čas patrí pacientom.{" "}
-              <br className="hidden lg:block" />
-              Nie papierom.
+            <h1 className="text-mobile-h1 text-text-primary lg:text-[56px] lg:font-semibold lg:leading-[1.05] lg:tracking-[-0.02em]">
+              Menej administratívy. Viac času na pacienta.
             </h1>
-            <p className="max-w-[760px] text-body-l text-text-secondary lg:text-lead">
-              Alma ADOS prepája prácu sestry v teréne s plánovaním, dokumentáciou a administratívou
-              agentúry. Od októbra 2026 beží v pilote.
+            <p className="max-w-[560px] text-body-l text-text-secondary">
+              Alma ADOS prepája prácu sestry v teréne s plánovaním, dokumentáciou a administratívou agentúry. Od
+              októbra 2026 beží v pilote.
             </p>
-            <div className="flex w-full flex-col items-stretch gap-3 pt-2 lg:w-auto lg:flex-row lg:items-center">
+            <div className="flex w-full flex-col items-stretch gap-3 pt-2 sm:w-auto sm:flex-row sm:items-center">
               <Button href="#kontakt" focusTarget="#pilot-form [name='name']" arrow>
                 Dohodnúť si ukážku
               </Button>
@@ -44,12 +39,12 @@ export function Hero() {
                 Pozrieť, ako to funguje
               </Button>
             </div>
-            <p className="max-w-[640px] text-body-s text-text-tertiary">
+            <p className="max-w-[520px] text-body-s text-text-tertiary">
               Pilot beží od októbra 2026. Ďalšie agentúry zapíšeme medzi prvých pre predaj v roku 2027.
             </p>
           </div>
 
-          <figure data-hero="visual" className="flex w-full max-w-[1200px] flex-col items-center">
+          <figure data-hero="visual" className="flex w-full flex-col items-center lg:justify-self-end">
             <div className="relative w-full aspect-[1000/900] sm:aspect-[1200/718]">
               <div
                 data-hero="browser"
@@ -63,7 +58,8 @@ export function Hero() {
                       alt="Webová aplikácia Alma ADOS, Plánovanie: týždeň návštev rozdelený podľa sestier s časmi, kódmi výkonov a menami pacientov"
                       fill
                       priority
-                      sizes="(min-width: 1280px) 1040px, 124vw"
+                      quality={90}
+                      sizes="(min-width: 1280px) 640px, (min-width: 1024px) 50vw, 124vw"
                       className="object-cover object-top"
                     />
                   </div>
@@ -71,7 +67,7 @@ export function Hero() {
               </div>
               <div
                 data-hero="phone-wrap"
-                className="absolute left-[60%] top-[1.5%] w-[40%] sm:left-[75.333%] sm:top-[13.37%] sm:w-[24.667%]"
+                className="absolute left-[60%] top-[1.5%] w-[40%] sm:left-[72%] sm:top-[10%] sm:w-[28%]"
               >
                 <div data-hero="phone">
                   <PhoneFrame>
@@ -79,15 +75,16 @@ export function Hero() {
                       src="/images/phone-visit-detail-2610.png"
                       alt="Aplikácia pre sestry: detail návštevy pred začatím s pacientom, plánovanými výkonmi a tlačidlom Začať návštevu"
                       fill
-                      sizes="(min-width: 1280px) 280px, 40vw"
+                      sizes="(min-width: 1280px) 200px, 40vw"
                       priority
+                      quality={90}
                       className="object-cover object-top"
                     />
                   </PhoneFrame>
                 </div>
               </div>
               {/* Right of the app sidebar, so the label never covers its dark background */}
-              <div data-hero="label" className="absolute bottom-[1%] left-[10%] sm:bottom-[4.4%] sm:left-[16.5%]">
+              <div data-hero="label" className="absolute bottom-[1%] left-[10%] sm:bottom-[3%] sm:left-[14%]">
                 <PreviewLabel />
               </div>
             </div>

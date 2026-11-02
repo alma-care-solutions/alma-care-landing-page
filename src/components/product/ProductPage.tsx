@@ -10,6 +10,9 @@ import { HomeContact } from "@/components/home/HomeContact";
 import { PRODUCTS, type Product } from "@/lib/nav";
 import type { ProductContent } from "@/lib/products";
 import { cx } from "@/lib/cx";
+import { BrowserFrame } from "@/components/ui/Browser";
+import { ScreenCrop } from "@/components/ui/ScreenCrop";
+import { PRODUCT_SCREENS, ILLUSTRATION_NOTE } from "@/lib/screens";
 
 /*
   "Pripravujeme" product page (Figma Šablóna · Pripravujeme): hero with an illustration placeholder, what the product
@@ -38,15 +41,17 @@ export function ProductPage({ product, content }: { product: Product; content: P
               </div>
               <p className="max-w-[560px] text-body-s text-text-tertiary">{content.hero.note}</p>
             </div>
-            <div
-              aria-hidden="true"
-              className="hatched flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-16 border border-border-default bg-bg-surface p-6 text-center"
-            >
-              <span className="rounded-8 bg-bg-surface px-3 py-1.5 text-label-s text-text-secondary shadow-[0_1px_2px_rgba(0,0,0,0.06)]">
-                {product.name}
-              </span>
-              <span className="text-caption text-text-tertiary">Obrazovky doplníme, keď bude produkt v pilote.</span>
-            </div>
+            <figure className="flex w-full flex-col gap-3">
+              <BrowserFrame className="shadow-[0_2px_6px_rgba(20,23,31,0.06),0_24px_48px_-12px_rgba(20,23,31,0.12)]">
+                <ScreenCrop
+                  spec={PRODUCT_SCREENS[product.slug]}
+                  sizes="(min-width: 1024px) 480px, 100vw"
+                  className="aspect-[4/3] w-full"
+                  priority
+                />
+              </BrowserFrame>
+              <figcaption className="text-caption text-text-tertiary">{ILLUSTRATION_NOTE}</figcaption>
+            </figure>
           </div>
         </section>
 
