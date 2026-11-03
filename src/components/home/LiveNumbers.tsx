@@ -39,21 +39,21 @@ function compute(): Tile[] {
       value: toAllowance > 0 ? toAllowance : null,
       suffix: "",
       label: toAllowance > 0 ? "dní do príspevku na pomoc pri odkázanosti" : "príspevok na pomoc pri odkázanosti",
-      detail: "1. 1. 2027 · zákon 406/2025 Z. z.",
+      detail: "január 2027 · prvý mesiac s nárokom, zákon 406/2025 Z. z.",
     },
     {
       value: toEzdravie > 0 ? toEzdravie : null,
       suffix: "",
-      label: toEzdravie > 0 ? "dní do identifikátora eZdravie pre ADOS" : "identifikátor eZdravie pre ADOS",
-      detail: "1. 7. 2027 · harmonogram NCZI, nie je právne záväzný",
+      label: toEzdravie > 0 ? "dní do povinného identifikátora eZdravie v dávkach ADOS" : "povinný identifikátor eZdravie v dávkach ADOS",
+      detail: "1. 7. 2027 · zákon 136/2026 Z. z., bez neho poisťovňa výkon neuhradí",
     },
   ];
 }
 
 const PLACEHOLDER: Tile[] = [
   { value: null, suffix: "", label: "deň pilotu Alma ADOS", detail: "od októbra 2026 · Arcidiecézna charita Košice" },
-  { value: null, suffix: "", label: "dní do príspevku na pomoc pri odkázanosti", detail: "1. 1. 2027 · zákon 406/2025 Z. z." },
-  { value: null, suffix: "", label: "dní do identifikátora eZdravie pre ADOS", detail: "1. 7. 2027 · harmonogram NCZI, nie je právne záväzný" },
+  { value: null, suffix: "", label: "dní do príspevku na pomoc pri odkázanosti", detail: "január 2027 · prvý mesiac s nárokom, zákon 406/2025 Z. z." },
+  { value: null, suffix: "", label: "dní do povinného identifikátora eZdravie v dávkach ADOS", detail: "1. 7. 2027 · zákon 136/2026 Z. z., bez neho poisťovňa výkon neuhradí" },
 ];
 
 /* Counts from 0 to the value once the number scrolls into view */

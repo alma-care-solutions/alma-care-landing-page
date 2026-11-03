@@ -24,12 +24,18 @@ export function Hero() {
               <span className="sm:hidden">V pilote · predaj 2027</span>
               <span className="hidden sm:inline">V pilote s Arcidiecéznou charitou Košice · predaj 2027</span>
             </Badge>
+            {/* The wordplay from the conference deck "Čas patrí pacientom": A DOSť papierom / RADOSŤ z Almy */}
             <h1 className="text-mobile-h1 text-text-primary lg:text-[56px] lg:font-semibold lg:leading-[1.05] lg:tracking-[-0.02em]">
-              Menej administratívy. Viac času na pacienta.
+              <span className="block">
+                A&nbsp;<span className="text-accent-text">DOS</span>ť papierom.
+              </span>
+              <span className="block">
+                RA<span className="text-accent-text">DOS</span>Ť z&nbsp;Almy.
+              </span>
             </h1>
             <p className="max-w-[560px] text-body-l text-text-secondary">
-              Alma ADOS prepája prácu sestry v teréne s plánovaním, dokumentáciou a administratívou agentúry. Od
-              októbra 2026 beží v pilote.
+              Menej administratívy, viac času na pacienta. Alma ADOS prepája prácu sestry v teréne s plánovaním,
+              dokumentáciou a administratívou agentúry. Od októbra 2026 beží v pilote.
             </p>
             <div className="flex w-full flex-col items-stretch gap-3 pt-2 sm:w-auto sm:flex-row sm:items-center">
               <Button href="#kontakt" focusTarget="#pilot-form [name='name']" arrow>

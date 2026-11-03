@@ -11,7 +11,7 @@ import { PRODUCTS, type Product } from "@/lib/nav";
 import type { ProductContent } from "@/lib/products";
 import { cx } from "@/lib/cx";
 import { ProductScreen } from "@/components/ui/ScreenCrop";
-import { ILLUSTRATION_NOTE } from "@/lib/screens";
+import { screenNote } from "@/lib/screens";
 
 /*
   "Pripravujeme" product page (Figma Šablóna · Pripravujeme): hero with an illustration placeholder, what the product
@@ -42,7 +42,7 @@ export function ProductPage({ product, content }: { product: Product; content: P
             </div>
             <figure className="flex w-full flex-col gap-3">
               <ProductScreen slug={product.slug} variant="hero" sizes="(min-width: 1024px) 480px, 100vw" priority />
-              <figcaption className="text-caption text-text-tertiary">{ILLUSTRATION_NOTE}</figcaption>
+              <figcaption className="text-caption text-text-tertiary">{screenNote(product.slug)}</figcaption>
             </figure>
           </div>
         </section>
@@ -66,6 +66,9 @@ export function ProductPage({ product, content }: { product: Product; content: P
                 </li>
               ))}
             </ol>
+            <p className="gsap-reveal max-w-[640px] border-t border-border-default pt-6 text-body-m text-text-secondary">
+              {content.solves.outro}
+            </p>
           </div>
         </section>
 

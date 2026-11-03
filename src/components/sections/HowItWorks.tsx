@@ -24,11 +24,11 @@ export function HowItWorks() {
             <Icon name="lightbulb" className="size-5" />
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <h3 className="text-h4 text-text-primary">Toto chceme overiť s pilotnými partnermi</h3>
+            <h3 className="text-h4 text-text-primary">Toto už overujeme s pilotným partnerom</h3>
             <p className="max-w-[72ch] text-body-m text-text-secondary">
-              V rozhovoroch s agentúrami sa pýtame, kde dnes vznikajú opakované prepisovanie údajov,
-              oneskorená dokumentácia alebo chýbajúce podklady pre vykazovanie. Ktoré z týchto miest
-              riešiť ako prvé, chceme rozhodnúť spolu s pilotnými partnermi.
+              S Arcidiecéznou charitou Košice overujeme priamo v prevádzke, kde v agentúre vzniká opakované
+              prepisovanie údajov, oneskorená dokumentácia alebo chýbajúce podklady pre vykazovanie. Čo riešiť
+              ako prvé, rozhodujeme podľa toho, čo ukáže terén.
             </p>
           </div>
         </div>

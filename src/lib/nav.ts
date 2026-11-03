@@ -31,9 +31,9 @@ export const PRODUCTS: readonly Product[] = [
   {
     slug: "dos",
     name: "Alma DOS",
-    audience: "Opatrovateľská služba, hospice",
+    audience: "Opatrovateľská služba",
     summary:
-      "Opatrovateľská služba a hospice: rozpis návštev, potvrdenie príchodu, úkony podľa zákona a podklady pre obec aj príspevok na odkázanosť.",
+      "Opatrovateľská služba: rozpis návštev, potvrdenie príchodu, úkony podľa prílohy č. 4 a vyúčtovanie hodín pre klienta, obec aj príspevok na pomoc pri odkázanosti.",
     status: "dev",
     statusLabel: "Vo vývoji · predaj 2027",
     href: "/dos",
@@ -42,7 +42,7 @@ export const PRODUCTS: readonly Product[] = [
     slug: "stacionar",
     name: "Alma Stacionár",
     audience: "Denné stacionáre",
-    summary: "Denné stacionáre: dochádzka, denný program, individuálne plány a hlásenia do IS SoS.",
+    summary: "Denné stacionáre: dochádzka s podpisom klienta, denný program, individuálne plány a zápisy do IS SoS.",
     status: "dev",
     statusLabel: "Vo vývoji · predaj 2027",
     href: "/stacionar",
@@ -112,8 +112,8 @@ export const PARTNER = {
    Photos in public/images/team/ (same crop and tonal grade for both); a face without a photo renders as a silhouette. */
 export const TEAM = {
   faces: [
-    { photo: "/images/team/maros.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
-    { photo: "/images/team/gabriel.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
+    { photo: "/images/team/maros-2611.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
+    { photo: "/images/team/gabriel-2611.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
     { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
     { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
   ],
@@ -126,5 +126,5 @@ export const TEAM = {
 export const DATES = {
   pilotStart: "2026-10-28", // start of the day count on the home page; set to the signed date once the pilot contract is signed
   allowance: "2027-01-01", // príspevok na pomoc pri odkázanosti, zákon 406/2025 Z. z.
-  ezdravie: "2027-07-01", // identifikátor eZdravie pre ADOS, harmonogram NCZI (nie je právne záväzný)
+  ezdravie: "2027-07-01", // identifikátor záznamu v eZdravie v zúčtovacej dávke ADOS, zákon 136/2026 Z. z.
 } as const;

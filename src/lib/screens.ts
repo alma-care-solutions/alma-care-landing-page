@@ -1,12 +1,15 @@
 /*
-  Real screenshots of Alma ADOS used, whole and uncropped, as illustrations for the products in development:
-  always a screen whose module the product will share with ADOS (plan of visits, overview of the day,
-  statistics, intake from documents). Phone screens are shown in the phone frame, web screens in the browser frame.
+  Real screenshots used, whole and uncropped, as illustrations for the products in development:
+  for DOS, Stacionár and Pobytové a screen of Alma ADOS whose module the product will share (plan of visits,
+  statistics, wound record); for Služby a pomôcky the real patient app (apps/family in alma-ados, screenshot from
+  the ALMA-412 docs). Phone screens are shown in the phone frame, web screens in the browser frame.
 */
 export type ScreenSpec = {
   kind: "web" | "phone";
   src: string;
   alt: string;
+  /** Caption under the illustration; ILLUSTRATION_NOTE when missing */
+  note?: string;
 };
 
 export const PRODUCT_SCREENS: Record<string, ScreenSpec> = {
@@ -26,15 +29,20 @@ export const PRODUCT_SCREENS: Record<string, ScreenSpec> = {
     alt: "Mesačný prehľad a plnenie plánu: obrazovka z aplikácie Alma, ktorú bude používať aj stacionár",
   },
   pobytove: {
-    kind: "web",
-    src: "/images/web-intake-2610.png",
-    alt: "Nový klient z dokumentov: obrazovka z aplikácie Alma, ktorú bude používať aj pobytové zariadenie",
+    kind: "phone",
+    src: "/images/phone-wound-2610.png",
+    alt: "Záznam o rane pri výkone s porovnaním s minulým preväzom: obrazovka z aplikácie Alma ADOS, ošetrovateľské záznamy bude mať aj pobytové zariadenie",
   },
   "sluzby-a-pomocky": {
     kind: "phone",
-    src: "/images/phone-today-2610.png",
-    alt: "Prehľad dňa v telefóne: obrazovka z aplikácie Alma",
+    src: "/images/phone-family-today-2610.png",
+    alt: "Aplikácia pre pacienta a rodinu, Dnes: najbližšia návšteva, sestra a tlačidlo Zavolať",
+    note: "Obrazovka z aplikácie pre pacienta a rodinu, ktorá vzniká v pilote s Alma ADOS.",
   },
 };
+
+export function screenNote(slug: string) {
+  return PRODUCT_SCREENS[slug]?.note ?? ILLUSTRATION_NOTE;
+}
 
 export const ILLUSTRATION_NOTE = "Obrazovka z aplikácie Alma ADOS; tento modul bude súčasťou aj tohto produktu.";

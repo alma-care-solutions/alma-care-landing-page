@@ -43,8 +43,8 @@ export function HomeHero() {
                 </span>
               </h1>
               <p className="max-w-[760px] text-body-l text-text-secondary lg:text-lead">
-                Softvér pre agentúry a zariadenia, ktoré poskytujú starostlivosť doma, v stacionároch aj v pobytových
-                zariadeniach, a pre ich pacientov. Prvý produkt, Alma ADOS, beží od októbra 2026 v pilote.
+                Softvér pre tých, ktorí sa starajú o druhých: agentúry domácej starostlivosti, opatrovateľské služby,
+                stacionáre a pobytové zariadenia, aj ich pacientov. Prvý produkt, Alma ADOS, beží od októbra 2026 v pilote.
               </p>
               <div className="flex w-full flex-col items-stretch gap-3 pt-2 lg:w-auto lg:flex-row lg:items-center">
                 <Button href="/ados" arrow>

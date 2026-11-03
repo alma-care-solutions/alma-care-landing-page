@@ -5,7 +5,7 @@ import { useState } from "react";
 import { cx } from "@/lib/cx";
 import type { Product } from "@/lib/nav";
 import { ProductScreen } from "@/components/ui/ScreenCrop";
-import { ILLUSTRATION_NOTE } from "@/lib/screens";
+import { screenNote } from "@/lib/screens";
 
 /*
   Products in development as plain rows (Figma Alma · Home › Produkty › Zoznam). Hovering a row shows
@@ -63,7 +63,7 @@ export function ProductRows({ products }: { products: readonly Product[] }) {
             <p key={shown.slug} className="text-body-s text-text-secondary animate-[fade-in_0.3s_ease-out]">
               {SCENES[shown.slug] ?? shown.audience}
             </p>
-            <p className="text-caption text-text-tertiary">{ILLUSTRATION_NOTE}</p>
+            <p className="text-caption text-text-tertiary">{screenNote(shown.slug)}</p>
           </div>
         </div>
       </div>

@@ -11,8 +11,9 @@ export function Year2027() {
         <div className="grid gap-4 lg:grid-cols-[480px_1fr] lg:items-end lg:gap-24">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Pripravené na rok 2027</h2>
           <p className="gsap-reveal max-w-[640px] text-body-m text-text-secondary lg:text-body-l">
-            Príspevok na pomoc pri odkázanosti platí od 1. 1. 2027. Identifikátor eZdravie pre ADOS má podľa
-            harmonogramu NCZI platiť od 1. 7. 2027. Produkty Alma na to staviame od začiatku.
+            Príspevok na pomoc pri odkázanosti patrí odkázanej osobe najskôr za január 2027. Od 1. 7. 2027 musí
+            dávka ADOS pre poisťovňu obsahovať identifikátor záznamu v eZdravie. Produkty Alma na to staviame od
+            začiatku.
           </p>
         </div>
         <LiveNumbers />
