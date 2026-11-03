@@ -37,18 +37,23 @@ export function ProductScreen({
   if (variant === "hero") {
     return (
       <div className={cx("flex justify-center rounded-16 bg-accent-soft/60 px-6 py-8", className)}>
-        <PhoneFrame className="w-[58%] max-w-[300px]">
-          <Image src={spec.src} alt={spec.alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover object-top" />
-        </PhoneFrame>
+        {/* Width on a wrapper: PhoneFrame is w-full and a width class on it would not win */}
+        <div className="w-[58%] max-w-[300px]">
+          <PhoneFrame>
+            <Image src={spec.src} alt={spec.alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover object-top" />
+          </PhoneFrame>
+        </div>
       </div>
     );
   }
 
   return (
     <div className={cx("flex aspect-[4/5] w-full items-center justify-center rounded-12 bg-accent-soft/60", className)}>
-      <PhoneFrame className="w-[46%]">
-        <Image src={spec.src} alt={spec.alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover object-top" />
-      </PhoneFrame>
+      <div className="w-[46%]">
+        <PhoneFrame>
+          <Image src={spec.src} alt={spec.alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover object-top" />
+        </PhoneFrame>
+      </div>
     </div>
   );
 }
