@@ -114,7 +114,7 @@ export const TEAM = {
   faces: [
     { photo: "/images/team/maros-2611.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
     { photo: "/images/team/gabriel-2611.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
-    { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
+    { photo: "/images/team/nikola-2611.jpg" as string | null, name: "Nikola Smreková", role: "Návrh a testovanie" },
     { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
   ],
   /* The rest of the team, shown as the last tile */

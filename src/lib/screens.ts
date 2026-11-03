@@ -35,7 +35,7 @@ export const PRODUCT_SCREENS: Record<string, ScreenSpec> = {
   },
   "sluzby-a-pomocky": {
     kind: "phone",
-    src: "/images/phone-family-today-2610.png",
+    src: "/images/phone-family-today-2611.png",
     alt: "Aplikácia pre pacienta a rodinu, Dnes: najbližšia návšteva, sestra a tlačidlo Zavolať",
     note: "Obrazovka z aplikácie pre pacienta a rodinu, ktorá vzniká v pilote s Alma ADOS.",
   },
