@@ -32,7 +32,7 @@ function Person({ photo, name, role }: { photo: string | null; name: string; rol
 
 export function About() {
   return (
-    <section id="o-alme" aria-label="Kto robí Almu" className="bg-bg-surface py-12 lg:py-24">
+    <section id="o-alme" aria-label="Kto robí Almu" data-bg="surface" className="py-12 lg:py-24">
       <div className="container-page flex flex-col gap-10 lg:gap-14">
         <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:gap-16">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Kto robí Almu</h2>
@@ -89,7 +89,7 @@ export function About() {
               href="https://www.charita-ke.sk"
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-[4px] text-label-s text-accent-text hover:text-accent-strong"
+              className="focus-ring link-grow inline-flex w-fit items-center gap-1.5 rounded-[4px] text-label-s text-accent-text hover:text-accent-strong"
             >
               charita-ke.sk <span aria-hidden="true">→</span>
             </a>

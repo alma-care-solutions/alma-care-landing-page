@@ -44,7 +44,8 @@ export function ProductRows({ products }: { products: readonly Product[] }) {
                 </span>
                 <span className="text-body-s text-text-secondary lg:text-body-m">{p.summary}</span>
                 <span className="text-label-s text-accent-text lg:pt-0.5">
-                  Viac o produkte <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  <span className="link-grow">Viac o produkte</span>{" "}
+                  <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                 </span>
               </Link>
             </li>

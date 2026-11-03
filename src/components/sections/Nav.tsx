@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { usePathname, useRouter } from "next/navigation";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
@@ -132,13 +132,14 @@ export function Nav({
           <Logo size="L" />
         </div>
 
-        <nav aria-label="Hlavná navigácia" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Hlavná navigácia" className="relative hidden items-center gap-1 lg:flex">
           <ProductsMenu active={productsActive} />
           {NAV_LINKS.map((l) => (
-            <NavLink key={l.href} href={l.href} active={isActive(l.href)}>
+            <NavLink key={l.href} href={l.href} active={isActive(l.href)} ink>
               {l.label}
             </NavLink>
           ))}
+          <InkBar activeKey={NAV_LINKS.map((l) => isActive(l.href)).join("")} />
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex xl:gap-4">
@@ -390,7 +391,7 @@ function ProductsMenu({ active }: { active: boolean }) {
               <AnchorLink
                 href="/#produkty"
                 onClick={() => setOpen(false)}
-                className="focus-ring inline-flex items-center gap-1.5 rounded-[4px] text-label-s text-accent-text hover:text-accent-strong"
+                className="focus-ring link-grow inline-flex items-center gap-1.5 rounded-[4px] text-label-s text-accent-text hover:text-accent-strong"
               >
                 Všetky produkty a stav vývoja <span aria-hidden="true">→</span>
               </AnchorLink>
@@ -407,6 +408,57 @@ function ProductsMenu({ active }: { active: boolean }) {
         </div>
       </div>
     </div>
+  );
+}
+
+/*
+  One ink bar under the desktop nav: it slides to the hovered item and returns to the active one.
+  activeKey changes whenever the active item changes, so the bar re-measures.
+*/
+function InkBar({ activeKey }: { activeKey: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [box, setBox] = useState<{ left: number; width: number } | null>(null);
+
+  const measure = useCallback((el: Element | null) => {
+    const nav = ref.current?.parentElement;
+    if (!nav) return;
+    const target = el ?? nav.querySelector("a[aria-current='true']");
+    if (!(target instanceof HTMLElement)) {
+      setBox(null);
+      return;
+    }
+    setBox({ left: target.offsetLeft + 12, width: Math.max(0, target.offsetWidth - 24) });
+  }, []);
+
+  useEffect(() => {
+    measure(null);
+    const nav = ref.current?.parentElement;
+    if (!nav) return;
+    const over = (e: Event) => {
+      const a = (e.target as HTMLElement).closest("a");
+      if (a && nav.contains(a)) measure(a);
+    };
+    const leave = () => measure(null);
+    nav.addEventListener("mouseover", over);
+    nav.addEventListener("mouseleave", leave);
+    window.addEventListener("resize", leave);
+    return () => {
+      nav.removeEventListener("mouseover", over);
+      nav.removeEventListener("mouseleave", leave);
+      window.removeEventListener("resize", leave);
+    };
+  }, [measure, activeKey]);
+
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      className={cx(
+        "pointer-events-none absolute bottom-1 h-0.5 rounded-full bg-accent transition-[left,width,opacity] duration-300 ease-out",
+        box ? "opacity-100" : "opacity-0",
+      )}
+      style={{ left: box?.left ?? 0, width: box?.width ?? 0 }}
+    />
   );
 }
 

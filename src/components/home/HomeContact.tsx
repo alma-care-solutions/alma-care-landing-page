@@ -28,7 +28,7 @@ export function HomeContact({
   footnote?: string;
 }) {
   return (
-    <section id="kontakt" aria-label="Kontakt" className="relative overflow-hidden bg-bg-dark">
+    <section id="kontakt" aria-label="Kontakt" data-bg="dark" className="relative overflow-hidden bg-bg-dark">
       <Spotlight className="py-12 lg:py-32">
         <DecorRings
           spin

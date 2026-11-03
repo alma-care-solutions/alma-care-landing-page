@@ -2,6 +2,7 @@ import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { Reveal } from "@/components/Reveal";
 import { HashScroll } from "@/components/HashScroll";
+import { ScrollBackdrop } from "@/components/home/ScrollBackdrop";
 import { HomeHero } from "@/components/home/HomeHero";
 import { Products } from "@/components/home/Products";
 import { Year2027 } from "@/components/home/Year2027";
@@ -39,6 +40,7 @@ export default function Home() {
       <Footer />
       <Reveal />
       <HashScroll />
+      <ScrollBackdrop />
     </>
   );
 }

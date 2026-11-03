@@ -3,6 +3,7 @@ import { StepCard } from "@/components/ui/StepCard";
 import { CheckItem } from "@/components/ui/CheckItem";
 import { Button } from "@/components/ui/Button";
 import { PARTNER } from "@/lib/nav";
+import { TextFill } from "@/components/ui/TextFill";
 
 /*
   Pilotný program on the home page (moved here from the /ados subpage, review round 4; before Rok 2027 since round 5):
@@ -45,12 +46,16 @@ const GAIN = [
 
 export function PilotProgram() {
   return (
-    <section id="pilotny-program" aria-label="Pilotný program" className="bg-bg-surface py-12 lg:py-28">
+    <section id="pilotny-program" aria-label="Pilotný program" data-bg="surface" className="py-12 lg:py-28">
       <div className="container-page flex flex-col gap-10 lg:gap-14">
         <SectionHeader
           eyebrow="Pilotný program"
           title="Do pilotu sa dá zapojiť pri každom produkte"
-          lead={`Každý produkt Alma najprv beží v pilote s reálnym zariadením a pilot je otvorený stále, aj pri Alma ADOS. Prvým partnerom je ${PARTNER.name}, kde Alma ADOS beží ${PARTNER.since} a kde počítame s overovaním ďalších modulov. Ďalšie agentúry a zariadenia sa môžu pridať pre rok 2027.`}
+          lead={
+            <TextFill
+              text={`Každý produkt Alma najprv beží v pilote s reálnym zariadením a pilot je otvorený stále, aj pri Alma ADOS. Prvým partnerom je ${PARTNER.name}, kde Alma ADOS beží ${PARTNER.since} a kde počítame s overovaním ďalších modulov. Ďalšie agentúry a zariadenia sa môžu pridať pre rok 2027.`}
+            />
+          }
         />
         <ol className="grid gap-4 md:grid-cols-3 lg:gap-6">
           {STEPS.map((s) => (

@@ -9,7 +9,7 @@ import { HomeHeroVisual } from "@/components/home/HomeHeroVisual";
 */
 export function HomeHero() {
   return (
-    <section aria-label="Úvod" className="relative overflow-hidden">
+    <section aria-label="Úvod" data-bg="page" className="relative overflow-hidden">
       <HeroMotion>
         <HeroDecor />
 

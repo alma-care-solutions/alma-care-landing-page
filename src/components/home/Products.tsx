@@ -12,7 +12,7 @@ import { ProductRows } from "@/components/home/ProductRows";
 export function Products() {
   const inDevelopment = PRODUCTS.filter((p) => p.status === "dev");
   return (
-    <section id="produkty" aria-label="Produkty Alma" className="bg-bg-surface py-12 lg:py-28">
+    <section id="produkty" aria-label="Produkty Alma" data-bg="surface" className="py-12 lg:py-28">
       <div className="container-page flex flex-col gap-10 lg:gap-12">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:w-[480px] lg:shrink-0 lg:text-h2">
@@ -24,7 +24,7 @@ export function Products() {
           </p>
         </div>
 
-        <hr className="border-border-default" />
+        <hr data-fx="line" className="border-border-default" />
 
         <div className="grid items-center gap-10 lg:grid-cols-[480px_1fr] lg:gap-16">
           <div className="gsap-reveal flex flex-col items-start gap-5">

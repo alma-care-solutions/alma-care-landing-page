@@ -384,6 +384,43 @@ body {
   font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", "Chalkboard SE", cursive;
 }
 
+/* Text links: the underline grows from the left on hover (also when a wrapping .group is hovered) */
+.link-grow {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1.5px;
+  padding-bottom: 1px;
+  transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.link-grow:hover,
+.group:hover .link-grow {
+  background-size: 100% 1.5px;
+}
+
+/* /dakujeme: the circle and the tick draw themselves once */
+.draw-check circle {
+  fill: var(--color-accent-soft);
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  animation: draw-stroke 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards;
+}
+.draw-check path {
+  fill: none;
+  stroke: var(--color-accent-text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+  animation: draw-stroke 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) 0.75s forwards;
+}
+@keyframes draw-stroke {
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw-check circle, .draw-check path { animation: none; stroke-dashoffset: 0; }
+}
+
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: none; }

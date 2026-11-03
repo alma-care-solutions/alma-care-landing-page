@@ -2,15 +2,29 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { ComponentPropsWithoutRef, MouseEvent } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { cx } from "@/lib/cx";
 import { handleAnchorClick } from "@/lib/scroll";
+import { hasFinePointer, prefersReducedMotion } from "@/lib/gsap";
 
 type Variant = "primary" | "secondary" | "ghost" | "inverse";
 type Size = "L" | "M" | "icon";
 
 const base =
-  "group focus-ring inline-flex items-center justify-center gap-2 rounded-12 font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40";
+  "group focus-ring inline-flex items-center justify-center gap-2 rounded-12 font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-300 ease-out active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40";
+
+/* Primary buttons follow the cursor by a few pixels (fine pointer only, never with reduced motion) */
+function magnetMove(e: ReactPointerEvent<HTMLElement>) {
+  if (!hasFinePointer() || prefersReducedMotion()) return;
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  el.style.transform = `translate(${(x * 12).toFixed(1)}px, ${(y * 8).toFixed(1)}px)`;
+}
+function magnetLeave(e: ReactPointerEvent<HTMLElement>) {
+  e.currentTarget.style.transform = "";
+}
 
 const variants: Record<Variant, string> = {
   primary: "bg-accent text-text-inverse hover:bg-accent-strong",
@@ -48,12 +62,15 @@ export function Button(props: ButtonProps) {
   const router = useRouter();
   const { variant = "primary", size = "L", arrow = false, focusTarget, className, children, ...rest } = props;
   const cls = cx(base, variants[variant], sizes[size], className);
+  const magnetic = variant === "primary" ? { onPointerMove: magnetMove, onPointerLeave: magnetLeave } : {};
   const content = (
     <>
       <span>{children}</span>
       {arrow && (
-        <span aria-hidden="true" className="translate-y-px transition-transform duration-200 group-hover:translate-x-0.5">
-          →
+        /* On hover the arrow leaves to the right and a new one arrives from the left */
+        <span aria-hidden="true" className="relative inline-block h-[1.3em] w-[0.95em] translate-y-px overflow-hidden">
+          <span className="absolute inset-0 transition-transform duration-300 ease-out group-hover:translate-x-[150%]">→</span>
+          <span className="absolute inset-0 -translate-x-[150%] transition-transform duration-300 ease-out group-hover:translate-x-0">→</span>
         </span>
       )}
     </>
@@ -67,14 +84,14 @@ export function Button(props: ButtonProps) {
     // Download links (PDF): never prefetch, the browser handles the click natively
     const prefetch = anchor.download !== undefined ? false : undefined;
     return (
-      <Link href={href} className={cls} onClick={handleClick} prefetch={prefetch} {...anchor}>
+      <Link href={href} className={cls} onClick={handleClick} prefetch={prefetch} {...magnetic} {...anchor}>
         {content}
       </Link>
     );
   }
   const button = rest as ButtonAsButton;
   return (
-    <button type={button.type ?? "button"} className={cls} {...button}>
+    <button type={button.type ?? "button"} className={cls} {...magnetic} {...button}>
       {content}
     </button>
   );

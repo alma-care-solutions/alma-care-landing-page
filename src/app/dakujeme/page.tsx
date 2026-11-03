@@ -3,7 +3,6 @@ import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/Button";
 import { CheckItem } from "@/components/ui/CheckItem";
-import { Icon } from "@/components/ui/Icon";
 import { productBySlug } from "@/lib/nav";
 
 export const metadata: Metadata = {
@@ -37,9 +36,11 @@ export default async function DakujemePage({ searchParams }: PageProps<"/dakujem
         <section aria-label="Formulár odoslaný" className="flex flex-1 items-center bg-bg-dark py-12 lg:py-24">
           <div className="container-page flex justify-center">
             <div className="flex w-full max-w-[544px] flex-col items-start gap-5 rounded-[20px] bg-bg-surface p-6 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.25)] sm:p-8">
-              <span className="flex size-14 items-center justify-center rounded-full bg-accent-soft text-accent-text">
-                <Icon name="check-circle" className="size-[26px]" />
-              </span>
+              {/* The circle and the tick draw themselves (CSS, see .draw-check in globals.css) */}
+              <svg viewBox="0 0 56 56" className="draw-check size-14" aria-hidden="true">
+                <circle cx="28" cy="28" r="26" />
+                <path d="M17.5 28.5l7 7 14-14" />
+              </svg>
               <div className="flex flex-col gap-2">
                 <h1 className="text-h3 text-text-primary">
                   {inDevelopment ? `Zapísané k ${product.name}` : "Ďakujeme, máme to."}

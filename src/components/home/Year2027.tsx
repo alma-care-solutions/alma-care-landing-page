@@ -7,7 +7,7 @@ import { Timeline2027 } from "@/components/home/Timeline2027";
 */
 export function Year2027() {
   return (
-    <section id="rok-2027" aria-label="Pripravené na rok 2027" className="py-12 lg:py-28">
+    <section id="rok-2027" aria-label="Pripravené na rok 2027" data-bg="page" className="py-12 lg:py-28">
       <div className="container-page flex flex-col gap-10 lg:gap-14">
         <div className="grid gap-4 lg:grid-cols-[480px_1fr] lg:items-end lg:gap-24">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Pripravené na rok 2027</h2>
@@ -18,7 +18,7 @@ export function Year2027() {
           </p>
         </div>
         <LiveNumbers />
-        <hr className="border-border-default" />
+        <hr data-fx="line" className="border-border-default" />
         <Timeline2027 />
       </div>
     </section>

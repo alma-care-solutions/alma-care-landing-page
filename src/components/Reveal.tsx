@@ -1,11 +1,12 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, ScrollTrigger, SplitText, prefersReducedMotion } from "@/lib/gsap";
 
 /*
   Page-wide scroll animations:
-  .gsap-reveal        - subtle fade-up on entering the viewport (elements already in view are not hidden)
+  .gsap-reveal        - subtle fade-up on entering the viewport (elements already in view are not hidden);
+                        h2 headings instead rise line by line from behind a mask (SplitText)
   [data-fx="line"]    - line "draws" in from the left (scaleX)
   [data-fx="pop"]     - element pops in (scale + fade)
   [data-fx="float"]   - decor floats gently up and down
@@ -19,9 +20,26 @@ export function Reveal() {
     if (prefersReducedMotion()) return;
     const vh = window.innerHeight;
 
-    const els = gsap.utils
-      .toArray<HTMLElement>(".gsap-reveal")
-      .filter((el) => el.getBoundingClientRect().top > vh * 0.9);
+    const below = gsap.utils.toArray<HTMLElement>(".gsap-reveal").filter((el) => el.getBoundingClientRect().top > vh * 0.9);
+    const headings = below.filter((el) => el.tagName === "H2");
+    const els = below.filter((el) => el.tagName !== "H2");
+
+    // Headings: each line rises from behind its own mask, 90 ms apart; re-split when fonts load or lines re-wrap
+    headings.forEach((h) => {
+      SplitText.create(h, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) =>
+          gsap.from(self.lines, {
+            yPercent: 110,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.09,
+            scrollTrigger: { trigger: h, start: "top 88%", once: true },
+          }),
+      });
+    });
     if (els.length) {
       gsap.set(els, { opacity: 0, y: 20 });
       ScrollTrigger.batch(els, {

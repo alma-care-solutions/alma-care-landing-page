@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import { DATES } from "@/lib/nav";
 
 /*
@@ -56,35 +56,46 @@ const PLACEHOLDER: Tile[] = [
   { value: null, suffix: "", label: "dní do povinného identifikátora eZdravie v dávkach ADOS", detail: "1. 7. 2027 · zákon 136/2026 Z. z., bez neho poisťovňa výkon neuhradí" },
 ];
 
-/* Counts from 0 to the value once the number scrolls into view */
-function CountUp({ to, suffix }: { to: number; suffix: string }) {
+/*
+  The number as a counter: every digit sits in its own column that rolls from 0 to its value once the tile
+  scrolls into view, the next column 120 ms after the previous one. Reduced motion shows the value at once.
+*/
+function Odometer({ to, suffix }: { to: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const digits = String(to).split("");
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const cols = Array.from(el.querySelectorAll<HTMLElement>("[data-col]"));
+    const settle = (animate: boolean) =>
+      cols.forEach((col, i) => {
+        col.style.transitionDelay = animate ? `${i * 120}ms` : "0ms";
+        col.style.transform = `translateY(${-Number(col.dataset.col) * 1.05}em)`;
+      });
     if (prefersReducedMotion()) {
-      el.textContent = `${to}${suffix}`;
+      settle(false);
       return;
     }
-    const obj = { v: 0 };
-    const tween = gsap.to(obj, {
-      v: to,
-      duration: 1.4,
-      ease: "power2.out",
-      paused: true,
-      onUpdate: () => {
-        el.textContent = `${Math.round(obj.v)}${suffix}`;
-      },
-    });
-    const trigger = ScrollTrigger.create({ trigger: el, start: "top 88%", once: true, onEnter: () => tween.play() });
-    return () => {
-      tween.kill();
-      trigger.kill();
-    };
-  }, [to, suffix]);
+    const trigger = ScrollTrigger.create({ trigger: el, start: "top 88%", once: true, onEnter: () => settle(true) });
+    return () => trigger.kill();
+  }, [to]);
   return (
-    <span ref={ref} className="tabular-nums">
-      0{suffix}
+    <span ref={ref} aria-label={`${to}${suffix}`} className="inline-flex h-[1.05em] items-start overflow-hidden leading-none tabular-nums">
+      {digits.map((d, i) => (
+        <span key={i} aria-hidden="true" className="relative inline-block h-[1.05em] w-[0.62em] overflow-hidden">
+          <span
+            data-col={d}
+            className="absolute left-0 top-0 flex flex-col transition-transform duration-[1400ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+          >
+            {Array.from({ length: 10 }, (_, n) => (
+              <span key={n} className="block h-[1.05em] text-center">
+                {n}
+              </span>
+            ))}
+          </span>
+        </span>
+      ))}
+      {suffix && <span aria-hidden="true">{suffix}</span>}
     </span>
   );
 }
@@ -101,7 +112,7 @@ export function LiveNumbers() {
       {shown.map((t) => (
         <div key={t.label} className="flex flex-col gap-1 bg-bg-surface p-6 lg:p-7">
           <dd className="order-1 text-mobile-h2 text-text-primary lg:text-display lg:text-[56px]">
-            {t.value === null ? (tiles ? "platí" : "—") : <CountUp to={t.value} suffix={t.suffix} />}
+            {t.value === null ? (tiles ? "platí" : "—") : <Odometer to={t.value} suffix={t.suffix} />}
           </dd>
           <dt className="order-2 text-body-m text-text-secondary">{t.label}</dt>
           <dd className="order-3 text-caption text-text-tertiary">{t.detail}</dd>
