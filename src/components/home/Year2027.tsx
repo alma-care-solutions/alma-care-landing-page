@@ -1,13 +1,14 @@
 import { LiveNumbers } from "@/components/home/LiveNumbers";
+import { Timeline2027 } from "@/components/home/Timeline2027";
 
 /*
-  Pripravené na rok 2027 (Figma Alma · Home › Rok 2027): one quiet block with the verified legal dates
-  and numbers that count from today (idea 5).
+  Pripravené na rok 2027 (Figma Alma · Home › Rok 2027): one quiet block with the verified legal dates,
+  numbers that count from today (idea 5) and the milestones on a line drawn by scrolling.
 */
 export function Year2027() {
   return (
     <section id="rok-2027" aria-label="Pripravené na rok 2027" className="py-12 lg:py-28">
-      <div className="container-page flex flex-col gap-8 lg:gap-10">
+      <div className="container-page flex flex-col gap-10 lg:gap-14">
         <div className="grid gap-4 lg:grid-cols-[480px_1fr] lg:items-end lg:gap-24">
           <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Pripravené na rok 2027</h2>
           <p className="gsap-reveal max-w-[640px] text-body-m text-text-secondary lg:text-body-l">
@@ -17,6 +18,8 @@ export function Year2027() {
           </p>
         </div>
         <LiveNumbers />
+        <hr className="border-border-default" />
+        <Timeline2027 />
       </div>
     </section>
   );
