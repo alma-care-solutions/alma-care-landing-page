@@ -108,14 +108,15 @@ export const PARTNER = {
   logoHeight: 524,
 } as const;
 
-/* People behind Alma (Kto robí Almu): the two founders with their roles, and the rest of the team in one line.
+/* People behind Alma (Kto robí Almu): the four people from Alma intra › Nastavenia › Používatelia with their roles there,
+   and the rest of the team in one line.
    Photos in public/images/team/ (same crop and tonal grade for both); a face without a photo renders as a silhouette. */
 export const TEAM = {
   faces: [
-    { photo: "/images/team/maros-2611.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
-    { photo: "/images/team/gabriel-2611.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
-    { photo: "/images/team/nikola-2611.jpg" as string | null, name: "Nikola Smreková", role: "Návrh a testovanie" },
-    { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
+    { photo: "/images/team/maros-2611.jpg" as string | null, name: "Maroš Smrek", role: "Návrh a vývoj produktov" },
+    { photo: "/images/team/gabriel-2611.jpg" as string | null, name: "Gabriel Tutoky", role: "Technológie a nasadenie produktov" },
+    { photo: "/images/team/nikola-2611b.jpg" as string | null, name: "Nikola Smreková", role: "Kvalita, testovanie a podnety" },
+    { photo: null as string | null, name: "Lívia Tutoky", role: "Starostlivosť o zákazníkov" },
   ],
   /* The rest of the team, shown as the last tile */
   othersCount: "5+",
