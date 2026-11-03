@@ -9,39 +9,55 @@ import { PhoneFrame } from "@/components/ui/Phone";
 import { PreviewLabel } from "@/components/ui/PreviewLabel";
 
 /*
-  Real Alma ADOS screens in the home hero, with four behaviours:
-  - the phone cycles through three real screens until the visitor taps it (idea 2),
-  - a tap on "Začať návštevu" starts the visit: the phone shows the ongoing visit and the web gets the
-    notification about the same visit (Pavol Novotný, 10:10, nurse Monika), so both screens tell one story (idea 11),
+  Real Alma ADOS screens in the home hero, with three behaviours:
+  - the phone plays one nurse's morning in four real screens (today, plan, before the visit, visit started);
+    when the visit starts, the web gets the notification about the same visit (Pavol Novotný, 10:10, nurse Monika),
+    so both screens tell one story (ideas 2 and 11). No progress bars, no tap hint: the caption names each step,
+    a click on the phone moves to the next one, hovering pauses.
   - the browser tilts a few degrees towards the cursor (idea 9),
   - a magnifier over the browser lets the visitor read the real rows (idea 13).
   Tilt and magnifier run only with a fine pointer and without reduced motion.
 */
-const PHONE_CYCLE = [
-  { src: "/images/phone-today-2610.png", alt: "Aplikácia pre sestry: dnešný deň s poradím návštev" },
-  { src: "/images/phone-plan-2610.png", alt: "Aplikácia pre sestry: plán návštev na deň" },
+const STEPS = [
+  {
+    src: "/images/phone-today-2610.png",
+    alt: "Aplikácia pre sestry: dnešný deň s poradím návštev",
+    caption: "Ráno: sestra vidí, ku komu dnes ide a v akom poradí.",
+    ms: 3200,
+    notify: false,
+  },
+  {
+    src: "/images/phone-plan-2610.png",
+    alt: "Aplikácia pre sestry: plán návštev na deň",
+    caption: "Plán návštev na deň, ten istý, aký vidí kancelária.",
+    ms: 3200,
+    notify: false,
+  },
   {
     src: "/images/phone-visit-detail-2610.png",
-    alt: "Aplikácia pre sestry: detail návštevy pred začatím s pacientom, plánovanými výkonmi a tlačidlom Začať návštevu",
+    alt: "Aplikácia pre sestry: detail návštevy pred začatím s pacientom a plánovanými výkonmi",
+    caption: "Pred návštevou: pacient, plánované výkony a posledné merania.",
+    ms: 3200,
+    notify: false,
+  },
+  {
+    src: "/images/phone-visit-ongoing-2610.png",
+    alt: "Aplikácia pre sestry: prebiehajúca návšteva so záznamom výkonov",
+    caption: "Návšteva začala. Kancelária to vidí v tej istej chvíli.",
+    ms: 5200,
+    notify: true,
   },
 ];
-const PHONE_ONGOING = {
-  src: "/images/phone-visit-ongoing-2610.png",
-  alt: "Aplikácia pre sestry: prebiehajúca návšteva so záznamom výkonov",
-};
 const WEB = {
   src: "/images/web-planning-2610.png",
   aspect: 2400 / 1633,
   alt: "Webová aplikácia Alma ADOS, Plánovanie: týždeň návštev rozdelený podľa sestier s časmi, kódmi výkonov a menami pacientov",
 };
-const CYCLE_MS = 3600;
-const TAP_INDEX = 2; // the visit detail screen with the "Začať návštevu" button
 const ZOOM = 2;
 const LENS = 176;
 
 export function HomeHeroVisual() {
-  const [idx, setIdx] = useState(0);
-  const [started, setStarted] = useState(false);
+  const [step, setStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [fine, setFine] = useState(false);
   const [lensOn, setLensOn] = useState(false);
@@ -53,14 +69,15 @@ export function HomeHeroVisual() {
     setFine(hasFinePointer() && !prefersReducedMotion());
   }, []);
 
-  // The phone cycles through real screens until the visitor taps it
+  // The phone plays the four steps in a loop; a hover pauses it, reduced motion stops it
   useEffect(() => {
-    if (started || paused || prefersReducedMotion()) return;
-    const t = window.setTimeout(() => setIdx((i) => (i + 1) % PHONE_CYCLE.length), CYCLE_MS);
+    if (paused || prefersReducedMotion()) return;
+    const t = window.setTimeout(() => setStep((i) => (i + 1) % STEPS.length), STEPS[step].ms);
     return () => window.clearTimeout(t);
-  }, [idx, started, paused]);
+  }, [step, paused]);
 
-  const toggleVisit = () => setStarted((s) => !s);
+  const next = () => setStep((i) => (i + 1) % STEPS.length);
+  const notify = STEPS[step].notify;
 
   const onBrowserMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!fine) return;
@@ -111,7 +128,7 @@ export function HomeHeroVisual() {
   return (
     <figure data-hero="visual" className="flex w-full max-w-[1200px] flex-col items-center gap-5 self-center">
       <div className="relative w-full aspect-[1000/900] sm:aspect-[1200/718]">
-        {/* Browser: Plánovanie; after the tap it receives the notification about the started visit */}
+        {/* Browser: Plánovanie; when the phone reaches the started visit, it receives the notification */}
         <div
           data-hero="browser"
           className="absolute left-[-12%] top-0 w-[124%] max-w-none sm:left-0 sm:w-[86.667%]"
@@ -136,10 +153,10 @@ export function HomeHeroVisual() {
                 {/* Notification in the web app about the visit started on the phone (same patient, time and nurse) */}
                 <div
                   role="status"
-                  aria-hidden={!started}
+                  aria-hidden={!notify}
                   className={cx(
                     "absolute right-[2.5%] top-[4%] w-[38%] min-w-[220px] rounded-12 bg-bg-surface p-3 shadow-[0_16px_40px_rgba(20,23,31,0.22)] ring-1 ring-border-default transition-all duration-500",
-                    started ? "translate-y-0 opacity-100 delay-300" : "pointer-events-none -translate-y-2 opacity-0",
+                    notify ? "translate-y-0 opacity-100 delay-300" : "pointer-events-none -translate-y-2 opacity-0",
                   )}
                 >
                   <div className="flex items-center gap-2">
@@ -172,78 +189,36 @@ export function HomeHeroVisual() {
           </div>
         </div>
 
-        {/* Phone: cycles through screens; a tap starts the visit */}
+        {/* Phone: one morning in four screens; a click moves to the next step */}
         <div
           data-hero="phone-wrap"
           className="absolute left-[60%] top-[1.5%] w-[40%] sm:left-[75.333%] sm:top-[13.37%] sm:w-[24.667%]"
         >
-          <div data-hero="phone" className="flex flex-col gap-2.5">
-            <button
-              type="button"
-              onClick={toggleVisit}
-              onPointerEnter={() => setPaused(true)}
-              onPointerLeave={() => setPaused(false)}
-              aria-pressed={started}
-              aria-label={started ? "Ukončiť ukážku návštevy" : "Začať návštevu (ukážka): telefón aj web zareagujú"}
-              className="focus-ring block w-full cursor-pointer rounded-[12.4%/5.9%] text-left"
-            >
-              <PhoneFrame>
-                {PHONE_CYCLE.map((s, i) => (
-                  <Image
-                    key={s.src}
-                    src={s.src}
-                    alt={s.alt}
-                    fill
-                    sizes="(min-width: 1280px) 280px, 40vw"
-                    quality={90}
-                    priority={i === 0}
-                    className={cx(
-                      "object-cover object-top transition-opacity duration-500",
-                      !started && i === idx ? "opacity-100" : "opacity-0",
-                    )}
-                    aria-hidden={started || i !== idx}
-                  />
-                ))}
+          <button
+            type="button"
+            data-hero="phone"
+            onClick={next}
+            onPointerEnter={() => setPaused(true)}
+            onPointerLeave={() => setPaused(false)}
+            aria-label="Ďalšia obrazovka ukážky"
+            className="focus-ring block w-full cursor-pointer rounded-[12.4%/5.9%] text-left"
+          >
+            <PhoneFrame>
+              {STEPS.map((s, i) => (
                 <Image
-                  src={PHONE_ONGOING.src}
-                  alt={PHONE_ONGOING.alt}
+                  key={s.src}
+                  src={s.src}
+                  alt={s.alt}
                   fill
                   sizes="(min-width: 1280px) 280px, 40vw"
                   quality={90}
-                  className={cx("object-cover object-top transition-opacity duration-500", !started && "opacity-0")}
-                  aria-hidden={!started}
+                  priority={i === 0}
+                  className={cx("object-cover object-top transition-opacity duration-500", i === step ? "opacity-100" : "opacity-0")}
+                  aria-hidden={i !== step}
                 />
-                {/* Tap target over the real "Začať návštevu" button */}
-                {!started && idx === TAP_INDEX && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute left-[4%] top-[81.4%] h-[5.6%] w-[92%] rounded-full ring-2 ring-text-inverse/80"
-                  >
-                    <span className="absolute inset-0 rounded-full ring-2 ring-text-inverse animate-ping-slow" />
-                  </span>
-                )}
-              </PhoneFrame>
-            </button>
-            {/* Progress of the cycling screens */}
-            <div aria-hidden="true" className="flex gap-1.5 px-[6%]">
-              {PHONE_CYCLE.map((s, i) => (
-                <span key={s.src} className="h-[3px] flex-1 overflow-hidden rounded-full bg-border-default">
-                  <span
-                    key={`${i}-${idx}-${started}`}
-                    className={cx(
-                      "block h-full origin-left rounded-full bg-accent",
-                      started ? "scale-x-0" : i < idx ? "scale-x-100" : i === idx ? "hero-cycle-fill" : "scale-x-0",
-                    )}
-                    style={
-                      i === idx && !started
-                        ? { animationDuration: `${CYCLE_MS}ms`, animationPlayState: paused ? "paused" : "running" }
-                        : undefined
-                    }
-                  />
-                </span>
               ))}
-            </div>
-          </div>
+            </PhoneFrame>
+          </button>
         </div>
 
         {/* Right of the app sidebar, so the label never covers its dark background */}
@@ -254,23 +229,12 @@ export function HomeHeroVisual() {
 
       <figcaption
         data-hero="caption"
-        aria-live="polite"
-        className="flex w-full max-w-[760px] flex-col items-center gap-2 text-center text-body-s text-text-tertiary sm:flex-row sm:justify-center sm:gap-3"
+        className="flex w-full max-w-[760px] flex-col items-center gap-1 text-center text-body-s text-text-tertiary"
       >
-        {started ? (
-          <>
-            <span>Sestra začala návštevu v telefóne. Kancelária to vidí v tej istej chvíli.</span>
-            <button
-              type="button"
-              onClick={toggleVisit}
-              className="focus-ring rounded-[4px] text-label-s text-accent-text underline-offset-2 hover:underline"
-            >
-              Vrátiť späť
-            </button>
-          </>
-        ) : (
-          <span>Ťuknite na telefón a pozrite, čo uvidí kancelária. Obrazovky sú z testovacej verzie s ukážkovými údajmi.</span>
-        )}
+        <span key={step} className="animate-[fade-in_0.4s_ease-out] text-text-secondary">
+          {STEPS[step].caption}
+        </span>
+        <span>Obrazovky sú z testovacej verzie s ukážkovými údajmi.</span>
       </figcaption>
     </figure>
   );

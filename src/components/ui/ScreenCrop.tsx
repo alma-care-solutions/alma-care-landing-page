@@ -6,8 +6,8 @@ import { PRODUCT_SCREENS } from "@/lib/screens";
 
 /*
   Whole, uncropped product screen (lib/screens.ts) in its device frame.
-  tile: a landscape tile (browser frame with the full web screen, or a phone standing on a muted panel,
-        its lower part below the tile edge). hero: the full phone or browser, nothing cut.
+  tile: a browser frame with the full web screen, or a whole phone standing on a muted portrait panel.
+  hero: the full phone or browser, nothing cut. Nothing is ever cropped.
 */
 export function ProductScreen({
   slug,
@@ -45,8 +45,8 @@ export function ProductScreen({
   }
 
   return (
-    <div className={cx("relative aspect-[2400/1633] w-full overflow-hidden rounded-12 bg-accent-soft/60", className)}>
-      <PhoneFrame className="absolute left-1/2 top-[7%] w-[38%] -translate-x-1/2">
+    <div className={cx("flex aspect-[4/5] w-full items-center justify-center rounded-12 bg-accent-soft/60", className)}>
+      <PhoneFrame className="w-[46%]">
         <Image src={spec.src} alt={spec.alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover object-top" />
       </PhoneFrame>
     </div>

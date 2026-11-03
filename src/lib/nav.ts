@@ -108,9 +108,19 @@ export const PARTNER = {
   logoHeight: 524,
 } as const;
 
+/* People behind Alma (Kto robí Almu): two faces without names, plus the number of other people working on it.
+   Photos go to public/images/team/; a face without a photo renders as a neutral silhouette. */
+export const TEAM = {
+  faces: [
+    { photo: null as string | null, alt: "Člen tímu Alma" },
+    { photo: null as string | null, alt: "Člen tímu Alma" },
+  ],
+  others: 5,
+} as const;
+
 /* Verified dates used by the live numbers on the home page */
 export const DATES = {
-  pilotStart: "2026-10-01",
+  pilotStart: "2026-10-28", // start of the day count on the home page; set to the signed date once the pilot contract is signed
   allowance: "2027-01-01", // príspevok na pomoc pri odkázanosti, zákon 406/2025 Z. z.
   ezdravie: "2027-07-01", // identifikátor eZdravie pre ADOS, harmonogram NCZI (nie je právne záväzný)
 } as const;

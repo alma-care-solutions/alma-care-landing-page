@@ -368,16 +368,6 @@ body {
 }
 
 /* Home hero: progress of the cycling phone screens (duration is set inline) */
-.hero-cycle-fill {
-  animation-name: hero-cycle-fill;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-@keyframes hero-cycle-fill {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
 /* Hatched tile for products in development */
 .hatched {
   background-image: repeating-linear-gradient(135deg, transparent 0 8px, var(--color-border-subtle) 8px 9px);
