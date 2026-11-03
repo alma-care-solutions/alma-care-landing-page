@@ -114,7 +114,7 @@ export const PARTNER = {
 export const TEAM = {
   faces: [
     { photo: "/images/team/maros-2611.jpg" as string | null, name: "Maroš Smrek", role: "Návrh a vývoj produktov" },
-    { photo: "/images/team/gabriel-2611.jpg" as string | null, name: "Gabriel Tutoky", role: "Technológie a nasadenie produktov" },
+    { photo: "/images/team/gabriel-2611b.jpg" as string | null, name: "Gabriel Tutoky", role: "Technológie a nasadenie produktov" },
     { photo: "/images/team/nikola-2611b.jpg" as string | null, name: "Nikola Smreková", role: "Kvalita, testovanie a podnety" },
     { photo: null as string | null, name: "Lívia Tutoky", role: "Starostlivosť o zákazníkov" },
   ],
