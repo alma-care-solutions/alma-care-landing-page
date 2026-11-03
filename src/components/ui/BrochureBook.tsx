@@ -144,7 +144,7 @@ export function BrochureBook({ open, onClose }: { open: boolean; onClose: () => 
           "relative max-w-full select-none [perspective:2400px]",
           single ? "[--pw:min(88vw,calc((100dvh-150px)*0.707))]" : "[--pw:min(42vw,calc((100dvh-150px)*0.707))]",
         )}
-        style={{ width: single ? "var(--pw)" : "calc(var(--pw) * 2)", height: "calc(var(--pw) * 1287 / 720)" }}
+        style={{ width: single ? "var(--pw)" : "calc(var(--pw) * 2)", height: "calc(var(--pw) * 1287 / 910)" }}
       >
         {/* Base layer: the spread currently shown (during a flip, the target spread) */}
         {!single && p.l && (
