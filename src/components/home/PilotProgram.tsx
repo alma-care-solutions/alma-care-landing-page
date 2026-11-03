@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/Button";
 import { PARTNER } from "@/lib/nav";
 
 /*
-  Pilotný program on the home page (moved here from the /ados subpage, review round 4): the same three steps
-  for every Alma product, what we need from a pilot partner and what it gains, worded for any facility,
-  not only for an ADOS agency.
+  Pilotný program on the home page (moved here from the /ados subpage, review round 4; before Rok 2027 since round 5):
+  the pilot is open at every product, including Alma ADOS which already runs; the first partner is the charity,
+  where we expect to verify further modules too. Three steps, what we need from a pilot partner and what it gains,
+  worded for any facility.
 */
 const STEPS = [
   {
@@ -26,7 +27,7 @@ const STEPS = [
     number: "03",
     title: "Overujeme v prevádzke",
     description:
-      "Produkt beží v každodennej prevádzke partnera. Až potom ide do predaja pre ďalšie zariadenia rovnakého typu.",
+      "Produkt beží v každodennej prevádzke partnera a mení sa podľa toho, čo prax ukáže. Až potom ide do predaja pre ďalšie zariadenia rovnakého typu.",
   },
 ];
 
@@ -48,8 +49,8 @@ export function PilotProgram() {
       <div className="container-page flex flex-col gap-10 lg:gap-14">
         <SectionHeader
           eyebrow="Pilotný program"
-          title="Každý produkt najprv overíme v praxi"
-          lead={`Pred predajom beží každý produkt Alma v pilote s reálnym zariadením. Alma ADOS takto beží ${PARTNER.since} v ${PARTNER.name}. Pre Alma DOS, Stacionár a Pobytové hľadáme pilotných partnerov na rok 2027.`}
+          title="Do pilotu sa dá zapojiť pri každom produkte"
+          lead={`Každý produkt Alma najprv beží v pilote s reálnym zariadením a pilot je otvorený stále, aj pri Alma ADOS. Prvým partnerom je ${PARTNER.name}, kde Alma ADOS beží ${PARTNER.since} a kde počítame s overovaním ďalších modulov. Ďalšie agentúry a zariadenia sa môžu pridať pre rok 2027.`}
         />
         <ol className="grid gap-4 md:grid-cols-3 lg:gap-6">
           {STEPS.map((s) => (
@@ -83,9 +84,11 @@ export function PilotProgram() {
         </div>
         <div className="gsap-reveal flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
           <Button href="#kontakt" variant="primary" size="M" arrow focusTarget="#alma-form [name='name']">
-            Chcem byť pilotné zariadenie
+            Chcem sa zapojiť do pilotu
           </Button>
-          <p className="text-body-s text-text-tertiary">Bez záväzku. Ozveme sa pred začiatkom pilotu pre váš typ služby.</p>
+          <p className="text-body-s text-text-tertiary">
+            Bez záväzku. Napíšte, ktorý produkt vás zaujíma, a ozveme sa pred začiatkom pilotu pre vašu službu.
+          </p>
         </div>
       </div>
     </section>

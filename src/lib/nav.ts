@@ -82,7 +82,7 @@ export const NAV_LINKS = [
 ] as const;
 
 /* Home page sections watched for the active menu item */
-export const HOME_SECTION_IDS = ["produkty", "rok-2027", "pilotny-program", "o-alme", "kontakt"] as const;
+export const HOME_SECTION_IDS = ["produkty", "pilotny-program", "rok-2027", "o-alme", "kontakt"] as const;
 
 /* Alma ADOS subpage: in-page links shown in the product bar, sections watched for the active item */
 export const ADOS_SECTION_LINKS = [
@@ -114,8 +114,12 @@ export const TEAM = {
   faces: [
     { photo: "/images/team/maros.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
     { photo: "/images/team/gabriel.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
+    { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
+    { photo: null as string | null, name: "Meno doplníme", role: "Rola doplníme" },
   ],
-  others: "Ďalších 5+ ľudí: vývojári, testeri a IT špecialisti.",
+  /* The rest of the team, shown as the last tile */
+  othersCount: "5+",
+  others: "ďalších ľudí: vývojári, testeri a IT špecialisti",
 } as const;
 
 /* Verified dates used by the live numbers on the home page */

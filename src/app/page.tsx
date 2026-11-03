@@ -10,7 +10,7 @@ import { About } from "@/components/home/About";
 import { HomeContact } from "@/components/home/HomeContact";
 import { HOME_SECTION_IDS } from "@/lib/nav";
 
-/* Alma home page (Figma Alma · Home): hero, Produkty, Rok 2027, Pilotný program, Kto robí Almu, Kontakt */
+/* Alma home page (Figma Alma · Home): hero, Produkty, Pilotný program, Rok 2027, Kto robí Almu, Kontakt */
 export default function Home() {
   return (
     <>
@@ -18,8 +18,8 @@ export default function Home() {
       <main className="flex flex-1 flex-col">
         <HomeHero />
         <Products />
-        <Year2027 />
         <PilotProgram />
+        <Year2027 />
         <About />
         <HomeContact
           title={

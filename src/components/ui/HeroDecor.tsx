@@ -46,8 +46,12 @@ function Route({
 export function HeroDecor({ dots = false, variant = "centered" }: { dots?: boolean; variant?: "centered" | "product" }) {
   const home = variant === "product";
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Blobs as CSS radial gradients (no network requests), values from the Figma SVG */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden [mask-image:linear-gradient(to_bottom,#000_calc(100%-220px),transparent)]"
+    >
+      {/* Blobs as CSS radial gradients (no network requests), values from the Figma SVG; the whole decor fades out
+          towards the section bottom so a blob clipped by the section edge never leaves a hard band */}
       <span
         data-hero="decor"
         data-hero-blob

@@ -2,24 +2,30 @@ import Image from "next/image";
 import { CONTACT, PARTNER, TEAM } from "@/lib/nav";
 
 /*
-  Kto robí Almu (Figma Alma · Home › Kto robí Almu): the two founders with roles and the rest of the team
-  in one line (lib/nav TEAM), the references from the conference deck,
+  Kto robí Almu (Figma Alma · Home › Kto robí Almu): four portraits with roles and the rest of the team as a
+  "5+" tile (lib/nav TEAM; faces without a photo show a silhouette until the photo arrives), the references from the conference deck,
   and the pilot partner with its logo. The only mention of the partner on the home page apart from the ADOS row.
 */
+function Silhouette() {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className="absolute inset-0 size-full text-text-tertiary/40">
+      <circle cx="32" cy="26" r="11" fill="currentColor" />
+      <path d="M8 64c3-14 12-22 24-22s21 8 24 22" fill="currentColor" />
+    </svg>
+  );
+}
+
 function Person({ photo, name, role }: { photo: string | null; name: string; role: string }) {
   return (
-    <li className="flex items-center gap-3">
-      <span className="relative size-14 shrink-0 overflow-hidden rounded-full bg-bg-muted sm:size-16">
+    <li className="gsap-reveal flex flex-col gap-3">
+      <span className="relative aspect-square w-full overflow-hidden rounded-16 bg-bg-muted">
         {photo ? (
-          <Image src={photo} alt={name} fill sizes="64px" quality={90} className="object-cover" />
+          <Image src={photo} alt={name} fill sizes="(min-width: 1024px) 220px, 45vw" quality={90} className="object-cover" />
         ) : (
-          <svg viewBox="0 0 64 64" aria-hidden="true" className="absolute inset-0 size-full text-text-tertiary/50">
-            <circle cx="32" cy="25" r="11" fill="currentColor" />
-            <path d="M10 60c2-13 11-20 22-20s20 7 22 20" fill="currentColor" />
-          </svg>
+          <Silhouette />
         )}
       </span>
-      <span className="flex flex-col">
+      <span className="flex flex-col gap-0.5">
         <span className="text-label-m text-text-primary">{name}</span>
         <span className="text-caption text-text-tertiary">{role}</span>
       </span>
@@ -32,18 +38,7 @@ export function About() {
     <section id="o-alme" aria-label="Kto robí Almu" className="bg-bg-surface py-12 lg:py-24">
       <div className="container-page flex flex-col gap-10 lg:gap-14">
         <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:gap-16">
-          <div className="flex flex-col gap-6">
-            <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Kto robí Almu</h2>
-            {/* The people: the two founders with roles, the rest of the team in one line */}
-            <div className="gsap-reveal flex flex-col gap-4">
-              <ul className="flex flex-col gap-3">
-                {TEAM.faces.map((f) => (
-                  <Person key={f.name} {...f} />
-                ))}
-              </ul>
-              <p className="text-body-s text-text-secondary">{TEAM.others}</p>
-            </div>
-          </div>
+          <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Kto robí Almu</h2>
           <div className="flex flex-col gap-5">
             <p className="gsap-reveal text-body-m text-text-primary lg:text-lead">
               Almu vyvíja {CONTACT.company} Tím, ktorý za ňou stojí, robil telemedicínu s TUKE, aplikáciu MAIA MD pre
@@ -56,6 +51,19 @@ export function About() {
             </p>
           </div>
         </div>
+
+        {/* The people: four portraits with roles and the rest of the team as the last tile */}
+        <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6">
+          {TEAM.faces.map((f, i) => (
+            <Person key={`${f.name}-${i}`} {...f} />
+          ))}
+          <li className="gsap-reveal flex flex-col gap-3">
+            <span className="flex aspect-square w-full flex-col justify-end gap-1 rounded-16 border border-dashed border-border-default bg-bg-page p-5">
+              <span className="text-display text-text-primary lg:text-[56px]">{TEAM.othersCount}</span>
+              <span className="text-body-s text-text-secondary">{TEAM.others}</span>
+            </span>
+          </li>
+        </ul>
 
         {/* Pilot partner */}
         <div className="gsap-reveal grid gap-6 rounded-16 border border-border-default bg-bg-page p-6 lg:grid-cols-[360px_1fr] lg:items-center lg:gap-16 lg:p-8">
