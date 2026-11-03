@@ -17,6 +17,7 @@ export function HomeContact({
   product = "ados",
   submitLabel = "Odoslať správu",
   footnote = "Odoslaním nevzniká žiadny záväzok. Ozveme sa do dvoch pracovných dní.",
+  blend = false,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
@@ -26,9 +27,16 @@ export function HomeContact({
   product?: string;
   submitLabel?: string;
   footnote?: string;
+  /** Home page: the section is transparent and the page background (ScrollBackdrop) flows into the dark */
+  blend?: boolean;
 }) {
   return (
-    <section id="kontakt" aria-label="Kontakt" data-bg="dark" className="relative overflow-hidden bg-bg-dark">
+    <section
+      id="kontakt"
+      aria-label="Kontakt"
+      data-bg="dark"
+      className={blend ? "relative overflow-hidden" : "relative overflow-hidden bg-bg-dark"}
+    >
       <Spotlight className="py-12 lg:py-32">
         <DecorRings
           spin

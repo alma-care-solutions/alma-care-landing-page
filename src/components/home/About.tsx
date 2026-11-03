@@ -50,7 +50,7 @@ export function About() {
         </div>
 
         {/* The people: a compact row of small round photos with roles, the rest of the team as the last item */}
-        <ul className="flex flex-wrap gap-x-10 gap-y-5 border-y border-border-default py-6">
+        <ul className="grid gap-x-6 gap-y-5 border-y border-border-default py-6 sm:grid-cols-2 lg:grid-cols-5">
           {TEAM.faces.map((f, i) => (
             <Person key={`${f.name}-${i}`} {...f} />
           ))}
@@ -58,7 +58,7 @@ export function About() {
             <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-dashed border-border-default text-label-m text-text-secondary">
               {TEAM.othersCount}
             </span>
-            <span className="max-w-[220px] text-caption text-text-tertiary">{TEAM.others}</span>
+            <span className="text-caption text-text-tertiary">{TEAM.others}</span>
           </li>
         </ul>
 

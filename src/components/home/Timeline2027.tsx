@@ -84,7 +84,12 @@ export function Timeline2027() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[480px_1fr] lg:gap-24">
-      <h3 className="gsap-reveal text-h3 text-text-primary">Čo sa mení a kedy</h3>
+      <div className="flex flex-col gap-3 self-start lg:sticky lg:top-28">
+        <h3 className="gsap-reveal text-h3 text-text-primary">Čo sa mení a kedy</h3>
+        <p className="gsap-reveal max-w-[40ch] text-body-m text-text-secondary">
+          Termíny vychádzajú zo zákonov 406/2025 Z. z. a 136/2026 Z. z. a z priebehu pilotu. Čiara ide s vami.
+        </p>
+      </div>
       <div className="relative pl-11">
         <div ref={trackRef} aria-hidden="true" className="absolute bottom-2 left-[14px] top-2 w-0.5 rounded-full bg-border-default">
           <div ref={progRef} className="w-full rounded-full bg-accent" style={{ height: 0 }} />

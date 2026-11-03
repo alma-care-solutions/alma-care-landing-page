@@ -23,6 +23,7 @@ export default function Home() {
         <Year2027 />
         <About />
         <HomeContact
+          blend
           title={
             <>
               Dohodnime si rozhovor
