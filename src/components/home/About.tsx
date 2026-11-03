@@ -2,8 +2,8 @@ import Image from "next/image";
 import { CONTACT, PARTNER, TEAM } from "@/lib/nav";
 
 /*
-  Kto robí Almu (Figma Alma · Home › Kto robí Almu): four portraits with roles and the rest of the team as a
-  "5+" tile (lib/nav TEAM; faces without a photo show a silhouette until the photo arrives), the references from the conference deck,
+  Kto robí Almu (Figma Alma · Home › Kto robí Almu): a compact row of small round photos with roles and a "5+"
+  item for the rest (lib/nav TEAM; faces without a photo show a silhouette until the photo arrives), the references from the conference deck,
   and the pilot partner with its logo. The only mention of the partner on the home page apart from the ADOS row.
 */
 function Silhouette() {
@@ -15,17 +15,14 @@ function Silhouette() {
   );
 }
 
+/* One person: a small round photo beside the name and role, so the faces stay quiet */
 function Person({ photo, name, role }: { photo: string | null; name: string; role: string }) {
   return (
-    <li className="gsap-reveal flex flex-col gap-3">
-      <span className="relative aspect-square w-full overflow-hidden rounded-16 bg-bg-muted">
-        {photo ? (
-          <Image src={photo} alt={name} fill sizes="(min-width: 1024px) 220px, 45vw" quality={90} className="object-cover" />
-        ) : (
-          <Silhouette />
-        )}
+    <li className="flex items-center gap-3">
+      <span className="relative size-12 shrink-0 overflow-hidden rounded-full bg-bg-muted">
+        {photo ? <Image src={photo} alt={name} fill sizes="48px" quality={90} className="object-cover" /> : <Silhouette />}
       </span>
-      <span className="flex flex-col gap-0.5">
+      <span className="flex flex-col">
         <span className="text-label-m text-text-primary">{name}</span>
         <span className="text-caption text-text-tertiary">{role}</span>
       </span>
@@ -52,16 +49,16 @@ export function About() {
           </div>
         </div>
 
-        {/* The people: four portraits with roles and the rest of the team as the last tile */}
-        <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6">
+        {/* The people: a compact row of small round photos with roles, the rest of the team as the last item */}
+        <ul className="flex flex-wrap gap-x-10 gap-y-5 border-y border-border-default py-6">
           {TEAM.faces.map((f, i) => (
             <Person key={`${f.name}-${i}`} {...f} />
           ))}
-          <li className="gsap-reveal flex flex-col gap-3">
-            <span className="flex aspect-square w-full flex-col justify-end gap-1 rounded-16 border border-dashed border-border-default bg-bg-page p-5">
-              <span className="text-display text-text-primary lg:text-[56px]">{TEAM.othersCount}</span>
-              <span className="text-body-s text-text-secondary">{TEAM.others}</span>
+          <li className="flex items-center gap-3">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-dashed border-border-default text-label-m text-text-secondary">
+              {TEAM.othersCount}
             </span>
+            <span className="max-w-[220px] text-caption text-text-tertiary">{TEAM.others}</span>
           </li>
         </ul>
 
