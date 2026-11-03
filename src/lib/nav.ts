@@ -120,7 +120,7 @@ export const TEAM = {
   ],
   /* The rest of the team, shown as the last tile */
   othersCount: "5+",
-  others: "ďalších ľudí: vývojári, testeri a IT špecialisti",
+  others: "ďalších ľudí, ktorí sa na Alme podieľajú: od vývoja a testovania po prevádzku a podporu zákazníkov",
 } as const;
 
 /* Verified dates used by the live numbers on the home page */
