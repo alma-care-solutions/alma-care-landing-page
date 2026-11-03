@@ -10,44 +10,51 @@ import { PreviewLabel } from "@/components/ui/PreviewLabel";
 
 /*
   Real Alma ADOS screens in the home hero, with three behaviours:
-  - the phone plays one nurse's morning in four real screens (today, plan, before the visit, visit started);
-    when the visit starts, the web gets the notification about the same visit (Pavol Novotný, 10:10, nurse Monika),
-    so both screens tell one story (ideas 2 and 11). No progress bars, no tap hint: the caption names each step,
-    a click on the phone moves to the next one, hovering pauses.
+  - the phone tells one visit in three real screens: the day plan, the visit before it starts, the visit running.
+    Each step has one real tap target (the 10:10 row in the plan, the "Začať návštevu" button), a click on it moves
+    on; the story also plays by itself. When the visit starts, the web gets the notification about the same visit
+    (Pavol Novotný, 10:10, nurse Monika), so both screens tell one story (ideas 2 and 11).
   - the browser tilts a few degrees towards the cursor (idea 9),
   - a magnifier over the browser lets the visitor read the real rows (idea 13).
   Tilt and magnifier run only with a fine pointer and without reduced motion.
 */
-const STEPS = [
-  {
-    src: "/images/phone-today-2610.png",
-    alt: "Aplikácia pre sestry: dnešný deň s poradím návštev",
-    caption: "Ráno: sestra vidí, ku komu dnes ide a v akom poradí.",
-    ms: 3200,
-    notify: false,
-  },
+type Step = {
+  src: string;
+  alt: string;
+  caption: string;
+  ms: number;
+  notify: boolean;
+  /** The real control on the screenshot that moves the story on, in % of the screen */
+  tap?: { label: string; left: string; top: string; width: string; height: string };
+};
+
+const STEPS: Step[] = [
   {
     src: "/images/phone-plan-2610.png",
     alt: "Aplikácia pre sestry: plán návštev na deň",
-    caption: "Plán návštev na deň, ten istý, aký vidí kancelária.",
-    ms: 3200,
+    caption: "Plán dňa. Sestra otvorí návštevu Pavla Novotného o 10:10.",
+    ms: 3800,
     notify: false,
+    tap: { label: "Otvoriť návštevu Pavla Novotného o 10:10", left: "10%", top: "53.5%", width: "86%", height: "8.5%" },
   },
   {
     src: "/images/phone-visit-detail-2610.png",
     alt: "Aplikácia pre sestry: detail návštevy pred začatím s pacientom a plánovanými výkonmi",
-    caption: "Pred návštevou: pacient, plánované výkony a posledné merania.",
-    ms: 3200,
+    caption: "Pred návštevou: pacient, plánované výkony, posledné merania. Sestra začne návštevu.",
+    ms: 3800,
     notify: false,
+    tap: { label: "Začať návštevu", left: "4%", top: "81.3%", width: "92%", height: "5.8%" },
   },
   {
     src: "/images/phone-visit-ongoing-2610.png",
     alt: "Aplikácia pre sestry: prebiehajúca návšteva so záznamom výkonov",
-    caption: "Návšteva začala. Kancelária to vidí v tej istej chvíli.",
-    ms: 5200,
-    notify: true,
+    caption: "Návšteva beží. Kancelária vidí v tej istej chvíli, že začala.",
+    ms: 5600,
+    notify: false,
   },
 ];
+STEPS[2].notify = true;
+
 const WEB = {
   src: "/images/web-planning-2610.png",
   aspect: 2400 / 1633,
@@ -58,7 +65,6 @@ const LENS = 176;
 
 export function HomeHeroVisual() {
   const [step, setStep] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [fine, setFine] = useState(false);
   const [lensOn, setLensOn] = useState(false);
   const tiltRef = useRef<HTMLDivElement>(null);
@@ -69,15 +75,16 @@ export function HomeHeroVisual() {
     setFine(hasFinePointer() && !prefersReducedMotion());
   }, []);
 
-  // The phone plays the four steps in a loop; a hover pauses it, reduced motion stops it
+  // The story plays by itself in a loop; a click on the real control moves on at once (and restarts the timer)
   useEffect(() => {
-    if (paused || prefersReducedMotion()) return;
+    if (prefersReducedMotion()) return;
     const t = window.setTimeout(() => setStep((i) => (i + 1) % STEPS.length), STEPS[step].ms);
     return () => window.clearTimeout(t);
-  }, [step, paused]);
+  }, [step]);
 
   const next = () => setStep((i) => (i + 1) % STEPS.length);
-  const notify = STEPS[step].notify;
+  const current = STEPS[step];
+  const notify = current.notify;
 
   const onBrowserMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!fine) return;
@@ -189,20 +196,12 @@ export function HomeHeroVisual() {
           </div>
         </div>
 
-        {/* Phone: one morning in four screens; a click moves to the next step */}
+        {/* Phone: one visit in three screens; the real control on each screen moves the story on */}
         <div
           data-hero="phone-wrap"
           className="absolute left-[60%] top-[1.5%] w-[40%] sm:left-[75.333%] sm:top-[13.37%] sm:w-[24.667%]"
         >
-          <button
-            type="button"
-            data-hero="phone"
-            onClick={next}
-            onPointerEnter={() => setPaused(true)}
-            onPointerLeave={() => setPaused(false)}
-            aria-label="Ďalšia obrazovka ukážky"
-            className="focus-ring block w-full cursor-pointer rounded-[12.4%/5.9%] text-left"
-          >
+          <div data-hero="phone">
             <PhoneFrame>
               {STEPS.map((s, i) => (
                 <Image
@@ -217,8 +216,17 @@ export function HomeHeroVisual() {
                   aria-hidden={i !== step}
                 />
               ))}
+              {current.tap && (
+                <button
+                  type="button"
+                  onClick={next}
+                  aria-label={`${current.tap.label} (ukážka)`}
+                  className="focus-ring absolute cursor-pointer rounded-full"
+                  style={{ left: current.tap.left, top: current.tap.top, width: current.tap.width, height: current.tap.height }}
+                />
+              )}
             </PhoneFrame>
-          </button>
+          </div>
         </div>
 
         {/* Right of the app sidebar, so the label never covers its dark background */}
@@ -232,7 +240,7 @@ export function HomeHeroVisual() {
         className="flex w-full max-w-[760px] flex-col items-center gap-1 text-center text-body-s text-text-tertiary"
       >
         <span key={step} className="animate-[fade-in_0.4s_ease-out] text-text-secondary">
-          {STEPS[step].caption}
+          {current.caption}
         </span>
         <span>Obrazovky sú z testovacej verzie s ukážkovými údajmi.</span>
       </figcaption>

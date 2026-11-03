@@ -2,22 +2,28 @@ import Image from "next/image";
 import { CONTACT, PARTNER, TEAM } from "@/lib/nav";
 
 /*
-  Kto robí Almu (Figma Alma · Home › Kto robí Almu): the team behind Alma without names (two faces and
-  the number of other people, from lib/nav TEAM), the references from the conference deck,
+  Kto robí Almu (Figma Alma · Home › Kto robí Almu): the two founders with roles and the rest of the team
+  in one line (lib/nav TEAM), the references from the conference deck,
   and the pilot partner with its logo. The only mention of the partner on the home page apart from the ADOS row.
 */
-function Face({ photo, alt }: { photo: string | null; alt: string }) {
+function Person({ photo, name, role }: { photo: string | null; name: string; role: string }) {
   return (
-    <span className="relative size-14 overflow-hidden rounded-full bg-bg-muted ring-[3px] ring-bg-surface sm:size-16">
-      {photo ? (
-        <Image src={photo} alt={alt} fill sizes="64px" quality={90} className="object-cover" />
-      ) : (
-        <svg viewBox="0 0 64 64" aria-hidden="true" className="absolute inset-0 size-full text-text-tertiary/50">
-          <circle cx="32" cy="25" r="11" fill="currentColor" />
-          <path d="M10 60c2-13 11-20 22-20s20 7 22 20" fill="currentColor" />
-        </svg>
-      )}
-    </span>
+    <li className="flex items-center gap-3">
+      <span className="relative size-14 shrink-0 overflow-hidden rounded-full bg-bg-muted sm:size-16">
+        {photo ? (
+          <Image src={photo} alt={name} fill sizes="64px" quality={90} className="object-cover" />
+        ) : (
+          <svg viewBox="0 0 64 64" aria-hidden="true" className="absolute inset-0 size-full text-text-tertiary/50">
+            <circle cx="32" cy="25" r="11" fill="currentColor" />
+            <path d="M10 60c2-13 11-20 22-20s20 7 22 20" fill="currentColor" />
+          </svg>
+        )}
+      </span>
+      <span className="flex flex-col">
+        <span className="text-label-m text-text-primary">{name}</span>
+        <span className="text-caption text-text-tertiary">{role}</span>
+      </span>
+    </li>
   );
 }
 
@@ -28,19 +34,14 @@ export function About() {
         <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:gap-16">
           <div className="flex flex-col gap-6">
             <h2 className="gsap-reveal text-mobile-h2 text-text-primary lg:text-h2">Kto robí Almu</h2>
-            {/* The people: two faces and how many others work on Alma */}
-            <div className="gsap-reveal flex flex-col gap-2">
-              <div className="flex items-center">
-                <div className="flex -space-x-3">
-                  {TEAM.faces.map((f, i) => (
-                    <Face key={i} photo={f.photo} alt={f.alt} />
-                  ))}
-                </div>
-                <span className="ml-1 inline-flex h-9 items-center rounded-full border border-border-default bg-bg-page px-3 text-label-s text-text-primary">
-                  +{TEAM.others} ďalších
-                </span>
-              </div>
-              <p className="text-caption text-text-tertiary">Ľudia, ktorí na Alme pracujú.</p>
+            {/* The people: the two founders with roles, the rest of the team in one line */}
+            <div className="gsap-reveal flex flex-col gap-4">
+              <ul className="flex flex-col gap-3">
+                {TEAM.faces.map((f) => (
+                  <Person key={f.name} {...f} />
+                ))}
+              </ul>
+              <p className="text-body-s text-text-secondary">{TEAM.others}</p>
             </div>
           </div>
           <div className="flex flex-col gap-5">

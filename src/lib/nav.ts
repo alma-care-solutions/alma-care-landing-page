@@ -1,6 +1,7 @@
 /*
   Site structure (v2): the Alma brand home page, the Alma ADOS product subpage and the "Pripravujeme" product pages.
-  One menu on the whole site: Produkty (dropdown), O Alme (anchor on the home page), Kontakt (form on the current page).
+  One menu on the whole site: Produkty (dropdown), Pilotný program, Rok 2027 and Tím (anchors on the home page);
+  the contact form is reached through the header CTA.
 */
 export type ProductStatus = "pilot" | "dev";
 
@@ -75,13 +76,13 @@ export function productBySlug(slug: string) {
 
 /* Menu links next to the Produkty dropdown; the contact form is reached through the header CTA "Dohodnúť si ukážku" */
 export const NAV_LINKS = [
-  { href: "/ados#pilotny-program", label: "Pilotný program" },
+  { href: "/#pilotny-program", label: "Pilotný program" },
   { href: "/#rok-2027", label: "Rok 2027" },
-  { href: "/#o-alme", label: "O Alme" },
+  { href: "/#o-alme", label: "Tím" },
 ] as const;
 
 /* Home page sections watched for the active menu item */
-export const HOME_SECTION_IDS = ["produkty", "rok-2027", "o-alme", "kontakt"] as const;
+export const HOME_SECTION_IDS = ["produkty", "rok-2027", "pilotny-program", "o-alme", "kontakt"] as const;
 
 /* Alma ADOS subpage: in-page links shown in the product bar, sections watched for the active item */
 export const ADOS_SECTION_LINKS = [
@@ -89,10 +90,9 @@ export const ADOS_SECTION_LINKS = [
   { href: "#pre-sestry", label: "V teréne" },
   { href: "#pre-ados", label: "V kancelárii" },
   { href: "#kalkulacka", label: "Kalkulačka" },
-  { href: "#pilotny-program", label: "Pilotný program" },
 ] as const;
 
-export const ADOS_SECTION_IDS = ["produkt", "pre-sestry", "pre-ados", "kalkulacka", "pilotny-program", "faq", "kontakt"] as const;
+export const ADOS_SECTION_IDS = ["produkt", "pre-sestry", "pre-ados", "kalkulacka", "faq", "kontakt"] as const;
 
 export const CONTACT = {
   company: "Alma Care Solutions s. r. o.",
@@ -108,14 +108,14 @@ export const PARTNER = {
   logoHeight: 524,
 } as const;
 
-/* People behind Alma (Kto robí Almu): two faces without names, plus the number of other people working on it.
-   Photos go to public/images/team/; a face without a photo renders as a neutral silhouette. */
+/* People behind Alma (Kto robí Almu): the two founders with their roles, and the rest of the team in one line.
+   Photos in public/images/team/ (same crop and tonal grade for both); a face without a photo renders as a silhouette. */
 export const TEAM = {
   faces: [
-    { photo: null as string | null, alt: "Člen tímu Alma" },
-    { photo: null as string | null, alt: "Člen tímu Alma" },
+    { photo: "/images/team/maros.jpg" as string | null, name: "Maroš Šmrek", role: "Návrh a vývoj produktu" },
+    { photo: "/images/team/gabriel.jpg" as string | null, name: "Gabriel Tutoky", role: "Architektúra a vývoj" },
   ],
-  others: 5,
+  others: "Ďalších 5+ ľudí: vývojári, testeri a IT špecialisti.",
 } as const;
 
 /* Verified dates used by the live numbers on the home page */

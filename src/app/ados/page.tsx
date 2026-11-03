@@ -8,8 +8,6 @@ import { OfficeDay } from "@/components/sections/OfficeDay";
 import { OfficeTools } from "@/components/sections/OfficeTools";
 import { Calculator } from "@/components/sections/Calculator";
 import { Roadmap } from "@/components/sections/Roadmap";
-import { PilotSteps } from "@/components/sections/PilotSteps";
-import { Expectations } from "@/components/sections/Expectations";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
@@ -28,7 +26,8 @@ export const metadata: Metadata = {
   openGraph: { title: `${BRAND.name}: dokumentácia vzniká pri pacientovi`, description: DESCRIPTION },
 };
 
-/* Alma ADOS product page: the adosalma.sk landing page as it is, under the Alma header with the product bar */
+/* Alma ADOS product page: the adosalma.sk landing page under the Alma header with the product bar;
+   the pilot program sections moved to the home page (review round 4) */
 export default function AdosPage() {
   return (
     <>
@@ -42,8 +41,6 @@ export default function AdosPage() {
         <OfficeTools />
         <Calculator />
         <Roadmap />
-        <PilotSteps />
-        <Expectations />
         <Faq />
         <Contact />
       </main>
