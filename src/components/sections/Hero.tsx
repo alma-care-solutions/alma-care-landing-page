@@ -25,12 +25,14 @@ export function Hero() {
               <span className="hidden sm:inline">V pilote s Arcidiecéznou charitou Košice · predaj 2027</span>
             </Badge>
             {/* The wordplay from the conference deck "Čas patrí pacientom": A DOSť papierom / RADOSŤ z Almy */}
-            <h1 className="text-mobile-h1 text-text-primary lg:text-[56px] lg:font-semibold lg:leading-[1.05] lg:tracking-[-0.02em]">
+            {/* "ADOS" is the accent in both words, as in the deck: A DOS + ť, R + ADOS + Ť. Leading 1.15 so the
+                diacritics of the second line never touch the descenders of the first. */}
+            <h1 className="text-mobile-h1 !leading-[1.15] text-text-primary lg:text-[56px] lg:font-semibold lg:tracking-[-0.02em]">
               <span className="block">
-                A&nbsp;<span className="text-accent-text">DOS</span>ť papierom.
+                <span className="text-accent-text">A&nbsp;DOS</span>ť papierom.
               </span>
               <span className="block">
-                RA<span className="text-accent-text">DOS</span>Ť z&nbsp;Almy.
+                R<span className="text-accent-text">ADOS</span>Ť z&nbsp;Almy.
               </span>
             </h1>
             <p className="max-w-[560px] text-body-l text-text-secondary">
