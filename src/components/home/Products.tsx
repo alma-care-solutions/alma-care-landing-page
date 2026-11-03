@@ -1,13 +1,14 @@
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { BrochureButton } from "@/components/ui/BrochureButton";
+import { BrochureBookButton } from "@/components/ui/BrochureBook";
 import { ADOS, PRODUCTS } from "@/lib/nav";
-import { PaperCompare } from "@/components/home/PaperCompare";
+import { FindTheError } from "@/components/home/FindTheError";
 import { ProductRows } from "@/components/home/ProductRows";
 
 /*
-  Produkty Alma (Figma Alma · Home › Produkty): Alma ADOS first with the paper / Alma comparison,
-  then the four products in development as plain rows. No cards, no icons.
+  Produkty Alma (Figma Alma · Home › Produkty): Alma ADOS first with "Nájdite chybu na papieri" (the handwritten
+  record of the hero visit with four real mistakes) and the brochure as a book, then the four products
+  in development as plain rows. No cards, no icons.
 */
 export function Products() {
   const inDevelopment = PRODUCTS.filter((p) => p.status === "dev");
@@ -26,24 +27,25 @@ export function Products() {
 
         <hr className="border-border-default" />
 
-        <div className="grid items-center gap-10 lg:grid-cols-[480px_1fr] lg:gap-16">
-          <div className="gsap-reveal flex flex-col items-start gap-5">
-            <Badge variant="success" pulse>
-              {ADOS.statusLabel}
-            </Badge>
-            <h3 className="text-h3 text-text-primary">{ADOS.name}</h3>
-            <p className="text-body-m text-text-secondary lg:text-body-l">
-              {ADOS.summary} Od októbra 2026 v pilote s Arcidiecéznou charitou Košice.
-            </p>
-            <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:items-center">
-              <Button href={ADOS.href} variant="secondary" size="M" arrow>
-                Pozrieť Alma ADOS
-              </Button>
-              <BrochureButton size="M" highlight />
-            </div>
-          </div>
-          <PaperCompare />
-        </div>
+        <FindTheError
+          intro={
+            <>
+              <Badge variant="success" pulse>
+                {ADOS.statusLabel}
+              </Badge>
+              <h3 className="text-h3 text-text-primary">{ADOS.name}</h3>
+              <p className="text-body-m text-text-secondary lg:text-body-l">
+                {ADOS.summary} Od októbra 2026 v pilote s Arcidiecéznou charitou Košice.
+              </p>
+              <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:items-center">
+                <Button href={ADOS.href} variant="secondary" size="M" arrow>
+                  Pozrieť Alma ADOS
+                </Button>
+                <BrochureBookButton />
+              </div>
+            </>
+          }
+        />
 
         <ProductRows products={inDevelopment} />
 
