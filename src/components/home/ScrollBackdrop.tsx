@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 
 /*
-  The page background flows from section to section instead of switching at a hard edge: every home section
-  carries data-bg="page" | "surface" | "dark" and the body colour is mixed between the current section's colour
-  and the next one's over the last part of the viewport before the next section starts. Sections themselves are
-  transparent (the dark contact section too, HomeContact blend, so there is never a hard edge).
+  The page background flows between the light home sections instead of switching at a hard edge: every light
+  section carries data-bg="page" | "surface" and the body colour is mixed between the current section's colour
+  and the next one's over the last part of the viewport before the next section starts. The sections themselves
+  are transparent. The dark contact section keeps its own background and a plain edge (a blend into it was tried
+  and dropped).
 */
 const TOKEN: Record<string, string> = {
   page: "--color-bg-page",
   surface: "--color-bg-surface",
-  dark: "--color-bg-dark",
 };
 
 function rgb(css: string): [number, number, number] | null {
@@ -53,6 +53,7 @@ export function ScrollBackdrop() {
         const b = colours.get(nxt.dataset.bg ?? "page");
         // the blend runs over the last 60 % of the viewport before the next section reaches the middle
         const span = vh * 0.6;
+        // a section without a known colour (none today) is simply not blended into
         const t = Math.max(0, Math.min(1, (mid - (nxt.offsetTop - span)) / span));
         if (b && t > 0) col = [0, 1, 2].map((i) => Math.round(a[i] + (b[i] - a[i]) * t)) as [number, number, number];
       }
