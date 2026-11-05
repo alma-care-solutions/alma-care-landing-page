@@ -8,11 +8,11 @@ import { prefersReducedMotion } from "@/lib/gsap";
 import { BROCHURE } from "@/lib/brochure";
 
 /*
-  The product brochure as a book (idea 6): the 22 pages of the PDF (public/images/brozura) in a full-screen
+  The product brochure as a book (idea 6): the 30 pages of the PDF (public/images/brozura) in a full-screen
   overlay with a page-turn animation. Desktop shows spreads (cover alone, then 2–3, 4–5 …), narrow screens
   one page at a time. The download link stays in the bar. Opened from BrochureBookButton.
 */
-const N = 22;
+const N = 30;
 const W = 910;
 const H = 1287;
 const FLIP_MS = 900;
@@ -222,7 +222,7 @@ export function BrochureBookButton() {
         </span>
         <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
           <span>Prelistovať brožúru</span>
-          <span className="text-caption text-accent-text/70">22 strán</span>
+          <span className="text-caption text-accent-text/70">{N} strán</span>
         </span>
       </button>
       <BrochureBook open={open} onClose={() => setOpen(false)} />
