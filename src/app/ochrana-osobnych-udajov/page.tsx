@@ -30,14 +30,14 @@ export default function OchranaOsobnychUdajovPage() {
             </p>
             {/* TODO: add the company registration number (IČO) and registered office */}
             <p className="text-body-s text-text-tertiary">
-              Prevádzkovateľ: {CONTACT.company} · {CONTACT.email} · {CONTACT.phone} · Naposledy
+              Prevádzkovateľ: {CONTACT.company} · {CONTACT.email} · Naposledy
               aktualizované 17. 9. 2026
             </p>
 
             <h2 className={H2}>1. Kto je prevádzkovateľ</h2>
             <p className={P}>
               Prevádzkovateľom osobných údajov je spoločnosť {CONTACT.company} (ďalej „my“). V otázkach
-              ochrany osobných údajov nás kontaktujte na {CONTACT.email} alebo {CONTACT.phone}.
+              ochrany osobných údajov nás kontaktujte na {CONTACT.email}.
             </p>
 
             <h2 className={H2}>2. Aké údaje spracúvame</h2>

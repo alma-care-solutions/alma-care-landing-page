@@ -11,7 +11,7 @@ export type PilotRequest = {
 };
 
 /*
-  E-mail delivery via the Resend API (https://resend.com), same setup as other thunderstruck sites.
+  E-mail delivery via the Resend API (https://resend.com).
   Env: RESEND_API_KEY (required), CONTACT_TO (recipient of leads), CONTACT_FROM (sender on a domain
   verified in Resend). Without an API key the request is only logged.
 */
@@ -79,7 +79,7 @@ export async function sendPilotRequest(p: PilotRequest): Promise<{ sent: boolean
         `ďakujeme za záujem o pilotný program ${BRAND.name}. Ozveme sa vám spravidla do niekoľkých pracovných dní ` +
         "a dohodneme krátky úvodný rozhovor (približne 20 minút).\n\n" +
         "Odoslaním formulára nevzniká žiadny záväzok.\n\n" +
-        `${CONTACT.company}\n${CONTACT.email} · ${CONTACT.phone}`,
+        `${CONTACT.company}\n${CONTACT.email}`,
     });
   } catch (err) {
     console.warn("[mail] failed to send confirmation to the applicant", err);

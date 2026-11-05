@@ -16,8 +16,6 @@ export const MOBILE_NAV_LINKS = NAV_LINKS;
 export const SECTION_IDS = ["produkt", "pre-sestry", "pre-ados", "kalkulacka", "pilotny-program", "faq", "kontakt"] as const;
 
 export const CONTACT = {
-  company: "thunderstruck s.r.o.",
-  email: "maros.smrek@thunderstruck.studio",
-  phone: "+421 910 967 473",
-  phoneHref: "tel:+421910967473",
+  company: "Alma Care Solutions s. r. o.",
+  email: "info@alma-care.eu",
 } as const;

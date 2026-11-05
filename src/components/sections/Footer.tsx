@@ -33,9 +33,6 @@ export function Footer() {
               <a href={`mailto:${CONTACT.email}`} className={cx(linkCls, "break-all")}>
                 {CONTACT.email}
               </a>
-              <a href={CONTACT.phoneHref} className={linkCls}>
-                {CONTACT.phone}
-              </a>
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-label-s text-text-inverse">Právne</p>
