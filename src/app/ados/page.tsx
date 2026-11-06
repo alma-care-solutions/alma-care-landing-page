@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: { title: `${BRAND.name}: dokumentácia vzniká pri pacientovi`, description: DESCRIPTION },
 };
 
-/* Alma ADOS product page: the adosalma.sk landing page under the Alma header with the product bar;
+/* Alma ADOS product page: the former adosalma.sk landing page under the Alma header with the product bar;
    the pilot program sections moved to the home page (review round 4) */
 export default function AdosPage() {
   return (
