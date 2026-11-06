@@ -10,9 +10,9 @@ export const BRAND = {
   /** Segment (second part of the wordmark, accent color) */
   segment: "ADOS",
   /** Public site origin (canonical URL, OG image); NEXT_PUBLIC_SITE_URL overrides it */
-  siteUrl: "https://adosalma.sk",
+  siteUrl: "https://alma-care.eu",
   /** App address in mockups */
-  appHost: "app.adosalma.sk",
+  appHost: "app.alma-care.eu",
   /** Text in the address bar of the browser frame around real screenshots (demo agency, no real data) */
   mockAddress: "Ukážkové údaje",
 } as const;
